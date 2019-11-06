@@ -1,4 +1,4 @@
-export default (id: string) => {
+const subjectToString = (id: string): string => {
     if (id === '1') {
         return '국어';
     }
@@ -26,4 +26,8 @@ export default (id: string) => {
     if (id === '9') {
         return '자격증';
     }
+
+    return 'ERROR';
 };
+
+export default subjectToString;
