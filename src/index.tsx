@@ -1,0 +1,32 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { ProfileProvider } from './hooks/useProfile';
+import { MealProvider } from './hooks/useMeal';
+import Main from './pages/Main';
+import Cbt from './pages/Cbt';
+import Register from './pages/Register';
+import Admin from './pages/Admin';
+import AdminEdit from './pages/Admin/AdminEdit';
+import Info from './pages/Info';
+
+import './css/color.css';
+
+const index = (
+    <BrowserRouter>
+        <Switch>
+            <ProfileProvider>
+                <MealProvider>
+                    <Route exact path="/" component={Main} />
+                </MealProvider>
+                <Route exact path="/cbt/:subject/:grade/:times" component={Cbt} />
+                <Route exact path="/admin" component={Admin} />
+                <Route exact path="/admin/edit/:id" component={AdminEdit} />
+                <Route exact path="/register" component={Register} />
+                <Route exact path="/info" component={Info} />
+            </ProfileProvider>
+        </Switch>
+    </BrowserRouter>
+);
+
+ReactDOM.render(index, document.getElementById('root'));
