@@ -33,6 +33,15 @@ const Info: React.FC = () => {
             <H2TitleStyle>
                 <FontAwesomeIcon icon={faStickyNote} size="sm" /> 패치노트
             </H2TitleStyle>
+
+            <InfoNoticeBox year={2019} month={11} day={6}>
+                문제 풀이 시 객관식 문제에서 사용 할 수 있는 숫자 버튼(1~5)이 추가되었어요.
+                <br/>
+                프론트엔드 코드가 공개되었어요.
+                <br />
+                푸터를 포함한 몇가지 디자인이 수정되었어요.
+            </InfoNoticeBox>
+
             <InfoNoticeBox year={2019} month={10} day={3}>
                 자격증 카테고리가 추가되었어요.
                 <br />

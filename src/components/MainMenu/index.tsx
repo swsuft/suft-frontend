@@ -68,10 +68,6 @@ const SideBarItemStyle = styled.li`
     }
 `;
 
-const HyperLinkStyle = styled.a`
-    text-decoration: none;
-`;
-
 const ContentStyle = styled.div`
     margin: auto;
     flex: 1;
