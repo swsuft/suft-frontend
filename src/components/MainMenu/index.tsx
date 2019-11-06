@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faQuestion, faSchool, faScroll, faUniversity, faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { faQuestion, faSchool, faUniversity, faUtensils } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../Logout';
 import BasicSubjectCbt from './BasicSubjectCbt';
 import MajorSubjectCbt from './MajorSubjectCbt';
@@ -83,19 +83,19 @@ const MainMenu: React.FC = () => {
     let contents;
     switch (menu) {
         case MainMenuStatus.MEAL_MENU:
-            contents = <Meal />;
+            contents = <Meal/>;
             break;
         case MainMenuStatus.BASIC_SUBJECT_MENU:
-            contents = <BasicSubjectCbt />;
+            contents = <BasicSubjectCbt/>;
             break;
         case MainMenuStatus.MAJOR_SUBJECT_MENU:
-            contents = <MajorSubjectCbt />;
+            contents = <MajorSubjectCbt/>;
             break;
         case MainMenuStatus.PREPARING_MENU:
             contents = <h2>아이디어를 주세요!</h2>;
             break;
         default:
-            contents = <Meal />;
+            contents = <Meal/>;
             break;
     }
 
@@ -105,23 +105,23 @@ const MainMenu: React.FC = () => {
                 <MenuTitleStyle>수프트</MenuTitleStyle>
                 <SideBarStyle>
                     <SideBarItemStyle onClick={() => setMenu(MainMenuStatus.MEAL_MENU)}>
-                        <FontAwesomeIcon icon={faUtensils} /> 급식
+                        <FontAwesomeIcon icon={faUtensils}/> 급식
                     </SideBarItemStyle>
 
                     <SideBarItemStyle onClick={() => setMenu(MainMenuStatus.BASIC_SUBJECT_MENU)}>
-                        <FontAwesomeIcon icon={faSchool} /> 문제풀이-일반
+                        <FontAwesomeIcon icon={faSchool}/> 문제풀이-일반
                     </SideBarItemStyle>
 
                     <SideBarItemStyle onClick={() => setMenu(MainMenuStatus.MAJOR_SUBJECT_MENU)}>
-                        <FontAwesomeIcon icon={faUniversity} /> 문제풀이-전공
+                        <FontAwesomeIcon icon={faUniversity}/> 문제풀이-전공
                     </SideBarItemStyle>
 
                     <SideBarItemStyle onClick={() => setMenu(MainMenuStatus.PREPARING_MENU)}>
-                        <FontAwesomeIcon icon={faQuestion} /> 준비중
+                        <FontAwesomeIcon icon={faQuestion}/> 준비중
                     </SideBarItemStyle>
 
                     <SideBarItemStyle>
-                        <Logout styling={false} />
+                        <Logout styling={false}/>
                     </SideBarItemStyle>
                 </SideBarStyle>
             </SideBarWrap>

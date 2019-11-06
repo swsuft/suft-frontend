@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import Container from '../../utils/ContainerUtils/Container';
 import GetToken from '../../utils/GetToken';
 
@@ -25,6 +27,7 @@ const TextWrapStyle = styled.div`
 
 const TextLeftStyle = styled.div`
     font-family: 'Gugi';
+    font-size: 18px;
     float: left;
     color: var(--color-text);
     text-decoration: none;
@@ -37,6 +40,7 @@ const TextRightStyle = styled.div`
     color: var(--color-text);
     text-decoration: none;
     cursor: pointer;
+    font-size: 14px;
 
     @media screen and (max-width: 420px) {
         margin-left: 16px;
@@ -66,6 +70,9 @@ const Footer: React.FC = () => {
                         <Link to="/info">
                             <TextRightStyle>소개</TextRightStyle>
                         </Link>
+                        <a href="https://github.com/SkyLightQP/suft-client">
+                            <TextRightStyle><FontAwesomeIcon icon={faGithub}/> GitHub</TextRightStyle>
+                        </a>
                     </TextWrapStyle>
                 </Container>
             </FooterStyle>
