@@ -91,9 +91,6 @@ const MainMenu: React.FC = () => {
         case MainMenuStatus.MAJOR_SUBJECT_MENU:
             contents = <MajorSubjectCbt />;
             break;
-        case MainMenuStatus.WIKI_MENU:
-            contents = <><h2>수프트위키</h2> <a href="https://wiki.suft.kr" target="blank"> https://wiki.suft.kr</a></>;
-            break;
         case MainMenuStatus.PREPARING_MENU:
             contents = <h2>아이디어를 주세요!</h2>;
             break;
@@ -118,12 +115,6 @@ const MainMenu: React.FC = () => {
                     <SideBarItemStyle onClick={() => setMenu(MainMenuStatus.MAJOR_SUBJECT_MENU)}>
                         <FontAwesomeIcon icon={faUniversity} /> 문제풀이-전공
                     </SideBarItemStyle>
-
-                    <HyperLinkStyle onClick={() => setMenu(MainMenuStatus.WIKI_MENU)} href="https://wiki.suft.kr" target="blank">
-                        <SideBarItemStyle>
-                            <FontAwesomeIcon icon={faScroll} /> 수프트위키
-                        </SideBarItemStyle>
-                    </HyperLinkStyle>
 
                     <SideBarItemStyle onClick={() => setMenu(MainMenuStatus.PREPARING_MENU)}>
                         <FontAwesomeIcon icon={faQuestion} /> 준비중

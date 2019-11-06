@@ -68,18 +68,6 @@ const RegisterTextStyle = styled(Link)`
     }
 `;
 
-const WikiStyle = styled.a`
-    font-size: 15px;
-    color: var(--color-text);
-    text-decoration: none;
-    transition: all 200ms ease;
-
-    &:hover {
-        color: var(--color-yellow);
-        cursor: pointer;
-    }
-`;
-
 const EmptyLineStyle = styled.div<{ amount: number }>`
     margin-bottom: ${(props) => props.amount}px;
 `;
@@ -163,10 +151,6 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
                 <br />
 
                 <RegisterTextStyle to="/register">회원가입</RegisterTextStyle>
-                <br />
-                <WikiStyle href="https://wiki.suft.kr">
-                    수프트위키 바로가기
-                </WikiStyle>
             </MenuLoginWrapStyle>
         </MenuStyle>
     );
