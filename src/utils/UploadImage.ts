@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../config/main';
 
-const uploadImageCallback = (file: any) => {
+const uploadImageCallback = (file: any): Promise<object> => {
     return new Promise((resolve, reject) => {
         const data = new FormData();
         data.append('image', file);
