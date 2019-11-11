@@ -1,83 +1,37 @@
 import React, { useState } from 'react';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import axios from 'axios';
 import config from '../../config/main';
-
-const MenuStyle = styled.div`
-    width: 450px;
-    height: 530px;
-    background-color: #ffffff;
-    border-radius: 30px;
-    box-shadow: 5px 5px 20px 5px #cbcbcb;
-    text-align: center;
-
-    @media screen and (max-width: 420px) {
-        width: 80vw;
-        height: 500px;
-    }
-`;
-
-const MenuTitleStyle = styled.div`
-    font-family: 'Gugi';
-    font-size: 40px;
-    padding-top: 30px;
-`;
+import LoginButton from './LoginButton';
+import LoginText from './LoginText';
+import EtcText from './EtcText';
 
 const MenuLoginWrapStyle = styled.div`
-    margin-top: 13%;
+    margin: 32px auto;
 `;
 
 const InputStyle = styled.input`
     border: none;
     border-radius: 20px;
-    width: 80%;
-    height: 45px;
+    width: 95%;
+    height: 46px;
     padding-left: 20px;
     margin-bottom: 10px;
-    background-color: var(--color-background);;
+    background-color: white;
 `;
 
-const LoginButtonStyle = styled.button`
-    width: 60%;
-    height: 45px;
-    margin-bottom: 10px;
-
-    font-size: 18px;
-    font-weight: 700;
-
-    border: none;
-    border-radius: 20px;
-
-    color: #000;
-    background-color: var(--color-yellow);
-    cursor: pointer;
-`;
-
-const RegisterTextStyle = styled(Link)`
-    font-size: 15px;
+const InfoTextStyle = styled.p`
+    font-size: 14px;
+    margin-left: 12px;
     color: var(--color-text);
-    text-decoration: none;
-    transition: all 200ms ease;
-
-    &:hover {
-        color: var(--color-yellow);
-        cursor: pointer;
-    }
 `;
 
-const EmptyLineStyle = styled.div<{ amount: number }>`
-    margin-bottom: ${(props) => props.amount}px;
-`;
-
-const Login: React.FC<RouteComponentProps> = ({ history }) => {
+const Login: React.FC = () => {
     const [email, setEmail] = useState('');
-    const [pw, setPw] = useState('');
+    const [password, setPassword] = useState('');
 
-    const onLoginButtonClick = () => {
-        if (email === '' || pw === '') {
+    const runLogin = () => {
+        if (email === '' || password === '') {
             alert('빈 칸이 존재합니다.');
         } else {
             axios
@@ -85,7 +39,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
                     `${config.endpoint}/login`,
                     {
                         email,
-                        password: pw
+                        password
                     },
                     { withCredentials: true }
                 )
@@ -105,55 +59,42 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
 
     const onEnterKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
-            onLoginButtonClick();
+            runLogin();
         }
     };
 
-    const onInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-        if (evt.target.placeholder === '이메일') {
-            setEmail(evt.target.value);
-        } else if (evt.target.placeholder === '비밀번호') {
-            setPw(evt.target.value);
-        }
-    };
+    const onEmailInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
+    const onPasswordInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
     return (
-        <MenuStyle>
-            <MenuTitleStyle>수프트</MenuTitleStyle>
-            <h2>로그인</h2>
-            <b>수프트위키와 수프트는 회원정보를 공유하지 않습니다!</b>
+        <div>
+            <LoginText/>
 
             <MenuLoginWrapStyle>
-                <p>이메일</p>
+                <InfoTextStyle>이메일</InfoTextStyle>
                 <InputStyle
                   value={email}
                   type="email"
                   placeholder="이메일"
-                  onChange={onInputChange}
+                  onChange={onEmailInputChange}
                   onKeyPress={onEnterKeyPress}
                 />
 
-                <p>비밀번호</p>
+                <InfoTextStyle>비밀번호</InfoTextStyle>
                 <InputStyle
-                  value={pw}
+                  value={password}
                   type="password"
                   placeholder="비밀번호"
-                  onChange={onInputChange}
+                  onChange={onPasswordInputChange}
                   onKeyPress={onEnterKeyPress}
                 />
-
-                <EmptyLineStyle amount={15} />
-
-                <LoginButtonStyle onClick={onLoginButtonClick}>
-                    <FontAwesomeIcon icon={faSignInAlt} /> 로그인
-                </LoginButtonStyle>
-
-                <br />
-
-                <RegisterTextStyle to="/register">회원가입</RegisterTextStyle>
             </MenuLoginWrapStyle>
-        </MenuStyle>
+
+            <LoginButton onClick={runLogin}/>
+
+            <EtcText/>
+        </div>
     );
 };
 
-export default withRouter(Login);
+export default Login;

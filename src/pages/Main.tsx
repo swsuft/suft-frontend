@@ -1,8 +1,8 @@
 import React from 'react';
 import MainLayout from '../layouts/MainLayout';
-import Login from '../components/Login';
 import MainMenu from '../components/MainMenu';
 import { useProfile } from '../hooks/useProfile';
+import Login from '../components/Login';
 
 const Main: React.FC = () => {
     const profile = useProfile();
@@ -10,14 +10,14 @@ const Main: React.FC = () => {
     if (profile !== undefined && !profile.success) {
         return (
             <MainLayout>
-                <Login />
+                <Login/>
             </MainLayout>
         );
     }
 
     return (
         <MainLayout>
-            <MainMenu />
+            <MainMenu/>
         </MainLayout>
     );
 };

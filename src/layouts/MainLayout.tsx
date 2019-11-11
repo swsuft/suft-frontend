@@ -13,10 +13,12 @@ const MainWrapStyle = styled.div`
 const MainLayout: React.FC = ({ children }) => {
     return (
         <MainWrapStyle>
-            <CenterContainer>{children}</CenterContainer>
+            <CenterContainer>
+                {children}
+            </CenterContainer>
 
-            <Footer />
-            <Background color="#f1f2f6" />
+            <Footer/>
+            <Background color="#f1f2f6"/>
         </MainWrapStyle>
     );
 };
