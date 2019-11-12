@@ -25,8 +25,8 @@ const index = (
                 <Route exact path="/admin/edit/:id" component={AdminEdit}/>
                 <Route exact path="/register" component={RegisterPage}/>
                 <Route exact path="/info" component={Info}/>
-            </ProfileProvider>
                 <Route exact path="/privacy" component={Privacy}/>
+            </ProfileProvider>
         </Switch>
     </BrowserRouter>
 );

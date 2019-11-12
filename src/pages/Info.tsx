@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faStickyNote, faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faStickyNote, faUserEdit, faKey } from '@fortawesome/free-solid-svg-icons';
 import InfoLayout from '../layouts/InfoLayout';
 import InfoNoticeBox from '../components/InfoNoticeBox';
+import { Link } from 'react-router-dom';
 
 const H1TitleStyle = styled.p`
     font-family: 'Gugi';
@@ -33,6 +34,12 @@ const Info: React.FC = () => {
             <H2TitleStyle>
                 <FontAwesomeIcon icon={faStickyNote} size="sm" /> 패치노트
             </H2TitleStyle>
+
+            <InfoNoticeBox year={2019} month={11} day={12}>
+                로그인 그리고 회원가입 페이지 디자인이 변경되었어요.
+                <br/>
+                개인정보처리방침 페이지 및 안내 링크가 추가되었어요.
+            </InfoNoticeBox>
 
             <InfoNoticeBox year={2019} month={11} day={6}>
                 문제 풀이 시 객관식 문제에서 사용 할 수 있는 숫자 버튼(1~5)이 추가되었어요.
@@ -107,6 +114,13 @@ const Info: React.FC = () => {
                 <FontAwesomeIcon icon={faPlusCircle} size="sm" /> 문제 등록 및 기여하기
             </H2TitleStyle>
             <p>문제 출제자를 추가로 받지 않습니다. 추후 문제 등록 및 출제가 오픈됩니다!</p>
+
+            <LineStyle />
+
+            <H2TitleStyle>
+                <FontAwesomeIcon icon={faKey} size="sm" /> 개인정보처리방침
+            </H2TitleStyle>
+            <p>로그인 및 회원가입 시 수프트 <Link to="/privacy">개인정보처리방침</Link>에 동의하는 것으로 간주합니다.</p>
         </InfoLayout>
     );
 };
