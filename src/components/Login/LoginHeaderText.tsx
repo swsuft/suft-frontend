@@ -20,11 +20,11 @@ const MainTextStyle = styled.p`
     }
 `;
 
-const LoginText: React.FC = () => (
+const LoginHeaderText: React.FC = () => (
     <>
         <SubTextStyle>시험 대비 CBT 문제풀이 서비스</SubTextStyle>
         <MainTextStyle>수프트</MainTextStyle>
     </>
 );
 
-export default LoginText;
+export default LoginHeaderText;

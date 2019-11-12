@@ -17,7 +17,7 @@ const LoginButtonStyle = styled.button`
 `;
 
 interface LoginButtonProps {
-    readonly onClick: any;
+    readonly onClick?: any;
 }
 
 const LoginButton: React.FC<LoginButtonProps> = ({ onClick }) => (

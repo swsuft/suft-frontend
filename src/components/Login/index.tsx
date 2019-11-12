@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 import config from '../../config/main';
 import LoginButton from './LoginButton';
-import LoginText from './LoginText';
-import EtcText from './EtcText';
+import LoginHeaderText from './LoginHeaderText';
+import LoginFooterText from './LoginFooterText';
 
 const MenuLoginWrapStyle = styled.div`
     margin: 32px auto;
@@ -68,14 +68,14 @@ const Login: React.FC = () => {
 
     return (
         <div>
-            <LoginText/>
+            <LoginHeaderText/>
 
             <MenuLoginWrapStyle>
                 <InfoTextStyle>이메일</InfoTextStyle>
                 <InputStyle
                   value={email}
                   type="email"
-                  placeholder="이메일"
+                  placeholder="이메일을 입력해주세요."
                   onChange={onEmailInputChange}
                   onKeyPress={onEnterKeyPress}
                 />
@@ -84,7 +84,7 @@ const Login: React.FC = () => {
                 <InputStyle
                   value={password}
                   type="password"
-                  placeholder="비밀번호"
+                  placeholder="비밀번호를 입력해주세요."
                   onChange={onPasswordInputChange}
                   onKeyPress={onEnterKeyPress}
                 />
@@ -92,7 +92,7 @@ const Login: React.FC = () => {
 
             <LoginButton onClick={runLogin}/>
 
-            <EtcText/>
+            <LoginFooterText/>
         </div>
     );
 };
