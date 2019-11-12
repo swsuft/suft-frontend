@@ -5,7 +5,7 @@ import { ProfileProvider } from './hooks/useProfile';
 import { MealProvider } from './hooks/useMeal';
 import Main from './pages/Main';
 import Cbt from './pages/Cbt';
-import Register from './pages/Register';
+import RegisterPage from './pages/RegisterPage';
 import Admin from './pages/Admin';
 import AdminEdit from './pages/Admin/AdminEdit';
 import Info from './pages/Info';
@@ -17,13 +17,13 @@ const index = (
         <Switch>
             <ProfileProvider>
                 <MealProvider>
-                    <Route exact path="/" component={Main} />
+                    <Route exact path="/" component={Main}/>
                 </MealProvider>
-                <Route exact path="/cbt/:subject/:grade/:times" component={Cbt} />
-                <Route exact path="/admin" component={Admin} />
-                <Route exact path="/admin/edit/:id" component={AdminEdit} />
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/info" component={Info} />
+                <Route exact path="/cbt/:subject/:grade/:times" component={Cbt}/>
+                <Route exact path="/admin" component={Admin}/>
+                <Route exact path="/admin/edit/:id" component={AdminEdit}/>
+                <Route exact path="/register" component={RegisterPage}/>
+                <Route exact path="/info" component={Info}/>
             </ProfileProvider>
         </Switch>
     </BrowserRouter>
