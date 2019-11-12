@@ -11,6 +11,7 @@ import AdminEdit from './pages/Admin/AdminEdit';
 import Info from './pages/Info';
 
 import './css/color.css';
+import Privacy from './pages/Privacy';
 
 const index = (
     <BrowserRouter>
@@ -25,6 +26,7 @@ const index = (
                 <Route exact path="/register" component={RegisterPage}/>
                 <Route exact path="/info" component={Info}/>
             </ProfileProvider>
+                <Route exact path="/privacy" component={Privacy}/>
         </Switch>
     </BrowserRouter>
 );

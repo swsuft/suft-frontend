@@ -39,10 +39,10 @@ const MobileTextStyle = styled.p`
 const RegisterFooterText: React.FC = () => {
     return (
         <>
-            <EtcTextStyle>회원가입 시 수프트 <ExternalComponentLink to="/">개인정보이용약관</ExternalComponentLink>에 동의하는 것으로
+            <EtcTextStyle>회원가입 시 수프트 <ExternalComponentLink to="/privacy">개인정보처리방침</ExternalComponentLink>에 동의하는 것으로
                 간주합니다.
             </EtcTextStyle>
-            <MobileTextStyle>회원가입 시 <ExternalComponentLink to="/">개인정보이용약관</ExternalComponentLink>에
+            <MobileTextStyle>회원가입 시 <ExternalComponentLink to="/privacy">개인정보처리방침</ExternalComponentLink>에
                 동의합니다.
             </MobileTextStyle>
             <p>
