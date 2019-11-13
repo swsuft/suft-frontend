@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
-import config from '../../config/main';
+import config from '../../constants/config';
 import RegisterHeaderText from './RegisterHeaderText';
 import RegisterButton from './RegisterButton';
 import RegisterFooterText from './RegisterFooterText';
@@ -76,7 +76,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
             alert('비밀번호는 영문자, 특수문자, 숫자가 포함되어야 하며 최소 6글자이여야합니다.');
         } else {
             axios
-                .post(`${config.endpoint}/register`, {
+                .post(`${config.ENDPOINT}/register`, {
                     email,
                     password,
                     name,

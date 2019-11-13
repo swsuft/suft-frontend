@@ -7,7 +7,7 @@ import { convertToRaw, EditorState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { useProfile } from '../../hooks/useProfile';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import config from '../../config/main';
+import config from '../../constants/config';
 import BasicSubjectOption from '../SelectOptions/SubjectOption/BasicSubjectOption';
 import MajorSubjectOption from '../SelectOptions/SubjectOption/MajorSubjectOption';
 import GradeOption from '../SelectOptions/GradeOption';
@@ -76,7 +76,7 @@ const CreateEditor: React.FC = () => {
 
         axios
             .post(
-                `${config.endpoint}/problem/create`,
+                `${config.ENDPOINT}/problem/create`,
                 {
                     author: author !== '' ? author : '익명',
                     contents: html,

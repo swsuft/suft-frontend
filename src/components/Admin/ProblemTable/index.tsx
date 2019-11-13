@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import axios from 'axios';
-import config from '../../../config/main';
+import config from '../../../constants/config';
 import SubjectToString from '../../../utils/SubjectToString';
 import useSelect from '../../../hooks/useSelect';
 
@@ -46,7 +46,7 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
 
     const refresh = () => {
         axios
-            .get(`${config.endpoint}/problem/all`, {
+            .get(`${config.ENDPOINT}/problem/all`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }

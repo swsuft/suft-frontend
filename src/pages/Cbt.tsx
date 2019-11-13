@@ -4,7 +4,7 @@ import axios from 'axios';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import config from '../config/main';
+import config from '../constants/config';
 import CbtLayout from '../layouts/CbtLayout';
 import Container from '../utils/ContainerUtils/Container';
 
@@ -89,7 +89,7 @@ const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times:
         const { subject, grade, times } = match.params;
 
         axios
-            .get(`${config.endpoint}/problem/get/${subject}/${grade}/${times}`, {
+            .get(`${config.ENDPOINT}/problem/get/${subject}/${grade}/${times}`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }

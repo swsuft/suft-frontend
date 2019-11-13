@@ -1,9 +1,9 @@
 import axios from 'axios';
-import config from '../config/main';
+import config from '../constants/config';
 
-export default () => {
+const GetToken = () => {
     axios
-        .post(`${config.endpoint}/token`, {}, { withCredentials: true })
+        .post(`${config.ENDPOINT}/token`, {}, { withCredentials: true })
         .then((data) => {
             if (!data.data.success) {
                 alert(data.data.message);
@@ -17,3 +17,5 @@ export default () => {
             alert(err);
         });
 };
+
+export default GetToken;

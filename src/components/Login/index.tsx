@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import config from '../../config/main';
+import config from '../../constants/config';
 import LoginButton from './LoginButton';
 import LoginHeaderText from './LoginHeaderText';
 import LoginFooterText from './LoginFooterText';
@@ -36,7 +36,7 @@ const Login: React.FC = () => {
         } else {
             axios
                 .post(
-                    `${config.endpoint}/login`,
+                    `${config.ENDPOINT}/login`,
                     {
                         email,
                         password

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import config from '../../config/main';
+import config from '../../constants/config';
 
 const LogoutTextStyle = styled.div`
     font-size: 16px;
@@ -29,7 +29,7 @@ const Logout: React.FC<LogoutProps> = ({ styling }) => {
         if (check) {
             axios
                 .post(
-                    `${config.endpoint}/logout`,
+                    `${config.ENDPOINT}/logout`,
                     {},
                     { withCredentials: true }
                 )

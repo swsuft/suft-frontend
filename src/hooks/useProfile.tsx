@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import config from '../config/main';
+import config from '../constants/config';
 import GetToken from '../utils/GetToken';
 
 interface Profile {
@@ -20,7 +20,7 @@ export const ProfileProvider: React.FC = ({ children }) => {
 
     useEffect(() => {
         axios
-            .get(`${config.endpoint}/profile`, {
+            .get(`${config.ENDPOINT}/profile`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }

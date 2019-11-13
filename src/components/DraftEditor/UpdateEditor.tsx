@@ -9,7 +9,7 @@ import draftToHtml from 'draftjs-to-html';
 // @ts-ignore
 import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import config from '../../config/main';
+import config from '../../constants/config';
 import BasicSubjectOption from '../SelectOptions/SubjectOption/BasicSubjectOption';
 import MajorSubjectOption from '../SelectOptions/SubjectOption/MajorSubjectOption';
 import GradeOption from '../SelectOptions/GradeOption';
@@ -73,7 +73,7 @@ const UpdateEditor: React.FC<RouteComponentProps<{}> & UpdateEditorProps> = ({ i
 
     useEffect(() => {
         axios
-            .get(`${config.endpoint}/problem/get/${id}`, {
+            .get(`${config.ENDPOINT}/problem/get/${id}`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
