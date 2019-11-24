@@ -1,4 +1,4 @@
-# suft-client
+# suft-frontend
 교내 CBT 방식 문제풀이 사이트, 수프트.
 
 ## 시작하기
