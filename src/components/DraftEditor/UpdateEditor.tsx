@@ -112,7 +112,7 @@ const UpdateEditor: React.FC<RouteComponentProps<{}> & UpdateEditorProps> = ({ i
 
         axios
             .put(
-                `${config.endpoint}/problem/update/${id}`,
+                `${config.ENDPOINT}/problem/update/${id}`,
                 {
                     author: author !== '' ? author : '익명',
                     contents: html,

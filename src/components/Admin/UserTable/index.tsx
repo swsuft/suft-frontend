@@ -46,7 +46,7 @@ const UserTable: React.FC = () => {
 
     const refresh = () => {
         axios
-            .get(`${config.endpoint}/user/all`, {
+            .get(`${config.ENDPOINT}/user/all`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
@@ -85,7 +85,7 @@ const UserTable: React.FC = () => {
 
                     axios
                         .put(
-                            `${config.endpoint}/user/block`,
+                            `${config.ENDPOINT}/user/block`,
                             { email: item },
                             {
                                 headers: {
@@ -125,7 +125,7 @@ const UserTable: React.FC = () => {
                 if (check.selected[item]) {
                     axios
                         .put(
-                            `${config.endpoint}/user/unblock`,
+                            `${config.ENDPOINT}/user/unblock`,
                             { email: item },
                             {
                                 headers: {
