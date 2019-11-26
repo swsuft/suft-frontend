@@ -45,18 +45,6 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
     const [name, setName] = useState('');
     const [grade, setGrade] = useState('');
 
-    const onInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-        if (evt.target.placeholder === '이메일') {
-            setEmail(evt.target.value);
-        } else if (evt.target.placeholder === '비밀번호') {
-            setPassword(evt.target.value);
-        } else if (evt.target.placeholder === '비밀번호 확인') {
-            setRePassword(evt.target.value);
-        } else if (evt.target.placeholder === '이름(실명)') {
-            setName(evt.target.value);
-        }
-    };
-
     const onSelectChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
         setGrade(evt.target.value);
     };
@@ -102,16 +90,16 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
 
             <RegisterWrapperStyle>
                 <InfoTextStyle>이메일</InfoTextStyle>
-                <InputStyle value={email} type="email" placeholder="사용할 이메일을 입력해주세요." onChange={onInputChange}/>
+                <InputStyle value={email} type="email" placeholder="사용할 이메일을 입력해주세요." onChange={(evt) => setEmail(evt.target.value)}/>
 
                 <InfoTextStyle>
                     비밀번호 (최소 6글자 이상, 영문자, 숫자, 특수문자 포함)
                 </InfoTextStyle>
-                <InputStyle value={password} type="password" placeholder="조건에 맞는 비밀번호를 입력해주세요." onChange={onInputChange}/>
-                <InputStyle value={rePassword} type="password" placeholder="확인을 위해 한 번 더 비밀번호를 입력해주세요." onChange={onInputChange}/>
+                <InputStyle value={password} type="password" placeholder="조건에 맞는 비밀번호를 입력해주세요." onChange={(evt) => setPassword(evt.target.value)}/>
+                <InputStyle value={rePassword} type="password" placeholder="확인을 위해 한 번 더 비밀번호를 입력해주세요." onChange={(evt) => setRePassword(evt.target.value)}/>
 
                 <InfoTextStyle>이름</InfoTextStyle>
-                <InputStyle value={name} type="text" placeholder="자신의 실명을 입력해주세요." onChange={onInputChange}/>
+                <InputStyle value={name} type="text" placeholder="자신의 실명을 입력해주세요." onChange={(evt) => setName(evt.target.value)}/>
 
                 <InfoTextStyle>학년</InfoTextStyle>
                 <SelectStyle value={grade} onChange={onSelectChange}>
