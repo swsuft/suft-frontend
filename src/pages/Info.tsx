@@ -35,6 +35,10 @@ const Info: React.FC = () => {
                 <FontAwesomeIcon icon={faStickyNote} size="sm"/> 패치노트
             </H2TitleStyle>
 
+            <InfoNoticeBox year={2019} month={11} day={26}>
+                회원가입 페이지에서 입력이 안되는 오류를 수정하였어요.
+            </InfoNoticeBox>
+
             <InfoNoticeBox year={2019} month={11} day={12}>
                 로그인 그리고 회원가입 페이지 디자인이 변경되었어요.
                 <br/>
