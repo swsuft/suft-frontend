@@ -104,7 +104,6 @@ const CreateEditor: React.FC = () => {
 
         setEditor(EditorState.createEmpty());
         setAnswer('');
-        setAuthor('');
         setSubject('');
         setGrade('');
         setTimes('');
