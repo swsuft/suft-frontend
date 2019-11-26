@@ -102,7 +102,7 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
             for (const item in check.selected) {
                 if (check.selected[item]) {
                     axios
-                        .delete(`${config.endpoint}/problem/delete/${item}`, {
+                        .delete(`${config.ENDPOINT}/problem/delete/${item}`, {
                             headers: {
                                 Authorization: `JWT ${localStorage.getItem('token')}`
                             }
