@@ -1,7 +1,8 @@
-# suft-frontend ![GitHub top language](https://img.shields.io/github/languages/top/swsuft/suft-frontend?style=flat-square) ![GitHub](https://img.shields.io/github/license/swsuft/suft-frontend?style=flat-square) ![GitHub stars](https://img.shields.io/github/stars/swsuft/suft-frontend?style=social
-교내 시험대비 CBT 사이트
+# suft-frontend ![GitHub top language](https://img.shields.io/github/languages/top/swsuft/suft-frontend?style=flat-square) ![GitHub](https://img.shields.io/github/license/swsuft/suft-frontend?style=flat-square) ![GitHub stars](https://img.shields.io/github/stars/swsuft/suft-frontend?style=social)
 
-![Suft login page](./loginpage.png)
+![Suft login page](./loginpage.PNG)
+
+교내 시험대비 CBT 사이트, 프론트엔드 소스 코드
 
 ## 시작하기
 ### 의존성 설치하기
@@ -13,6 +14,11 @@
 ### 빌드하기
 `npm run build` (으로) production build를 합니다.
 
+## Tech Stack
+수프트(frontend)는 아래의 기술을 이용하여 제작되었습니다.
+- TypeScript
+- React
+- React Hooks
 
 ## TODO
 - [ ] CI/CD 적용
