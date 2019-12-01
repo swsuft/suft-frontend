@@ -1,7 +1,7 @@
-# suft-frontend ![GitHub top language](https://img.shields.io/github/languages/top/swsuft/suft-frontend?style=flat-square) ![GitHub](https://img.shields.io/github/license/swsuft/suft-frontend?style=flat-square) ![GitHub stars](https://img.shields.io/github/stars/swsuft/suft-frontend?style=social
+# suft-frontend ![GitHub top language](https://img.shields.io/github/languages/top/swsuft/suft-frontend?style=flat-square) ![GitHub](https://img.shields.io/github/license/swsuft/suft-frontend?style=flat-square) ![GitHub stars](https://img.shields.io/github/stars/swsuft/suft-frontend?style=social)
 교내 시험대비 CBT 사이트
 
-![Suft login page](./loginpage.png)
+![Suft login page](./loginpage.PNG)
 
 ## 시작하기
 ### 의존성 설치하기
