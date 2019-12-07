@@ -1,12 +1,12 @@
 import React from 'react';
-import MainLayout from '../layouts/MainLayout';
 import Register from '../components/Register';
+import AuthLayout from '../layouts/AuthLayout';
 
 const RegisterPage: React.FC = () => {
     return (
-        <MainLayout>
+        <AuthLayout>
             <Register/>
-        </MainLayout>
+        </AuthLayout>
     );
 };
 

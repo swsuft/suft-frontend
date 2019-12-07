@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Footer from '../components/Footer';
 import Background from '../utils/Background';
+import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 
 const WrapperStyle = styled.div`
     display: flex;
@@ -9,16 +10,12 @@ const WrapperStyle = styled.div`
     flex-direction: column;
 `;
 
-const BodyStyle = styled.div`
-    flex: 1;
-`;
-
-const MainLayout: React.FC = ({ children }) => {
+const AuthLayout: React.FC = ({ children }) => {
     return (
         <WrapperStyle>
-            <BodyStyle>
+            <CenterContainer>
                 {children}
-            </BodyStyle>
+            </CenterContainer>
 
             <Footer/>
             <Background color="#f1f2f6"/>
@@ -26,4 +23,4 @@ const MainLayout: React.FC = ({ children }) => {
     );
 };
 
-export default MainLayout;
+export default AuthLayout;

@@ -1,32 +1,23 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useMeal } from '../../hooks/useMeal';
-
-const MealTitle = styled.p`
-    font-size: 30px;
-    font-family: 'Godo', sans-serif;
-`;
-
-const MealText = styled.pre`
-    font-size: 16px;
-    font-family: 'Noto Sans KR', sans-serif;
-`;
+import MealTitle from '../../atoms/MainMenu/MealText/MealTitle';
+import MealText from '../../atoms/MainMenu/MealText';
 
 const Meal: React.FC = () => {
     const meal = useMeal();
 
     return (
-        <>
+        <div>
             <MealTitle>오늘 급식</MealTitle>
 
             <MealText>{meal[0]}</MealText>
 
-            <br />
+            <br/>
 
             <MealTitle>내일 급식</MealTitle>
 
             <MealText>{meal[1]}</MealText>
-        </>
+        </div>
     );
 };
 
