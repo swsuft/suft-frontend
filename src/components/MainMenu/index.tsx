@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faChalkboard,
-    faKey,
+    faInfo,
     faLaptopCode,
     faPaperPlane,
     faQuestion,
-    faSignOutAlt
+    faSignOutAlt,
+    faUtensils
 } from '@fortawesome/free-solid-svg-icons';
 import Card from './Card';
 import CardText from '../../atoms/MainMenu/CardText';
@@ -20,6 +21,13 @@ const CardListStyle = styled.div`
     justify-content: center;
 `;
 
+const MealIconStyle = styled(FontAwesomeIcon)`
+    position: absolute;
+    opacity: 0.1;
+    margin-left: 50px;
+    margin-top: 20px;
+`;
+
 const MainMenu: React.FC = () => {
     return (
         <>
@@ -29,6 +37,7 @@ const MainMenu: React.FC = () => {
                         <FontAwesomeIcon icon={faChalkboard} size="2x"/>
                         <CardText>일반과목CBT</CardText>
                     </Card>
+
 
                     <Card width="150px" height="150px" isButton>
                         <FontAwesomeIcon icon={faLaptopCode} size="2x"/>
@@ -43,13 +52,13 @@ const MainMenu: React.FC = () => {
 
                 <CardListStyle>
                     <Card width="150px" height="150px" isButton>
-                        <FontAwesomeIcon icon={faPaperPlane} size="2x"/>
-                        <CardText>문의</CardText>
+                        <FontAwesomeIcon icon={faInfo} size="2x"/>
+                        <CardText>소개</CardText>
                     </Card>
 
                     <Card width="150px" height="150px" isButton>
-                        <FontAwesomeIcon icon={faKey} size="2x"/>
-                        <CardText>개인정보처리방침</CardText>
+                        <FontAwesomeIcon icon={faPaperPlane} size="2x"/>
+                        <CardText>문의</CardText>
                     </Card>
 
                     <Card width="150px" height="150px" isButton>
@@ -65,6 +74,7 @@ const MainMenu: React.FC = () => {
 
             <Card width="390px" height="520px">
                 <Meal/>
+                <MealIconStyle icon={faUtensils} size="10x"/>
             </Card>
         </>
     );

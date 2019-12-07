@@ -13,6 +13,7 @@ const CardStyle = styled.div<{ isButton?: boolean }>`
 `;
 
 const CardBodyStyle = styled.div`
+    position: relative;
     flex: 1;
     align-self: center;
 `;
@@ -26,7 +27,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ width, height, isButton, children }) => {
     return (
 
-        <CardStyle style={{ width, height }} isButton={isButton}>
+        <CardStyle style={{ minWidth: width, height }} isButton={isButton}>
             <CardBodyStyle>
                 {children}
             </CardBodyStyle>

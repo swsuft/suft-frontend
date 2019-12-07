@@ -5,7 +5,7 @@ import config from '../constants/config';
 const context = createContext<string[]>([]);
 
 export const MealProvider: React.FC = ({ children }) => {
-    const [meal, setMeal] = useState<string[]>([]);
+    const [meal, setMeal] = useState<string[]>(['불러오는 중', '불러오는 중']);
 
     useEffect(() => {
         axios
