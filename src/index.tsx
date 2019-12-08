@@ -12,6 +12,8 @@ import Info from './pages/Info';
 
 import './css/color.css';
 import Privacy from './pages/Privacy';
+import BasicSubject from './pages/Subjects/BasicSubject';
+import MajorSubject from './pages/Subjects/MajorSubject';
 
 const index = (
     <BrowserRouter>
@@ -21,6 +23,8 @@ const index = (
                     <Route exact path="/" component={Main}/>
                 </MealProvider>
                 <Route exact path="/cbt/:subject/:grade/:times" component={Cbt}/>
+                <Route exact path="/basic" component={BasicSubject}/>
+                <Route exact path="/major" component={MajorSubject}/>
                 <Route exact path="/admin" component={Admin}/>
                 <Route exact path="/admin/edit/:id" component={AdminEdit}/>
                 <Route exact path="/register" component={RegisterPage}/>

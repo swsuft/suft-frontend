@@ -5,8 +5,8 @@ import {
     faChalkboard,
     faInfo,
     faLaptopCode,
-    faQuestion,
     faSignOutAlt,
+    faTrophy,
     faUtensils
 } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
@@ -41,20 +41,24 @@ const MainMenu: React.FC = () => {
         <WapperStyle>
             <div>
                 <CardListStyle>
-                    <Card width="150px" height="150px" isButton>
-                        <FontAwesomeIcon icon={faChalkboard} size="2x"/>
-                        <CardText>일반과목CBT</CardText>
-                    </Card>
+                    <NoStyleLink to="/basic">
+                        <Card width="150px" height="150px" isButton>
+                            <FontAwesomeIcon icon={faChalkboard} size="2x"/>
+                            <CardText>일반과목CBT</CardText>
+                        </Card>
+                    </NoStyleLink>
 
 
-                    <Card width="150px" height="150px" isButton>
-                        <FontAwesomeIcon icon={faLaptopCode} size="2x"/>
-                        <CardText>전공과목CBT</CardText>
-                    </Card>
+                    <NoStyleLink to="/major">
+                        <Card width="150px" height="150px" isButton>
+                            <FontAwesomeIcon icon={faLaptopCode} size="2x"/>
+                            <CardText>전공과목CBT</CardText>
+                        </Card>
+                    </NoStyleLink>
 
                     <Card width="150px" height="150px" isButton>
-                        <FontAwesomeIcon icon={faQuestion} size="2x"/>
-                        <CardText>패치예정</CardText>
+                        <FontAwesomeIcon icon={faTrophy} size="2x"/>
+                        <CardText>기여순위</CardText>
                     </Card>
                 </CardListStyle>
 
