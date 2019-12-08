@@ -10,7 +10,6 @@ import {
     faUtensils
 } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { Link } from 'react-router-dom';
 import Card from './Card';
 import CardText from '../../atoms/MainMenu/CardText';
 import Meal from './Meal';
@@ -18,11 +17,14 @@ import Logout from '../Logout';
 import NoStyleA from '../../atoms/NoStyleA';
 import NoStyleLink from '../../atoms/NoStyleLink';
 
+const WapperStyle = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
+
 const CardListStyle = styled.div`
     display: flex;
-    flex: 1;
     flex-direction: row;
-    justify-content: center;
 `;
 
 const MealIconStyle = styled(FontAwesomeIcon)`
@@ -36,7 +38,7 @@ const MealIconStyle = styled(FontAwesomeIcon)`
 
 const MainMenu: React.FC = () => {
     return (
-        <>
+        <WapperStyle>
             <div>
                 <CardListStyle>
                     <Card width="150px" height="150px" isButton>
@@ -88,7 +90,7 @@ const MainMenu: React.FC = () => {
                 <Meal/>
             </Card>
             <MealIconStyle icon={faUtensils} size="10x"/>
-        </>
+        </WapperStyle>
     );
 };
 
