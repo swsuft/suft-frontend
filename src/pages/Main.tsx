@@ -4,7 +4,6 @@ import MainLayout from '../layouts/MainLayout';
 import { useProfile } from '../hooks/useProfile';
 import MainMenu from '../components/MainMenu';
 import Login from '../components/Login';
-import AuthLayout from '../layouts/AuthLayout';
 import MobileMainMenu from '../components/MainMenu/Mobile';
 
 const LogoTextStyle = styled.p`
@@ -40,9 +39,9 @@ const Main: React.FC = () => {
 
     if (profile !== undefined && !profile.success) {
         return (
-            <AuthLayout>
+            <MainLayout>
                 <Login/>
-            </AuthLayout>
+            </MainLayout>
         );
     }
 
