@@ -27,13 +27,17 @@ const Info: React.FC = () => {
         <InfoLayout>
             <br/>
             <H1TitleStyle>수프트 Suft</H1TitleStyle>
-            <p>수프트(Suft)는 각종 문제풀이(CBT 방식), 위키, 급식 정보 등 학교와 관련된 서비스를 제공합니다.</p>
+            <p>수프트(Suft)는 시험대비 문제풀이, 급식 정보를 제공하는 서비스입니다.</p>
 
             <LineStyle/>
 
             <H2TitleStyle>
                 <FontAwesomeIcon icon={faStickyNote} size="sm"/> 패치노트
             </H2TitleStyle>
+
+            <InfoNoticeBox year={2019} month={12} day={8}>
+                메인 페이지 디자인이 변경되었어요.
+            </InfoNoticeBox>
 
             <InfoNoticeBox year={2019} month={11} day={26}>
                 회원가입 페이지에서 입력이 안되는 오류를 수정하였어요.
