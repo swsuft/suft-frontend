@@ -7,18 +7,8 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import config from '../constants/config';
 import CbtLayout from '../layouts/CbtLayout';
 import Container from '../utils/ContainerUtils/Container';
-
-const TitleStyle = styled.p`
-    margin-top: 2rem;
-    margin-bottom: 0.5rem;
-    font-size: 35px;
-    font-family: 'Godo', sans-serif;
-`;
-
-const AuthorTextStyle = styled.span`
-    font-size: 20px;
-    font-family: 'Godo', sans-serif;
-`;
+import FontedTitle from '../atoms/Typography/FontedTitle';
+import FontedMiddleText from '../atoms/Typography/FontedMiddleText';
 
 const InputStyle = styled.input`
     border: none;
@@ -170,12 +160,13 @@ const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times:
     return (
         <CbtLayout>
             <Container>
-                <TitleStyle>
-                    {isLoading ? random + 1 : '0'}번 문제 <AuthorTextStyle>작성자: {expOfAuthor}</AuthorTextStyle>
-                </TitleStyle>
-                <ProblemBoxStyle dangerouslySetInnerHTML={{ __html: exp }} />
+                <FontedTitle>
+                    {isLoading ? random + 1 : '0'}번 문제 <FontedMiddleText>작성자: {expOfAuthor}</FontedMiddleText>
+                </FontedTitle>
 
-                <hr />
+                <ProblemBoxStyle dangerouslySetInnerHTML={{ __html: exp }}/>
+
+                <hr/>
 
                 <NumberButtonWrapperStyle>
                     <NumberButtonStyle type="button" onClick={() => checkAnswerUsingNumber(1)}>
@@ -206,7 +197,7 @@ const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times:
                         }}
                     />
                     <ButtonStyle type="button" onClick={checkAnswer}>
-                        <FontAwesomeIcon icon={faPaperPlane} /> 제출
+                        <FontAwesomeIcon icon={faPaperPlane}/> 제출
                     </ButtonStyle>
                     <EtcTextStyle>* 숫자 버튼을 이용하거나 입력칸을 이용하여 정답을 제출 할 수 있습니다.</EtcTextStyle>
                 </AnswerWrapStyle>
