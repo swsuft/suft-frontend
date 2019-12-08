@@ -18,7 +18,7 @@ interface ExternalComponentLinkProps {
 }
 
 const ExternalComponentLink: React.FC<ExternalComponentLinkProps> = ({ to, children }) => (
-    <TextStyle to={to}>{ children }</TextStyle>
+    <TextStyle to={to}>{children}</TextStyle>
 );
 
 export default ExternalComponentLink;
