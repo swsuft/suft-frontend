@@ -59,10 +59,12 @@ const MobileMainMenu: React.FC = () => {
             </CardListStyle>
 
             <CardListStyle>
-                <Card width="130px" height="130px" isButton>
-                    <FontAwesomeIcon icon={faMedal} size="2x"/>
-                    <CardText>기여순위</CardText>
-                </Card>
+                <NoStyleLink to="/rank">
+                    <Card width="130px" height="130px" isButton>
+                        <FontAwesomeIcon icon={faMedal} size="2x"/>
+                        <CardText>기여순위</CardText>
+                    </Card>
+                </NoStyleLink>
 
                 <NoStyleLink to="/info">
                     <Card width="130px" height="130px" isButton isMobile>

@@ -56,10 +56,12 @@ const MainMenu: React.FC = () => {
                         </Card>
                     </NoStyleLink>
 
-                    <Card width="150px" height="150px" isButton>
-                        <FontAwesomeIcon icon={faMedal} size="2x"/>
-                        <CardText>기여순위</CardText>
-                    </Card>
+                    <NoStyleLink to="/rank">
+                        <Card width="150px" height="150px" isButton>
+                            <FontAwesomeIcon icon={faMedal} size="2x"/>
+                            <CardText>기여순위</CardText>
+                        </Card>
+                    </NoStyleLink>
                 </CardListStyle>
 
                 <CardListStyle>
