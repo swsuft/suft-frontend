@@ -16,6 +16,7 @@ const CardBodyStyle = styled.div`
     position: relative;
     flex: 1;
     align-self: center;
+    color: black;
 `;
 
 interface CardProps {
@@ -27,7 +28,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ width, height, isButton, children }) => {
     return (
 
-        <CardStyle style={{ minWidth: width, height }} isButton={isButton}>
+        <CardStyle style={{ width, height }} isButton={isButton}>
             <CardBodyStyle>
                 {children}
             </CardBodyStyle>

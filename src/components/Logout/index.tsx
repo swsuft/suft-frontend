@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import config from '../../constants/config';
 
@@ -19,10 +17,10 @@ const LogoutTextStyle = styled.div`
 `;
 
 interface LogoutProps {
-    readonly styling: boolean;
+    readonly styling?: boolean;
 }
 
-const Logout: React.FC<LogoutProps> = ({ styling }) => {
+const Logout: React.FC<LogoutProps> = ({ styling, children }) => {
     const onLogoutClick = () => {
         const check = window.confirm('진짜로 정말로 로그아웃 할까요?');
 
@@ -51,14 +49,14 @@ const Logout: React.FC<LogoutProps> = ({ styling }) => {
     if (styling) {
         return (
             <LogoutTextStyle onClick={onLogoutClick}>
-                <FontAwesomeIcon icon={faSignOutAlt} /> 로그아웃
+                {children}
             </LogoutTextStyle>
         );
     }
 
     return (
         <div onClick={onLogoutClick}>
-            <FontAwesomeIcon icon={faSignOutAlt} /> 로그아웃
+            {children}
         </div>
     );
 };

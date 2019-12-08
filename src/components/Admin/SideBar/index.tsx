@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../../Logout';
 import AdminMenuStatus, { AdminMenuStatusType } from '../../../constants/AdminMenuStatus';
 
@@ -73,8 +75,8 @@ const AdminSideBar: React.FC<AdminSideBarProps> = ({ setNowMenu }) => {
                 </SideBarItemStyle>
             </SideBarUlStyle>
 
-            <br />
-            <Logout styling />
+            <br/>
+            <Logout styling><FontAwesomeIcon icon={faSignOutAlt}/> 로그아웃</Logout>
         </SideBarWrapStyle>
     );
 };

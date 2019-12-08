@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import Container from '../../utils/ContainerUtils/Container';
 import GetToken from '../../utils/GetToken';
+import NoStyleLink from '../../atoms/NoStyleLink';
+import NoStyleA from '../../atoms/NoStyleA';
 
 const FooterWrapStyle = styled.div`
     display: flex;
@@ -47,32 +48,28 @@ const TextRightStyle = styled.div`
     }
 `;
 
-const HyperLinkStyle = styled.a`
-    text-decoration: none;
-`;
-
 const Footer: React.FC = () => {
     return (
         <FooterWrapStyle>
             <FooterStyle>
                 <Container>
                     <TextWrapStyle>
-                        <Link to="/">
+                        <NoStyleLink to="/">
                             <TextLeftStyle>수프트</TextLeftStyle>
-                        </Link>
+                        </NoStyleLink>
 
-                        <Link to="/admin" onClick={GetToken}>
+                        <NoStyleLink to="/admin" onClick={GetToken}>
                             <TextRightStyle>관리자</TextRightStyle>
-                        </Link>
-                        <HyperLinkStyle href="mailto://admin@skylightqp.kr">
+                        </NoStyleLink>
+                        <NoStyleA href="mailto://admin@skylightqp.kr">
                             <TextRightStyle>문의</TextRightStyle>
-                        </HyperLinkStyle>
-                        <Link to="/info">
+                        </NoStyleA>
+                        <NoStyleLink to="/info">
                             <TextRightStyle>소개</TextRightStyle>
-                        </Link>
-                        <a href="https://github.com/SkyLightQP/suft-client">
+                        </NoStyleLink>
+                        <NoStyleA href="https://github.com/SkyLightQP/suft-client">
                             <TextRightStyle><FontAwesomeIcon icon={faGithub}/> GitHub</TextRightStyle>
-                        </a>
+                        </NoStyleA>
                     </TextWrapStyle>
                 </Container>
             </FooterStyle>

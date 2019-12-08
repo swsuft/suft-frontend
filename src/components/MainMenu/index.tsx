@@ -10,9 +10,14 @@ import {
     faSignOutAlt,
     faUtensils
 } from '@fortawesome/free-solid-svg-icons';
+import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import Card from './Card';
 import CardText from '../../atoms/MainMenu/CardText';
 import Meal from './Meal';
+import Logout from '../Logout';
+import { Link } from 'react-router-dom';
+import NoStyleA from '../../atoms/NoStyleA';
+import NoStyleLink from '../../atoms/NoStyleLink';
 
 const CardListStyle = styled.div`
     display: flex;
@@ -22,11 +27,24 @@ const CardListStyle = styled.div`
 `;
 
 const MealIconStyle = styled(FontAwesomeIcon)`
-    position: absolute;
+    position: relative;
     opacity: 0.1;
-    margin-left: 50px;
-    margin-top: 20px;
+    top: 350px;
+    left: -170px;
+    right: 0;
+    bottom: 0;
 `;
+
+const HyperLinkStyle = styled.a`
+    color: inherit;
+    text-decoration: none;
+`;
+
+const LinkStyle = styled(Link)`
+    color: inherit;
+    text-decoration: none;
+`;
+
 
 const MainMenu: React.FC = () => {
     return (
@@ -51,20 +69,26 @@ const MainMenu: React.FC = () => {
                 </CardListStyle>
 
                 <CardListStyle>
-                    <Card width="150px" height="150px" isButton>
-                        <FontAwesomeIcon icon={faInfo} size="2x"/>
-                        <CardText>소개</CardText>
-                    </Card>
+                    <NoStyleLink to="/info">
+                        <Card width="150px" height="150px" isButton>
+                            <FontAwesomeIcon icon={faInfo} size="2x"/>
+                            <CardText>소개</CardText>
+                        </Card>
+                    </NoStyleLink>
 
-                    <Card width="150px" height="150px" isButton>
-                        <FontAwesomeIcon icon={faPaperPlane} size="2x"/>
-                        <CardText>문의</CardText>
-                    </Card>
+                    <NoStyleA href="https://www.facebook.com/swsuft" target="_blank" rel="noreferrer noopener">
+                        <Card width="150px" height="150px" isButton>
+                            <FontAwesomeIcon icon={faFacebook} size="2x"/>
+                            <CardText>페이스북</CardText>
+                        </Card>
+                    </NoStyleA>
 
-                    <Card width="150px" height="150px" isButton>
-                        <FontAwesomeIcon icon={faSignOutAlt} size="2x"/>
-                        <CardText>로그아웃</CardText>
-                    </Card>
+                    <Logout>
+                        <Card width="150px" height="150px" isButton>
+                            <FontAwesomeIcon icon={faSignOutAlt} size="2x"/>
+                            <CardText>로그아웃</CardText>
+                        </Card>
+                    </Logout>
                 </CardListStyle>
 
                 <Card height="180px">
@@ -74,8 +98,8 @@ const MainMenu: React.FC = () => {
 
             <Card width="390px" height="520px">
                 <Meal/>
-                <MealIconStyle icon={faUtensils} size="10x"/>
             </Card>
+            <MealIconStyle icon={faUtensils} size="10x"/>
         </>
     );
 };

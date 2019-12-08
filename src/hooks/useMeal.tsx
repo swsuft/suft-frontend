@@ -11,11 +11,7 @@ export const MealProvider: React.FC = ({ children }) => {
         axios
             .get(`${config.ENDPOINT}/meal`)
             .then((raw: any) => {
-                const replacedData = raw.data;
-                replacedData.today.replace('&amp;', '&');
-                replacedData.tomorrow.replace('&amp;', '&');
-
-                setMeal([replacedData.today, replacedData.tomorrow]);
+                setMeal([raw.data.today, raw.data.tomorrow]);
             })
             .catch((err: any) => {
                 alert(err);
