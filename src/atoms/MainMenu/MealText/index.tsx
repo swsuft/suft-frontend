@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TextStyle = styled.p`
+const TextStyle = styled.pre`
     font-size: 16px;
     font-family: 'Noto Sans KR', sans-serif;
 `;
