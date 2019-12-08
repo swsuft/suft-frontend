@@ -14,6 +14,7 @@ import GradeOption from '../SelectOptions/GradeOption';
 import TimesOption from '../SelectOptions/TimesOption';
 import uploadImageCallback from '../../utils/UploadImage';
 import ProblemPreview from './ProblemPreview';
+import GetToken from '../../utils/GetToken';
 
 const EditorStyle = styled.div`
     background: #ffffff;
@@ -104,9 +105,8 @@ const CreateEditor: React.FC = () => {
 
         setEditor(EditorState.createEmpty());
         setAnswer('');
-        setSubject('');
-        setGrade('');
-        setTimes('');
+
+        GetToken();
     };
 
     return (
