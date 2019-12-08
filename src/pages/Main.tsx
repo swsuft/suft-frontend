@@ -5,7 +5,6 @@ import { useProfile } from '../hooks/useProfile';
 import MainMenu from '../components/MainMenu';
 import Login from '../components/Login';
 import AuthLayout from '../layouts/AuthLayout';
-import useWidth from '../hooks/useWidth';
 import MobileMainMenu from '../components/MainMenu/Mobile';
 
 const LogoTextStyle = styled.p`
@@ -21,12 +20,23 @@ const LogoTextStyle = styled.p`
 `;
 
 const PCWrapperStyle = styled.div`
-  margin-left: 120px;
+    margin-left: 120px;
+
+    @media screen and (max-width: 900px) {
+        display: none;
+    }    
+`;
+
+const MobileWrapperStyle = styled.div`
+    display: none;
+    
+    @media screen and (max-width: 900px) {
+        display: block;
+    }
 `;
 
 const Main: React.FC = () => {
     const profile = useProfile();
-    const width = useWidth();
 
     if (profile !== undefined && !profile.success) {
         return (
@@ -36,23 +46,17 @@ const Main: React.FC = () => {
         );
     }
 
-    if (width <= 900) {
-        return (
-            <MainLayout>
-                <div>
-                    <LogoTextStyle>수프트</LogoTextStyle>
-                    <MobileMainMenu/>
-                </div>
-            </MainLayout>
-        );
-    }
-
     return (
         <MainLayout>
             <PCWrapperStyle>
                 <LogoTextStyle>수프트</LogoTextStyle>
                 <MainMenu/>
             </PCWrapperStyle>
+
+            <MobileWrapperStyle>
+                <LogoTextStyle>수프트</LogoTextStyle>
+                <MobileMainMenu/>
+            </MobileWrapperStyle>
         </MainLayout>
     );
 };
