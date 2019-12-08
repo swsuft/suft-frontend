@@ -28,32 +28,46 @@
         padding: 0;
     }
 
+    ::selection {
+        background-color: var(--color-yellow);
+        color: white;
+    }
+
+    ::-moz-selection {
+        background-color: var(--color-yellow);
+        color: white;
+    }
+
 </style>
 <body>
-    <noscript>JavaScript 사용이 비활성화 되어있습니다. 해당 사이트를 이용하기 위해서는 활성화가 필요합니다.</noscript>
-    <div id="root"></div>
+<noscript>JavaScript 사용이 비활성화 되어있습니다. 해당 사이트를 이용하기 위해서는 활성화가 필요합니다.</noscript>
+<div id="root"></div>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-69668170-10"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-69668170-10"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
 
-        gtag('config', 'UA-69668170-10');
-    </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-2490453096003621",
-            enable_page_level_ads: true
-        });
-    </script>
-    <script>
-        let agent = navigator.userAgent.toLowerCase();
-        if ((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)) {
-            document.getElementById('root').innerText = 'IE 환경에서는 이용하실 수 없습니다.';
-        }
-    </script>
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-69668170-10');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: 'ca-pub-2490453096003621',
+        enable_page_level_ads: true
+    });
+</script>
+<script>
+    let agent = navigator.userAgent.toLowerCase();
+    if ((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf('msie') != -1)) {
+        document.getElementById('root').innerText = 'IE 환경에서는 이용하실 수 없습니다.';
+    }
+</script>
 </body>
 </html>
