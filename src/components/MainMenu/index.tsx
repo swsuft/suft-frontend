@@ -5,8 +5,8 @@ import {
     faChalkboard,
     faInfo,
     faLaptopCode,
+    faMedal,
     faSignOutAlt,
-    faTrophy,
     faUtensils
 } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
@@ -57,7 +57,7 @@ const MainMenu: React.FC = () => {
                     </NoStyleLink>
 
                     <Card width="150px" height="150px" isButton>
-                        <FontAwesomeIcon icon={faTrophy} size="2x"/>
+                        <FontAwesomeIcon icon={faMedal} size="2x"/>
                         <CardText>기여순위</CardText>
                     </Card>
                 </CardListStyle>

@@ -5,8 +5,8 @@ import {
     faChalkboard,
     faInfo,
     faLaptopCode,
+    faMedal,
     faSignOutAlt,
-    faTrophy,
     faUtensils
 } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
@@ -43,7 +43,7 @@ const MobileMainMenu: React.FC = () => {
         <WapperStyle>
             <CardListStyle>
                 <NoStyleLink to="/basic">
-                    <Card width="150px" height="150px" isButton>
+                    <Card width="130px" height="130px" isButton>
                         <FontAwesomeIcon icon={faChalkboard} size="2x"/>
                         <CardText>일반과목CBT</CardText>
                     </Card>
@@ -51,7 +51,7 @@ const MobileMainMenu: React.FC = () => {
 
 
                 <NoStyleLink to="/major">
-                    <Card width="150px" height="150px" isButton>
+                    <Card width="130px" height="130px" isButton isMobile>
                         <FontAwesomeIcon icon={faLaptopCode} size="2x"/>
                         <CardText>전공과목CBT</CardText>
                     </Card>
@@ -60,7 +60,7 @@ const MobileMainMenu: React.FC = () => {
 
             <CardListStyle>
                 <Card width="130px" height="130px" isButton>
-                    <FontAwesomeIcon icon={faTrophy} size="2x"/>
+                    <FontAwesomeIcon icon={faMedal} size="2x"/>
                     <CardText>기여순위</CardText>
                 </Card>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faKey, faPlusCircle, faStickyNote, faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { faKey, faStickyNote } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import InfoLayout from '../layouts/InfoLayout';
 import InfoNoticeBox from '../components/InfoNoticeBox';
@@ -103,21 +103,6 @@ const Info: React.FC = () => {
             <InfoNoticeBox year={2019} month={7} day={23}>
                 수프트 사이트가 런칭되었어요.
             </InfoNoticeBox>
-
-            <LineStyle/>
-
-            <H2TitleStyle>
-                <FontAwesomeIcon icon={faUserEdit} size="sm"/> 개발자 & 문제 출제자
-            </H2TitleStyle>
-            <p>고한혁, 한동진, 하대겸</p>
-            <p>하건우, 하선우</p>
-
-            <LineStyle/>
-
-            <H2TitleStyle>
-                <FontAwesomeIcon icon={faPlusCircle} size="sm"/> 문제 등록 및 기여하기
-            </H2TitleStyle>
-            <p>문제 출제자를 추가로 받지 않습니다. 추후 문제 등록 및 출제가 오픈됩니다!</p>
 
             <LineStyle/>
 

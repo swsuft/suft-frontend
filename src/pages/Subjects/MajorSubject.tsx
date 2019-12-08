@@ -7,7 +7,6 @@ import CbtLayout from '../../layouts/CbtLayout';
 import Container from '../../utils/ContainerUtils/Container';
 import FontedTitle from '../../atoms/Typography/FontedTitle';
 import FontedMiddleText from '../../atoms/Typography/FontedMiddleText';
-import BasicSubjectOption from '../../components/SelectOptions/SubjectOption/BasicSubjectOption';
 import GradeOption from '../../components/SelectOptions/GradeOption';
 import TimesOption from '../../components/SelectOptions/TimesOption';
 import LableText from '../../atoms/Typography/LableText';
