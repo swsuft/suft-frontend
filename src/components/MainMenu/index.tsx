@@ -5,17 +5,16 @@ import {
     faChalkboard,
     faInfo,
     faLaptopCode,
-    faPaperPlane,
     faQuestion,
     faSignOutAlt,
     faUtensils
 } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { Link } from 'react-router-dom';
 import Card from './Card';
 import CardText from '../../atoms/MainMenu/CardText';
 import Meal from './Meal';
 import Logout from '../Logout';
-import { Link } from 'react-router-dom';
 import NoStyleA from '../../atoms/NoStyleA';
 import NoStyleLink from '../../atoms/NoStyleLink';
 
@@ -34,17 +33,6 @@ const MealIconStyle = styled(FontAwesomeIcon)`
     right: 0;
     bottom: 0;
 `;
-
-const HyperLinkStyle = styled.a`
-    color: inherit;
-    text-decoration: none;
-`;
-
-const LinkStyle = styled(Link)`
-    color: inherit;
-    text-decoration: none;
-`;
-
 
 const MainMenu: React.FC = () => {
     return (

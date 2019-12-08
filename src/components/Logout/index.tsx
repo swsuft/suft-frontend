@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import config from '../../constants/config';
 
 const LogoutTextStyle = styled.div`
@@ -20,7 +21,7 @@ interface LogoutProps {
     readonly styling?: boolean;
 }
 
-const Logout: React.FC<LogoutProps> = ({ styling, children }) => {
+const Logout: React.FC<RouteComponentProps & LogoutProps> = ({ history, styling, children }) => {
     const onLogoutClick = () => {
         const check = window.confirm('진짜로 정말로 로그아웃 할까요?');
 
@@ -35,8 +36,8 @@ const Logout: React.FC<LogoutProps> = ({ styling, children }) => {
                     if (!data.data.success) {
                         alert(data.data.message);
                     } else {
-                        alert('로그아웃 완료');
                         localStorage.removeItem('token');
+                        history.push('/');
                         window.location.reload();
                     }
                 })
@@ -61,4 +62,4 @@ const Logout: React.FC<LogoutProps> = ({ styling, children }) => {
     );
 };
 
-export default Logout;
+export default withRouter(Logout);
