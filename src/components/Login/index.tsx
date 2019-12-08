@@ -5,6 +5,7 @@ import config from '../../constants/config';
 import LoginButton from './LoginButton';
 import LoginHeaderText from './LoginHeaderText';
 import LoginFooterText from './LoginFooterText';
+import LableText from '../../atoms/Typography/LableText';
 
 const MenuLoginWrapStyle = styled.div`
     margin: 32px auto;
@@ -18,12 +19,6 @@ const InputStyle = styled.input`
     padding-left: 20px;
     margin-bottom: 10px;
     background-color: white;
-`;
-
-const InfoTextStyle = styled.p`
-    font-size: 14px;
-    margin-left: 12px;
-    color: var(--color-text);
 `;
 
 const Login: React.FC = () => {
@@ -71,7 +66,7 @@ const Login: React.FC = () => {
             <LoginHeaderText/>
 
             <MenuLoginWrapStyle>
-                <InfoTextStyle>이메일</InfoTextStyle>
+                <LableText>이메일</LableText>
                 <InputStyle
                   value={email}
                   type="email"
@@ -80,7 +75,7 @@ const Login: React.FC = () => {
                   onKeyPress={onEnterKeyPress}
                 />
 
-                <InfoTextStyle>비밀번호</InfoTextStyle>
+                <LableText>비밀번호</LableText>
                 <InputStyle
                   value={password}
                   type="password"
