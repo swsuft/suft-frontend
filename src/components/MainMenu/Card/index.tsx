@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const CardStyle = styled.div<{ isButton?: boolean, isMobile?: boolean }>`
+const CardStyle = styled.div<{ isButton?: boolean, isMobile?: boolean, isLast?: boolean }>`
     display: flex;
     background-color: white;
     border-radius: 10px;
-    margin-right: 20px;
+    margin-right: ${(props) => (props.isLast ? '0;' : '20px;')};
     margin-bottom: 20px;
     box-shadow: 5px 5px 5px #cbcbcb;
     text-align: center;
@@ -28,12 +28,13 @@ interface CardProps {
     readonly height?: string;
     readonly isButton?: boolean;
     readonly isMobile?: boolean;
+    readonly isLast?: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ width, height, isButton, isMobile, children }) => {
+const Card: React.FC<CardProps> = ({ width, height, isButton, isMobile, isLast, children }) => {
     return (
 
-        <CardStyle style={{ width, height }} isButton={isButton} isMobile={isMobile}>
+        <CardStyle style={{ width, height }} isButton={isButton} isMobile={isMobile} isLast={isLast}>
             <CardBodyStyle>
                 {children}
             </CardBodyStyle>

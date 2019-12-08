@@ -31,7 +31,7 @@ const MealIconStyle = styled(FontAwesomeIcon)`
     position: relative;
     opacity: 0.1;
     top: 350px;
-    left: -170px;
+    left: -150px;
     right: 0;
     bottom: 0;
 `;
@@ -86,7 +86,7 @@ const MainMenu: React.FC = () => {
                 </Card>
             </div>
 
-            <Card width="390px" height="520px">
+            <Card width="390px" height="520px" isLast>
                 <Meal/>
             </Card>
             <MealIconStyle icon={faUtensils} size="10x"/>

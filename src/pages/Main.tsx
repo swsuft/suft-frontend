@@ -20,6 +20,10 @@ const LogoTextStyle = styled.p`
     }
 `;
 
+const PCWrapperStyle = styled.div`
+  margin-left: 120px;
+`;
+
 const Main: React.FC = () => {
     const profile = useProfile();
     const width = useWidth();
@@ -37,7 +41,6 @@ const Main: React.FC = () => {
             <MainLayout>
                 <div>
                     <LogoTextStyle>수프트</LogoTextStyle>
-
                     <MobileMainMenu/>
                 </div>
             </MainLayout>
@@ -46,11 +49,10 @@ const Main: React.FC = () => {
 
     return (
         <MainLayout>
-            <div>
+            <PCWrapperStyle>
                 <LogoTextStyle>수프트</LogoTextStyle>
-
                 <MainMenu/>
-            </div>
+            </PCWrapperStyle>
         </MainLayout>
     );
 };
