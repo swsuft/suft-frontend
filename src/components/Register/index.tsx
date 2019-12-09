@@ -38,7 +38,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
     const [password, setPassword] = useState('');
     const [rePassword, setRePassword] = useState('');
     const [name, setName] = useState('');
-    const [grade, setGrade] = useState('');
+    const [grade, setGrade] = useState('1');
 
     const onSelectChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
         setGrade(evt.target.value);

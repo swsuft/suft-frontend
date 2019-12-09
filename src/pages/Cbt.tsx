@@ -86,7 +86,7 @@ const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times:
             })
             .then((res) => {
                 if (!res.data.success) {
-                    alert(res.data.messae);
+                    alert(res.data.message);
                 } else {
                     setCount(res.data.problems.length);
                     setData(res.data.problems);
