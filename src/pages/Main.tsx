@@ -5,15 +5,14 @@ import { useProfile } from '../hooks/useProfile';
 import MainMenu from '../components/MainMenu';
 import Login from '../components/Login';
 import MobileMainMenu from '../components/MainMenu/Mobile';
+import FontedMiddleText from '../atoms/Typography/FontedMiddleText';
 
 const LogoTextStyle = styled.p`
     font-family: 'Gugi';
     font-size: 50px;
     text-align: left;
-    margin-bottom: 30px;
     
     @media screen and (max-width: 900px) {
-        margin-top: 30px;
         text-align: center;
     }
 `;
@@ -34,6 +33,15 @@ const MobileWrapperStyle = styled.div`
     }
 `;
 
+const HeaderTextStyle = styled.div`
+    margin-bottom: 30px;
+    
+    @media screen and (max-width: 900px) {
+        margin-top: 30px;
+        text-align: center;
+    }
+`;
+
 const Main: React.FC = () => {
     const profile = useProfile();
 
@@ -45,15 +53,23 @@ const Main: React.FC = () => {
         );
     }
 
+    const name = profile ? profile.name : '불러오는중';
+
     return (
         <MainLayout>
             <PCWrapperStyle>
-                <LogoTextStyle>수프트</LogoTextStyle>
+                <HeaderTextStyle>
+                    <LogoTextStyle>수프트</LogoTextStyle>
+                    <FontedMiddleText>환영합니다, {name} 님</FontedMiddleText>
+                </HeaderTextStyle>
                 <MainMenu/>
             </PCWrapperStyle>
 
             <MobileWrapperStyle>
-                <LogoTextStyle>수프트</LogoTextStyle>
+                <HeaderTextStyle>
+                    <LogoTextStyle>수프트</LogoTextStyle>
+                    <FontedMiddleText>환영합니다, {name} 님</FontedMiddleText>
+                </HeaderTextStyle>
                 <MobileMainMenu/>
             </MobileWrapperStyle>
         </MainLayout>
