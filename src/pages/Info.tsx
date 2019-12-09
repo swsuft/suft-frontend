@@ -35,6 +35,10 @@ const Info: React.FC = () => {
                 <FontAwesomeIcon icon={faStickyNote} size="sm"/> 패치노트
             </H2TitleStyle>
 
+            <InfoNoticeBox year={2019} month={12} day={9}>
+                모바일에서 문제 풀이를 할 수 없던 오류를 수정하였어요.
+            </InfoNoticeBox>
+
             <InfoNoticeBox year={2019} month={12} day={8}>
                 메인 페이지 디자인이 변경되었어요.
             </InfoNoticeBox>
