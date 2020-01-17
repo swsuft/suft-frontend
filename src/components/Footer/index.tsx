@@ -64,9 +64,6 @@ const Footer: React.FC = () => {
                         <NoStyleA href="mailto://admin@skylightqp.kr">
                             <TextRightStyle>문의</TextRightStyle>
                         </NoStyleA>
-                        <NoStyleLink to="/info">
-                            <TextRightStyle>소개</TextRightStyle>
-                        </NoStyleLink>
                         <NoStyleA href="https://github.com/swsuft/suft-frontend" target="_blank" rel="noopener noreferrer">
                             <TextRightStyle><FontAwesomeIcon icon={faGithub}/> GitHub</TextRightStyle>
                         </NoStyleA>

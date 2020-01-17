@@ -65,13 +65,6 @@ const MainMenu: React.FC = () => {
                 </CardListStyle>
 
                 <CardListStyle>
-                    <NoStyleLink to="/info">
-                        <Card width="150px" height="150px" isButton>
-                            <FontAwesomeIcon icon={faInfo} size="2x"/>
-                            <CardText>소개</CardText>
-                        </Card>
-                    </NoStyleLink>
-
                     <NoStyleA href="https://www.facebook.com/swsuft" target="_blank" rel="noreferrer noopener">
                         <Card width="150px" height="150px" isButton>
                             <FontAwesomeIcon icon={faFacebook} size="2x"/>

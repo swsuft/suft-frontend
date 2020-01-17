@@ -9,7 +9,6 @@ import Cbt from './pages/Cbt';
 import RegisterPage from './pages/RegisterPage';
 import Admin from './pages/Admin';
 import AdminEdit from './pages/Admin/AdminEdit';
-import Info from './pages/Info';
 import Privacy from './pages/Privacy';
 import BasicSubject from './pages/Subjects/BasicSubject';
 import MajorSubject from './pages/Subjects/MajorSubject';
@@ -29,7 +28,6 @@ const index = (
                 <Route exact path="/admin" component={Admin}/>
                 <Route exact path="/admin/edit/:id" component={AdminEdit}/>
                 <Route exact path="/register" component={RegisterPage}/>
-                <Route exact path="/info" component={Info}/>
                 <Route exact path="/privacy" component={Privacy}/>
             </ProfileProvider>
         </Switch>
