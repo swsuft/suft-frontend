@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import Footer from '../components/Footer';
-import Background from '../utils/Background';
 import AdminSideBar from '../components/Admin/SideBar';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import { AdminMenuStatusType } from '../constants/AdminMenuStatus';
@@ -49,7 +48,6 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, setNowMenu }) => {
                 </AdminWrapStyle>
 
                 <Footer/>
-                <Background color="#f1f2f6"/>
             </AdminStyle>
         );
     }
@@ -67,7 +65,6 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, setNowMenu }) => {
             </CenterContainer>
 
             <Footer/>
-            <Background color="#f1f2f6"/>
         </AdminStyle>
     );
 };

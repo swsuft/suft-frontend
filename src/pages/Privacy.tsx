@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Footer from '../components/Footer';
-import Background from '../utils/Background';
 
 const WrapperStyle = styled.div`
     display: flex;
@@ -72,7 +71,6 @@ const Privacy: React.FC = () => {
                 <p>개인정보처리시스템에 접속한 기록을 최소 6개월 이상 보관, 관리하고 있으며, 접속 기록이 위변조 및 도난, 분실되지 않도록 보안기능 사용하고 있습니다.</p>
             </ContentsStyle>
             <Footer/>
-            <Background color="#f1f2f6"/>
         </WrapperStyle>
     );
 };

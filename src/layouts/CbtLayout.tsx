@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Footer from '../components/Footer';
-import Background from '../utils/Background';
 
 const CbtWrapStyle = styled.div`
     display: flex;
@@ -19,7 +18,6 @@ const CbtLayout: React.FC = ({ children }) => {
             <CbtContentsStyle>{children}</CbtContentsStyle>
 
             <Footer />
-            <Background color="#f1f2f6" />
         </CbtWrapStyle>
     );
 };
