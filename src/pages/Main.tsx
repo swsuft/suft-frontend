@@ -5,7 +5,7 @@ import { useProfile } from '../hooks/useProfile';
 import MainMenu from '../components/MainMenu';
 import Login from '../components/Login';
 import MobileMainMenu from '../components/MainMenu/Mobile';
-import FontedMiddleText from '../atoms/Typography/FontedMiddleText';
+import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
 
 const LogoTextStyle = styled.p`
     font-family: 'Gugi';

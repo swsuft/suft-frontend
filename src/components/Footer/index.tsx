@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import Container from '../../utils/ContainerUtils/Container';
 import GetToken from '../../utils/GetToken';
-import NoStyleLink from '../../atoms/NoStyleLink';
-import NoStyleA from '../../atoms/NoStyleA';
+import NoStyleLink from '../../atomics/NoStyleLink';
+import NoStyleA from '../../atomics/NoStyleA';
 
 const FooterWrapStyle = styled.div`
     display: flex;

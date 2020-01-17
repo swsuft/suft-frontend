@@ -5,7 +5,7 @@ import config from '../../constants/config';
 import LoginButton from './LoginButton';
 import LoginHeaderText from './LoginHeaderText';
 import LoginFooterText from './LoginFooterText';
-import LableText from '../../atoms/Typography/LableText';
+import LableText from '../../atomics/Typography/LableText';
 
 const MenuLoginWrapStyle = styled.div`
     margin: 32px auto;

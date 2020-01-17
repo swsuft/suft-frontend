@@ -7,8 +7,8 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import config from '../constants/config';
 import CbtLayout from '../layouts/CbtLayout';
 import Container from '../utils/ContainerUtils/Container';
-import FontedTitle from '../atoms/Typography/FontedTitle';
-import FontedMiddleText from '../atoms/Typography/FontedMiddleText';
+import FontedTitle from '../atomics/Typography/FontedTitle';
+import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
 
 const InputStyle = styled.input`
     border: none;

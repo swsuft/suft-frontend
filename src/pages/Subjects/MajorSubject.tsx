@@ -5,11 +5,11 @@ import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import CbtLayout from '../../layouts/CbtLayout';
 import Container from '../../utils/ContainerUtils/Container';
-import FontedTitle from '../../atoms/Typography/FontedTitle';
-import FontedMiddleText from '../../atoms/Typography/FontedMiddleText';
+import FontedTitle from '../../atomics/Typography/FontedTitle';
+import FontedMiddleText from '../../atomics/Typography/FontedMiddleText';
 import GradeOption from '../../components/SelectOptions/GradeOption';
 import TimesOption from '../../components/SelectOptions/TimesOption';
-import LableText from '../../atoms/Typography/LableText';
+import LableText from '../../atomics/Typography/LableText';
 import GetToken from '../../utils/GetToken';
 import MajorSubjectOption from '../../components/SelectOptions/SubjectOption/MajorSubjectOption';
 

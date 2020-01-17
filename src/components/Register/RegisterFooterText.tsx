@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import ExternalComponentLink from '../../atoms/Login/ExternalComponentLink';
+import ExternalComponentLink from '../../atomics/Login/ExternalComponentLink';
 
 const EtcTextStyle = styled.p`
     font-size: 16px;

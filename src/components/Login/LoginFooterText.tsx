@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ExternalComponentLink from '../../atoms/Login/ExternalComponentLink';
+import ExternalComponentLink from '../../atomics/Login/ExternalComponentLink';
 import MobileLineBreak from '../../utils/MobileLineBreak';
 
 const EtcTextStyle = styled.p`

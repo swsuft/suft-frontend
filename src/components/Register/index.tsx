@@ -6,7 +6,7 @@ import config from '../../constants/config';
 import RegisterHeaderText from './RegisterHeaderText';
 import RegisterButton from './RegisterButton';
 import RegisterFooterText from './RegisterFooterText';
-import LableText from '../../atoms/Typography/LableText';
+import LableText from '../../atomics/Typography/LableText';
 
 const InputStyle = styled.input`
     border: none;
