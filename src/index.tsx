@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import './css/color.css';
 import { ProfileProvider } from './hooks/useProfile';
 import { MealProvider } from './hooks/useMeal';
 import Main from './pages/Main';
@@ -13,8 +14,6 @@ import Privacy from './pages/Privacy';
 import BasicSubject from './pages/Subjects/BasicSubject';
 import MajorSubject from './pages/Subjects/MajorSubject';
 import Rank from './pages/Rank';
-
-import './css/color.css';
 
 const index = (
     <BrowserRouter>
