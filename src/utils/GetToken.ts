@@ -1,5 +1,5 @@
 import axios from 'axios';
-import config from '../constants/config';
+import config from '../config';
 
 const GetToken = () => {
     if (localStorage.getItem('token') === null) {

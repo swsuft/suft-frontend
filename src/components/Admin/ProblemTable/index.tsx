@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import axios from 'axios';
-import config from '../../../constants/config';
+import config from '../../../config';
 import SubjectToString from '../../../utils/SubjectToString';
 import useSelect from '../../../hooks/useSelect';
 

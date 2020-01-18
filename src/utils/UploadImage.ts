@@ -1,5 +1,5 @@
 import axios from 'axios';
-import config from '../constants/config';
+import config from '../config';
 
 const uploadImageCallback = (file: any): Promise<object> => {
     return new Promise((resolve, reject) => {

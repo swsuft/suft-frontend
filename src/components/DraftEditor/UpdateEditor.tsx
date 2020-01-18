@@ -9,7 +9,7 @@ import draftToHtml from 'draftjs-to-html';
 // @ts-ignore
 import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import config from '../../constants/config';
+import config from '../../config';
 import BasicSubjectOption from '../SelectOptions/SubjectOption/BasicSubjectOption';
 import MajorSubjectOption from '../SelectOptions/SubjectOption/MajorSubjectOption';
 import GradeOption from '../SelectOptions/GradeOption';

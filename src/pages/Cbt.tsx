@@ -4,7 +4,7 @@ import axios from 'axios';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import config from '../constants/config';
+import config from '../config';
 import CbtLayout from '../layouts/CbtLayout';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';

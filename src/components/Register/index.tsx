@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
-import config from '../../constants/config';
+import config from '../../config';
 import RegisterHeaderText from './RegisterHeaderText';
 import RegisterButton from './RegisterButton';
 import RegisterFooterText from './RegisterFooterText';

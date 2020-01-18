@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import config from '../../constants/config';
+import config from '../../config';
 import LoginButton from './LoginButton';
 import LoginHeaderText from './LoginHeaderText';
 import LoginFooterText from './LoginFooterText';

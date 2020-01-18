@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import config from '../../constants/config';
+import config from '../../config';
 
 const LogoutTextStyle = styled.div`
     font-size: 16px;
