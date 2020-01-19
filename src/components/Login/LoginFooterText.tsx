@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ExternalComponentLink from '../../atomics/Login/ExternalComponentLink';
-import MobileLineBreak from '../../utils/MobileLineBreak';
+import MobileLineBreak from '../../atomics/MobileLineBreak/MobileLineBreak';
 
 const EtcTextStyle = styled.p`
     font-size: 16px;
