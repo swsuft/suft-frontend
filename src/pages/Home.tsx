@@ -27,7 +27,7 @@ const HeaderTextStyle = styled.div`
     }
 `;
 
-const Main: React.FC = () => {
+const Home: React.FC = () => {
     const profile = useProfile();
 
     if (profile !== undefined && !profile.success) {
@@ -56,4 +56,4 @@ const Main: React.FC = () => {
     );
 };
 
-export default Main;
+export default Home;

@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './css/color.css';
 import { ProfileProvider } from './hooks/useProfile';
 import { MealProvider } from './hooks/useMeal';
-import Main from './pages/Main';
+import Home from './pages/Home';
 import Cbt from './pages/Cbt';
 import RegisterPage from './pages/RegisterPage';
 import Admin from './pages/Admin';
@@ -18,15 +18,15 @@ const index = (
         <Switch>
             <ProfileProvider>
                 <MealProvider>
-                    <Route exact path="/" component={Main}/>
+                    <Route exact path="/" component={Home} />
                 </MealProvider>
-                <Route exact path="/cbt/:subject/:grade/:times" component={Cbt}/>
-                <Route exact path="/basic" component={BasicSubject}/>
-                <Route exact path="/major" component={MajorSubject}/>
-                <Route exact path="/admin" component={Admin}/>
-                <Route exact path="/admin/edit/:id" component={AdminEdit}/>
-                <Route exact path="/register" component={RegisterPage}/>
-                <Route exact path="/privacy" component={Privacy}/>
+                <Route exact path="/cbt/:subject/:grade/:times" component={Cbt} />
+                <Route exact path="/basic" component={BasicSubject} />
+                <Route exact path="/major" component={MajorSubject} />
+                <Route exact path="/admin" component={Admin} />
+                <Route exact path="/admin/edit/:id" component={AdminEdit} />
+                <Route exact path="/register" component={RegisterPage} />
+                <Route exact path="/privacy" component={Privacy} />
             </ProfileProvider>
         </Switch>
     </BrowserRouter>
