@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ExternalComponentLink from '../../atomics/Login/ExternalComponentLink';
-import MobileLineBreak from '../../atomics/MobileLineBreak/MobileLineBreak';
+import MobileLineBreak from '../../atomics/MobileLineBreak';
 
 const EtcTextStyle = styled.p`
     font-size: 16px;
@@ -10,7 +10,7 @@ const EtcTextStyle = styled.p`
 
 const LoginFooterText: React.FC = () => (
     <EtcTextStyle>
-        로그인을 하여 모든 서비스를 이용하거나 <MobileLineBreak/>
+        로그인을 하여 모든 서비스를 이용하거나 <MobileLineBreak />
         <ExternalComponentLink to="/register">회원가입 하기</ExternalComponentLink>
     </EtcTextStyle>
 );
