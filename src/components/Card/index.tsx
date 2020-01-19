@@ -2,12 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const CardStyle = styled.div`
-    width: 26rem;
+    width: 28rem;
     height: 10rem;
     background-color: white;
     padding: 1rem;
     margin-right: 1rem;
     margin-bottom: 1rem;
+    
+    transition: all 0.1s ease-in-out;
     
     &:hover {
         box-shadow: 5px 5px 1px var(--color-yellow);
