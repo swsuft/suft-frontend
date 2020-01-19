@@ -2,18 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 
 const CardStyle = styled.div`
-    width: 400px;
+    width: 420px;
     height: 160px;
     background-color: white;
+    padding: 1rem;
+
+    &:hover {
+        box-shadow: 5px 5px 1px var(--color-yellow);
+        cursor: pointer;
+    }
 `;
 
-const Card: React.FC = () => {
-    return (
-        <CardStyle>
-            <h2>일반과목 문제 풀기</h2>
-            <p>어쩌구 설명 그런데 그래서 그렇게</p>
-        </CardStyle>
-    );
+const Card: React.FC = ({ children }) => {
+    return <CardStyle>{children}</CardStyle>;
 };
 
 export default Card;
