@@ -7,6 +7,6 @@ const TextStyle = styled.p`
     margin-bottom: 4px;
     color: var(--color-gray-text);
 `;
-const LableText: React.FC = ({ children }) => <TextStyle>{children}</TextStyle>;
+const LabelText: React.FC = ({ children }) => <TextStyle>{children}</TextStyle>;
 
-export default LableText;
+export default LabelText;

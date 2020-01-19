@@ -6,7 +6,7 @@ import config from '../../config';
 import RegisterHeaderText from './RegisterHeaderText';
 import RegisterButton from './RegisterButton';
 import RegisterFooterText from './RegisterFooterText';
-import LableText from '../../atomics/Typography/LableText';
+import LabelText from '../../atomics/Typography/LabelText';
 
 const InputStyle = styled.input`
     border: none;
@@ -84,19 +84,19 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
             <RegisterHeaderText/>
 
             <RegisterWrapperStyle>
-                <LableText>이메일</LableText>
+                <LabelText>이메일</LabelText>
                 <InputStyle value={email} type="email" placeholder="사용할 이메일을 입력해주세요." onChange={(evt) => setEmail(evt.target.value)}/>
 
-                <LableText>
+                <LabelText>
                     비밀번호 (최소 6글자 이상, 영문자, 숫자, 특수문자 포함)
-                </LableText>
+                </LabelText>
                 <InputStyle value={password} type="password" placeholder="조건에 맞는 비밀번호를 입력해주세요." onChange={(evt) => setPassword(evt.target.value)}/>
                 <InputStyle value={rePassword} type="password" placeholder="확인을 위해 한 번 더 비밀번호를 입력해주세요." onChange={(evt) => setRePassword(evt.target.value)}/>
 
-                <LableText>이름</LableText>
+                <LabelText>이름</LabelText>
                 <InputStyle value={name} type="text" placeholder="자신의 실명을 입력해주세요." onChange={(evt) => setName(evt.target.value)}/>
 
-                <LableText>학년</LableText>
+                <LabelText>학년</LabelText>
                 <SelectStyle value={grade} onChange={onSelectChange}>
                     <option value="1">1학년</option>
                     <option value="2">2학년</option>

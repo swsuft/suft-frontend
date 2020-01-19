@@ -10,7 +10,7 @@ import FontedMiddleText from '../../atomics/Typography/FontedMiddleText';
 import BasicSubjectOption from '../../components/SelectOptions/SubjectOption/BasicSubjectOption';
 import GradeOption from '../../components/SelectOptions/GradeOption';
 import TimesOption from '../../components/SelectOptions/TimesOption';
-import LableText from '../../atomics/Typography/LableText';
+import LabelText from '../../atomics/Typography/LabelText';
 import GetToken from '../../utils/GetToken';
 
 const SelectStyle = styled.select`
@@ -82,19 +82,19 @@ const BasicSubject: React.FC<RouteComponentProps> = ({ history }) => {
                 <FontedMiddleText>※ 자격증은 학년, 학기를 기타 카테고리로 선택하여 풀 수 있습니다.</FontedMiddleText>
 
                 <BodyStyle>
-                    <LableText>학년</LableText>
+                    <LabelText>학년</LabelText>
                     <SelectStyle value={grade} onChange={(e) => setGrade(e.target.value)}>
                         <option value="">학년을 선택해주세요.</option>
                         <GradeOption/>
                     </SelectStyle>
 
-                    <LableText>과목</LableText>
+                    <LabelText>과목</LabelText>
                     <SelectStyle value={subject} onChange={(e) => setSubject(e.target.value)}>
                         <option value="">과목을 선택해주세요.</option>
                         <BasicSubjectOption/>
                     </SelectStyle>
 
-                    <LableText>학기</LableText>
+                    <LabelText>학기</LabelText>
                     <SelectStyle value={times} onChange={(e) => setTimes(e.target.value)}>
                         <option value="">학기를 선택해주세요.</option>
                         <TimesOption/>

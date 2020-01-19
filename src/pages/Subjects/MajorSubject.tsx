@@ -9,7 +9,7 @@ import FontedTitle from '../../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../../atomics/Typography/FontedMiddleText';
 import GradeOption from '../../components/SelectOptions/GradeOption';
 import TimesOption from '../../components/SelectOptions/TimesOption';
-import LableText from '../../atomics/Typography/LableText';
+import LabelText from '../../atomics/Typography/LabelText';
 import GetToken from '../../utils/GetToken';
 import MajorSubjectOption from '../../components/SelectOptions/SubjectOption/MajorSubjectOption';
 
@@ -82,19 +82,19 @@ const MajorSubject: React.FC<RouteComponentProps> = ({ history }) => {
                 <FontedMiddleText>※ 정보처리와 관리는 교양과목으로 “일반과목CBT”로 시작할 수 있습니다.</FontedMiddleText>
 
                 <BodyStyle>
-                    <LableText>학년</LableText>
+                    <LabelText>학년</LabelText>
                     <SelectStyle value={grade} onChange={(e) => setGrade(e.target.value)}>
                         <option value="">학년을 선택해주세요.</option>
                         <GradeOption/>
                     </SelectStyle>
 
-                    <LableText>과목</LableText>
+                    <LabelText>과목</LabelText>
                     <SelectStyle value={subject} onChange={(e) => setSubject(e.target.value)}>
                         <option value="">과목을 선택해주세요.</option>
                         <MajorSubjectOption/>
                     </SelectStyle>
 
-                    <LableText>학기</LableText>
+                    <LabelText>학기</LabelText>
                     <SelectStyle value={times} onChange={(e) => setTimes(e.target.value)}>
                         <option value="">학기를 선택해주세요.</option>
                         <TimesOption/>

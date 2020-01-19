@@ -5,7 +5,7 @@ import config from '../../config';
 import LoginButton from './LoginButton';
 import LoginHeaderText from './LoginHeaderText';
 import LoginFooterText from './LoginFooterText';
-import LableText from '../../atomics/Typography/LableText';
+import LabelText from '../../atomics/Typography/LabelText';
 
 const MenuLoginWrapStyle = styled.div`
     margin: 32px auto;
@@ -66,7 +66,7 @@ const Login: React.FC = () => {
             <LoginHeaderText/>
 
             <MenuLoginWrapStyle>
-                <LableText>이메일</LableText>
+                <LabelText>이메일</LabelText>
                 <InputStyle
                   value={email}
                   type="email"
@@ -75,7 +75,7 @@ const Login: React.FC = () => {
                   onKeyPress={onEnterKeyPress}
                 />
 
-                <LableText>비밀번호</LableText>
+                <LabelText>비밀번호</LabelText>
                 <InputStyle
                   value={password}
                   type="password"
