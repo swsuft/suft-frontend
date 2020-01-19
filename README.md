@@ -1,4 +1,4 @@
-# suft-frontend ![GitHub top language](https://img.shields.io/github/languages/top/swsuft/suft-frontend?style=flat-square) ![GitHub](https://img.shields.io/github/license/swsuft/suft-frontend?style=flat-square) ![GitHub stars](https://img.shields.io/github/stars/swsuft/suft-frontend?style=social)
+# suft-frontend ![GitHub top language](https://img.shields.io/github/languages/top/swsuft/suft-frontend?style=flat-square) ![GitHub](https://img.shields.io/github/license/swsuft/suft-frontend?style=flat-square) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) ![GitHub stars](https://img.shields.io/github/stars/swsuft/suft-frontend?style=social)
 
 ![Suft login page](./loginpage.PNG)
 
@@ -14,12 +14,6 @@
 ### 빌드하기
 `npm run build` (으로) production build를 합니다.
 
-## Tech Stack
-수프트(frontend)는 아래의 기술을 이용하여 제작되었습니다.
-- TypeScript
-- React
-- React Hooks
-
 ## TODO
 - [ ] CI/CD 적용
 - [ ] 문제 출제 권한 공개하기
@@ -33,3 +27,6 @@
 
 ## 라이센스
 `GNU General Public License v3.0`
+
+### Resources
+Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](https://www.flaticon.com/)
