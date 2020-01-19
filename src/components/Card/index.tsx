@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const CardStyle = styled.div`
-    width: 420px;
-    height: 160px;
+    width: 26rem;
+    height: 10rem;
     background-color: white;
     padding: 1rem;
 
