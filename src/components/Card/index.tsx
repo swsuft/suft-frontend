@@ -6,10 +6,18 @@ const CardStyle = styled.div`
     height: 10rem;
     background-color: white;
     padding: 1rem;
-
+    margin-right: 0.4rem;
+    margin-bottom: 0.4rem;
+    
     &:hover {
         box-shadow: 5px 5px 1px var(--color-yellow);
         cursor: pointer;
+    }
+    
+    @media screen and (max-width: 1000px) {
+        width: 18rem;
+        height: 8rem;
+        margin-right: 0;
     }
 `;
 

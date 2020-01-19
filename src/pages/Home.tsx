@@ -11,15 +11,23 @@ import Container from '../utils/ContainerUtils/Container';
 const LogoTextStyle = styled.p`
     font-family: 'Gugi';
     font-size: 50px;
-    text-align: left;
 `;
 
 const HeaderTextStyle = styled.div`
     margin-bottom: 30px;
+    
+    @media screen and (max-width: 1000px) {
+        text-align: center;
+    }
 `;
 
 const WrapperStyle = styled.div`
     margin-top: 2rem;
+
+    @media screen and (max-width: 1000px) {
+        display: flex;
+        justify-content: center;
+    }
 `;
 
 const Home: React.FC = () => {
@@ -41,12 +49,17 @@ const Home: React.FC = () => {
         <MainLayout>
             <Container>
                 <WrapperStyle>
-                    <HeaderTextStyle>
-                        <LogoTextStyle>수프트</LogoTextStyle>
-                        <FontedMiddleText>환영합니다, {name} 님</FontedMiddleText>
-                    </HeaderTextStyle>
+                    <div>
+                        <HeaderTextStyle>
+                            <LogoTextStyle>수프트</LogoTextStyle>
+                            <FontedMiddleText>환영합니다, {name} 님</FontedMiddleText>
+                        </HeaderTextStyle>
 
-                    <Card />
+                        <Card>
+                            <h2>제목</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dignissim tincidunt tristique.</p>
+                        </Card>
+                    </div>
                 </WrapperStyle>
             </Container>
         </MainLayout>
