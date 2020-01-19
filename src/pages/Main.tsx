@@ -2,40 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import MainLayout from '../layouts/MainLayout';
 import { useProfile } from '../hooks/useProfile';
-import MainMenu from '../components/MainMenu';
 import Login from '../components/Login';
-import MobileMainMenu from '../components/MainMenu/Mobile';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
+import Card from '../components/Card';
+import CenterContainer from '../utils/ContainerUtils/CenterContainer';
+import Container from '../utils/ContainerUtils/Container';
 
 const LogoTextStyle = styled.p`
     font-family: 'Gugi';
     font-size: 50px;
     text-align: left;
-    
+
     @media screen and (max-width: 900px) {
         text-align: center;
     }
 `;
 
-const PCWrapperStyle = styled.div`
-    margin-left: 120px;
-
-    @media screen and (max-width: 900px) {
-        display: none;
-    }    
-`;
-
-const MobileWrapperStyle = styled.div`
-    display: none;
-    
-    @media screen and (max-width: 900px) {
-        display: block;
-    }
-`;
-
 const HeaderTextStyle = styled.div`
     margin-bottom: 30px;
-    
+
     @media screen and (max-width: 900px) {
         margin-top: 30px;
         text-align: center;
@@ -48,7 +33,9 @@ const Main: React.FC = () => {
     if (profile !== undefined && !profile.success) {
         return (
             <MainLayout>
-                <Login/>
+                <CenterContainer>
+                    <Login />
+                </CenterContainer>
             </MainLayout>
         );
     }
@@ -57,21 +44,14 @@ const Main: React.FC = () => {
 
     return (
         <MainLayout>
-            <PCWrapperStyle>
+            <Container>
                 <HeaderTextStyle>
                     <LogoTextStyle>수프트</LogoTextStyle>
                     <FontedMiddleText>환영합니다, {name} 님</FontedMiddleText>
                 </HeaderTextStyle>
-                <MainMenu/>
-            </PCWrapperStyle>
 
-            <MobileWrapperStyle>
-                <HeaderTextStyle>
-                    <LogoTextStyle>수프트</LogoTextStyle>
-                    <FontedMiddleText>환영합니다, {name} 님</FontedMiddleText>
-                </HeaderTextStyle>
-                <MobileMainMenu/>
-            </MobileWrapperStyle>
+                <Card />
+            </Container>
         </MainLayout>
     );
 };

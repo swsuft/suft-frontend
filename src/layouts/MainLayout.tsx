@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Footer from '../components/Footer';
-import Container from '../utils/ContainerUtils/Container';
 
 const WrapperStyle = styled.div`
     display: flex;
@@ -11,15 +10,12 @@ const WrapperStyle = styled.div`
 
 const BodyStyle = styled.div`
     flex: 1;
-    margin-top: 2rem;
 `;
 
 const MainLayout: React.FC = ({ children }) => {
     return (
         <WrapperStyle>
-            <BodyStyle>
-                <Container>{children}</Container>
-            </BodyStyle>
+            <BodyStyle>{children}</BodyStyle>
 
             <Footer />
         </WrapperStyle>
