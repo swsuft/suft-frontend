@@ -12,19 +12,14 @@ const LogoTextStyle = styled.p`
     font-family: 'Gugi';
     font-size: 50px;
     text-align: left;
-
-    @media screen and (max-width: 900px) {
-        text-align: center;
-    }
 `;
 
 const HeaderTextStyle = styled.div`
     margin-bottom: 30px;
+`;
 
-    @media screen and (max-width: 900px) {
-        margin-top: 30px;
-        text-align: center;
-    }
+const WrapperStyle = styled.div`
+    margin-top: 2rem;
 `;
 
 const Home: React.FC = () => {
@@ -45,12 +40,14 @@ const Home: React.FC = () => {
     return (
         <MainLayout>
             <Container>
-                <HeaderTextStyle>
-                    <LogoTextStyle>수프트</LogoTextStyle>
-                    <FontedMiddleText>환영합니다, {name} 님</FontedMiddleText>
-                </HeaderTextStyle>
+                <WrapperStyle>
+                    <HeaderTextStyle>
+                        <LogoTextStyle>수프트</LogoTextStyle>
+                        <FontedMiddleText>환영합니다, {name} 님</FontedMiddleText>
+                    </HeaderTextStyle>
 
-                <Card />
+                    <Card />
+                </WrapperStyle>
             </Container>
         </MainLayout>
     );
