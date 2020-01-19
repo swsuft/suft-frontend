@@ -6,16 +6,16 @@ const ContainerStyle = styled.div`
     position: relative;
     width: auto;
 
-    @media screen and (min-width: 1024px) {
-        max-width: 640px;
+    @media screen and (min-width: 0px) {
+        max-width: 500px;
     }
 
-    @media screen and (min-width: 1216px) {
-        max-width: 840px;
+    @media screen and (min-width: 1000px) {
+        max-width: 960px;
     }
 
-    @media screen and (min-width: 1408px) {
-        max-width: 1100px;
+    @media screen and (min-width: 1400px) {
+        max-width: 1250px;
     }
 `;
 
