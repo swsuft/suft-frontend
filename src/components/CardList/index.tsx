@@ -4,6 +4,8 @@ import Card from '../Card';
 import CardTitle from '../../atomics/Typography/CardTitle';
 import OpenBook from '../../atomics/icons/Book';
 import Podium from '../../atomics/icons/Podium';
+import Test from '../../atomics/icons/Test';
+import Settings from '../../atomics/icons/Settings';
 
 const Container = styled.div`
     display: flex;
@@ -14,25 +16,15 @@ const Container = styled.div`
     }
 `;
 
-const BookIconWrapperStyle = styled.div`
+const IconWrapperStyle = styled.div<{ pcMargin: string; mobileMargin: string }>`
     display: flex;
     flex-direction: row-reverse;
     opacity: 0.5;
-    margin-top: 1rem;
+    margin-top: ${(props) => props.pcMargin}rem;
+    z-index: -10;
 
     @media screen and (max-width: 1000px) {
-        margin-top: -2.5rem;
-    }
-`;
-
-const PodiumIconWrapperStyle = styled.div`
-    display: flex;
-    flex-direction: row-reverse;
-    opacity: 0.5;
-    margin-top: 0.8rem;
-
-    @media screen and (max-width: 1000px) {
-        margin-top: -1.2rem;
+        margin-top: ${(props) => props.mobileMargin}rem;
     }
 `;
 
@@ -42,28 +34,33 @@ const CardList: React.FC = () => {
             <Card>
                 <CardTitle>문제풀이 시작하기</CardTitle>
                 <p>국어, 수학 같은 일반과목 또는 전공과목 문제를 풉니다.</p>
-                <BookIconWrapperStyle>
+                <IconWrapperStyle pcMargin="1" mobileMargin="-2.5">
                     <OpenBook size="6rem" />
-                </BookIconWrapperStyle>
+                </IconWrapperStyle>
             </Card>
 
             <Card>
                 <CardTitle>기여도</CardTitle>
                 <p>문제 출제에 기여한 순위를 봅니다.</p>
-                <PodiumIconWrapperStyle>
+                <IconWrapperStyle pcMargin="0.8" mobileMargin="-1.2">
                     <Podium size="6rem" />
-                </PodiumIconWrapperStyle>
+                </IconWrapperStyle>
             </Card>
 
             <Card>
-                <CardTitle>제목</CardTitle>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dignissim tincidunt tristique.</p>
-
+                <CardTitle>내 문제</CardTitle>
+                <p>새로운 문제를 출제하거나 기존 문제를 관리합니다.</p>
+                <IconWrapperStyle pcMargin="0.8" mobileMargin="-2.7">
+                    <Test size="6rem" />
+                </IconWrapperStyle>
             </Card>
 
             <Card>
-                <CardTitle>제목</CardTitle>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dignissim tincidunt tristique.</p>
+                <CardTitle>내 정보</CardTitle>
+                <p>계정에 관련된 내용을 보거나 설정합니다.</p>
+                <IconWrapperStyle pcMargin="0.8" mobileMargin="-1.2">
+                    <Settings size="6rem" />
+                </IconWrapperStyle>
             </Card>
         </Container>
     );
