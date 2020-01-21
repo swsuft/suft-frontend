@@ -76,7 +76,7 @@ const Subject: React.FC<RouteComponentProps> = ({ history }) => {
     return (
         <CbtLayout>
             <Container>
-                <FontedTitle>일반과목 CBT 시작하기</FontedTitle>
+                <FontedTitle>문제풀이 시작하기</FontedTitle>
                 <FontedMiddleText>※ 자격증은 학년, 학기를 기타 카테고리로 선택하여 풀 수 있습니다.</FontedMiddleText>
 
                 <BodyStyle>
