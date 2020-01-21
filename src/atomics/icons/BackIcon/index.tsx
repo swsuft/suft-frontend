@@ -16,8 +16,8 @@ interface BackProps {
     readonly onClick?: React.MouseEventHandler;
 }
 
-const Back: React.FC<BackProps> = ({ onClick }) => {
+const BackIcon: React.FC<BackProps> = ({ onClick }) => {
     return <BackStyle icon={faTimes} onClick={onClick} />;
 };
 
-export default Back;
+export default BackIcon;

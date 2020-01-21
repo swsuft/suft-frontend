@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import Modal from 'react-modal';
-import Back from '../../../atomics/icons/Back';
+import BackIcon from '../../../atomics/icons/BackIcon';
 import FontedMiddleText from '../../../atomics/Typography/FontedMiddleText';
 
 const BackContainer = styled.div`
@@ -37,7 +37,7 @@ const LicenseModal: React.FC<LicenseModalProps> = ({ state }) => {
             }}
         >
             <BackContainer>
-                <Back onClick={onCloseModal}/>
+                <BackIcon onClick={onCloseModal}/>
             </BackContainer>
 
             <FontedMiddleText>라이센스</FontedMiddleText>

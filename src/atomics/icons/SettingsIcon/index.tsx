@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as SettingsIcon } from '../../../assets/icons/settings.svg';
+import { ReactComponent as SettingsRes } from '../../../assets/icons/settings.svg';
 
-const SettingsStyle = styled(SettingsIcon)<{ size: string }>`
+const SettingsStyle = styled(SettingsRes)<{ size: string }>`
     width: ${(props) => props.size};
     height: ${(props) => props.size};
 `;
@@ -11,8 +11,8 @@ interface SettingsProps {
     readonly size: string;
 }
 
-const Settings: React.FC<SettingsProps> = ({ size }) => {
+const SettingsIcon: React.FC<SettingsProps> = ({ size }) => {
     return <SettingsStyle size={size} />;
 };
 
-export default Settings;
+export default SettingsIcon;
