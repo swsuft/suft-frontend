@@ -6,6 +6,7 @@ import OpenBook from '../../atomics/icons/Book';
 import Podium from '../../atomics/icons/Podium';
 import Test from '../../atomics/icons/Test';
 import Settings from '../../atomics/icons/Settings';
+import NoStyleLink from '../../atomics/NoStyleLink';
 
 const Container = styled.div`
     display: flex;
@@ -32,11 +33,13 @@ const CardList: React.FC = () => {
     return (
         <Container>
             <Card>
-                <CardTitle>문제풀이 시작하기</CardTitle>
-                <p>국어, 수학 같은 일반과목 또는 전공과목 문제를 풉니다.</p>
-                <IconWrapperStyle pcMargin="1" mobileMargin="-2.5">
-                    <OpenBook size="6rem" />
-                </IconWrapperStyle>
+                <NoStyleLink to="/subject">
+                    <CardTitle>문제풀이 시작하기</CardTitle>
+                    <p>국어, 수학 같은 일반과목 또는 전공과목 문제를 풉니다.</p>
+                    <IconWrapperStyle pcMargin="1" mobileMargin="-2.5">
+                        <OpenBook size="6rem" />
+                    </IconWrapperStyle>
+                </NoStyleLink>
             </Card>
 
             <Card>
