@@ -23,8 +23,12 @@ const CardStyle = styled.div`
     }
 `;
 
-const Card: React.FC = ({ children }) => {
-    return <CardStyle>{children}</CardStyle>;
+interface CardProps {
+    readonly onClick?: React.MouseEventHandler;
+}
+
+const Card: React.FC<CardProps> = ({ onClick, children }) => {
+    return <CardStyle onClick={onClick}>{children}</CardStyle>;
 };
 
 export default Card;
