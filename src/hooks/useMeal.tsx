@@ -9,7 +9,11 @@ export const MealProvider: React.FC = ({ children }) => {
 
     useEffect(() => {
         axios
-            .get(`${config.ENDPOINT}/meal`)
+            .get(`${config.ENDPOINT}/meal`, {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('token')}`
+                }
+            })
             .then((raw: any) => {
                 setMeal([raw.data.today, raw.data.tomorrow]);
             })

@@ -10,7 +10,6 @@ import FontedMiddleText from '../../atomics/Typography/FontedMiddleText';
 import GradeOption from '../../components/SelectOptions/GradeOption';
 import TimesOption from '../../components/SelectOptions/TimesOption';
 import LabelText from '../../atomics/Typography/LabelText';
-import GetToken from '../../utils/GetToken';
 import MajorSubjectOption from '../../components/SelectOptions/SubjectOption/MajorSubjectOption';
 
 const SelectStyle = styled.select`
@@ -54,7 +53,7 @@ const IconStyle = styled(FontAwesomeIcon)`
     right: 0;
     bottom: 0;
     transform: rotate(-30deg);
-    
+
     @media screen and (max-width: 900px) {
         display: none;
     }
@@ -72,7 +71,6 @@ const MajorSubject: React.FC<RouteComponentProps> = ({ history }) => {
         }
 
         history.push(`/cbt/${subject}/${grade}/${times}`);
-        GetToken();
     };
 
     return (
@@ -85,29 +83,29 @@ const MajorSubject: React.FC<RouteComponentProps> = ({ history }) => {
                     <LabelText>학년</LabelText>
                     <SelectStyle value={grade} onChange={(e) => setGrade(e.target.value)}>
                         <option value="">학년을 선택해주세요.</option>
-                        <GradeOption/>
+                        <GradeOption />
                     </SelectStyle>
 
                     <LabelText>과목</LabelText>
                     <SelectStyle value={subject} onChange={(e) => setSubject(e.target.value)}>
                         <option value="">과목을 선택해주세요.</option>
-                        <MajorSubjectOption/>
+                        <MajorSubjectOption />
                     </SelectStyle>
 
                     <LabelText>학기</LabelText>
                     <SelectStyle value={times} onChange={(e) => setTimes(e.target.value)}>
                         <option value="">학기를 선택해주세요.</option>
-                        <TimesOption/>
+                        <TimesOption />
                     </SelectStyle>
 
                     <div>
                         <ButtonStyle onClick={onStartButtonClick}>
-                            <FontAwesomeIcon icon={faPlayCircle}/> 시작하기
+                            <FontAwesomeIcon icon={faPlayCircle} /> 시작하기
                         </ButtonStyle>
                     </div>
                 </BodyStyle>
 
-                <IconStyle icon={faLaptopCode}/>
+                <IconStyle icon={faLaptopCode} />
             </Container>
         </CbtLayout>
     );

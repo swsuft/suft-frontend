@@ -16,6 +16,7 @@ import GradeOption from '../SelectOptions/GradeOption';
 import TimesOption from '../SelectOptions/TimesOption';
 import uploadImageCallback from '../../utils/UploadImage';
 import ProblemPreview from './ProblemPreview';
+import { useToken } from '../../hooks/useToken';
 
 const EditorStyle = styled.div`
     background: #ffffff;
@@ -64,6 +65,7 @@ interface UpdateEditorProps {
 }
 
 const UpdateEditor: React.FC<RouteComponentProps<{}> & UpdateEditorProps> = ({ id, history }) => {
+    const token = useToken();
     const [editor, setEditor] = useState(EditorState.createEmpty());
     const [answer, setAnswer] = useState('');
     const [author, setAuthor] = useState('');
@@ -100,7 +102,9 @@ const UpdateEditor: React.FC<RouteComponentProps<{}> & UpdateEditorProps> = ({ i
             .catch((err) => {
                 console.log(err);
             });
-    }, [id]);
+
+        token.refreshToken();
+    }, [id, token]);
 
     const updateProblem = () => {
         if (answer === '' || subject === '' || grade === '' || times === '') {
@@ -160,32 +164,54 @@ const UpdateEditor: React.FC<RouteComponentProps<{}> & UpdateEditorProps> = ({ i
             </EditorStyle>
 
             <div>
-                <InputStyle id="answer" value={answer} onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setAnswer(evt.target.value)} placeholder="문제 정답" />
+                <InputStyle
+                  id="answer"
+                  value={answer}
+                  onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setAnswer(evt.target.value)}
+                  placeholder="문제 정답"
+                />
                 &nbsp;
-                <InputStyle id="author" value={author} onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setAuthor(evt.target.value)} placeholder="출제자 (미입력 시 익명으로 등록)" />
+                <InputStyle
+                  id="author"
+                  value={author}
+                  onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setAuthor(evt.target.value)}
+                  placeholder="출제자 (미입력 시 익명으로 등록)"
+                />
             </div>
 
             <div>
-                <SelectStyle id="subject" value={subject} onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setSubject(evt.target.value)}>
+                <SelectStyle
+                  id="subject"
+                  value={subject}
+                  onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setSubject(evt.target.value)}
+                >
                     <option value="">과목</option>
-                    <BasicSubjectOption />
-                    <MajorSubjectOption />
+                    <BasicSubjectOption/>
+                    <MajorSubjectOption/>
                 </SelectStyle>
                 &nbsp;
-                <SelectStyle id="grade" value={grade} onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setGrade(evt.target.value)}>
+                <SelectStyle
+                  id="grade"
+                  value={grade}
+                  onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setGrade(evt.target.value)}
+                >
                     <option value="">학년</option>
-                    <GradeOption />
+                    <GradeOption/>
                 </SelectStyle>
                 &nbsp;
-                <SelectStyle id="times" value={times} onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setTimes(evt.target.value)}>
+                <SelectStyle
+                  id="times"
+                  value={times}
+                  onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setTimes(evt.target.value)}
+                >
                     <option value="">학기</option>
-                    <TimesOption />
+                    <TimesOption/>
                 </SelectStyle>
             </div>
 
             <ButtonStyle onClick={updateProblem}>수정 완료</ButtonStyle>
 
-            <ProblemPreview html={draftToHtml(convertToRaw(editor.getCurrentContent()))} />
+            <ProblemPreview html={draftToHtml(convertToRaw(editor.getCurrentContent()))}/>
         </>
     );
 };

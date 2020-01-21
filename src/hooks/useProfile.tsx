@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import config from '../config';
-import GetToken from '../utils/GetToken';
+import { useToken } from './useToken';
 
 interface Profile {
     readonly success: boolean;
@@ -17,6 +17,7 @@ const context = createContext<Profile>({} as Profile);
 
 export const ProfileProvider: React.FC = ({ children }) => {
     const [profile, setProfile] = useState<Profile>();
+    const token = useToken();
 
     useEffect(() => {
         axios
@@ -29,7 +30,7 @@ export const ProfileProvider: React.FC = ({ children }) => {
                 if (!res.data.success) {
                     const msg = res.data.message;
                     if (msg === 'jwt expired') {
-                        GetToken();
+                        token.refreshToken();
                     }
                 }
                 setProfile(res.data);
@@ -38,7 +39,7 @@ export const ProfileProvider: React.FC = ({ children }) => {
                 setProfile({ success: false } as Profile);
                 console.log(`유저 정보를 가져오지 못했습니다. ${error}`);
             });
-    }, []);
+    }, [token]);
 
     return <context.Provider value={profile!}>{children}</context.Provider>;
 };

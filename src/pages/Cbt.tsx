@@ -9,6 +9,7 @@ import CbtLayout from '../layouts/CbtLayout';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
+import { useToken } from '../hooks/useToken';
 
 const InputStyle = styled.input`
     border: none;
@@ -68,6 +69,7 @@ const ProblemBoxStyle = styled.div`
 `;
 
 const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times: string }>> = ({ match }) => {
+    const token = useToken();
     const [isLoading, setBeLoading] = useState(false);
     const [random, setRandom] = useState(-1);
     const [overlapRandom, setOverlapRandom] = useState<number[]>([]);
@@ -86,6 +88,11 @@ const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times:
             })
             .then((res) => {
                 if (!res.data.success) {
+                    if (res.data.message === '토큰이 만료되었습니다.') {
+                        token.refreshToken();
+                        return;
+                    }
+
                     alert(res.data.message);
                 } else {
                     setCount(res.data.problems.length);
@@ -101,7 +108,7 @@ const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times:
         const rand = Math.floor(Math.random() * count);
         setOverlapRandom((arr) => [...arr, rand]);
         setRandom(rand);
-    }, [count, match.params]);
+    }, [count, match.params, token]);
 
     const pickRandomNumber = () => {
         let rand = Math.floor(Math.random() * count);
@@ -164,9 +171,9 @@ const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times:
                     {isLoading ? random + 1 : '0'}번 문제 <FontedMiddleText>작성자: {expOfAuthor}</FontedMiddleText>
                 </FontedTitle>
 
-                <ProblemBoxStyle dangerouslySetInnerHTML={{ __html: exp }}/>
+                <ProblemBoxStyle dangerouslySetInnerHTML={{ __html: exp }} />
 
-                <hr/>
+                <hr />
 
                 <NumberButtonWrapperStyle>
                     <NumberButtonStyle type="button" onClick={() => checkAnswerUsingNumber(1)}>
@@ -197,7 +204,7 @@ const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times:
                         }}
                     />
                     <ButtonStyle type="button" onClick={checkAnswer}>
-                        <FontAwesomeIcon icon={faPaperPlane}/> 제출
+                        <FontAwesomeIcon icon={faPaperPlane} /> 제출
                     </ButtonStyle>
                     <EtcTextStyle>* 숫자 버튼을 이용하거나 입력칸을 이용하여 정답을 제출 할 수 있습니다.</EtcTextStyle>
                 </AnswerWrapStyle>

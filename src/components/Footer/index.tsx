@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import Container from '../../utils/ContainerUtils/Container';
-import GetToken from '../../utils/GetToken';
 import NoStyleLink from '../../atomics/NoStyleLink';
 import NoStyleA from '../../atomics/NoStyleA';
 
@@ -20,7 +19,7 @@ const FooterStyle = styled.footer`
 
 const TextWrapStyle = styled.div`
     line-height: 100px;
-    
+
     @media screen and (max-width: 420px) {
         margin: auto 5%;
     }
@@ -58,14 +57,16 @@ const Footer: React.FC = () => {
                             <TextLeftStyle>수프트</TextLeftStyle>
                         </NoStyleLink>
 
-                        <NoStyleLink to="/admin" onClick={GetToken}>
+                        <NoStyleLink to="/admin">
                             <TextRightStyle>관리자</TextRightStyle>
                         </NoStyleLink>
                         <NoStyleA href="mailto://admin@skylightqp.kr">
                             <TextRightStyle>문의</TextRightStyle>
                         </NoStyleA>
                         <NoStyleA href="https://github.com/swsuft/suft-frontend" target="_blank" rel="noopener noreferrer">
-                            <TextRightStyle><FontAwesomeIcon icon={faGithub}/> GitHub</TextRightStyle>
+                            <TextRightStyle>
+                                <FontAwesomeIcon icon={faGithub} /> GitHub
+                            </TextRightStyle>
                         </NoStyleA>
                     </TextWrapStyle>
                 </Container>
