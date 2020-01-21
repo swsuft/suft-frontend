@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLaptopCode, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+import { faChalkboard, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import CbtLayout from '../../layouts/CbtLayout';
-import Container from '../../utils/ContainerUtils/Container';
-import FontedTitle from '../../atomics/Typography/FontedTitle';
-import FontedMiddleText from '../../atomics/Typography/FontedMiddleText';
-import GradeOption from '../../components/SelectOptions/GradeOption';
-import TimesOption from '../../components/SelectOptions/TimesOption';
-import LabelText from '../../atomics/Typography/LabelText';
-import MajorSubjectOption from '../../components/SelectOptions/SubjectOption/MajorSubjectOption';
+import CbtLayout from '../layouts/CbtLayout';
+import Container from '../utils/ContainerUtils/Container';
+import FontedTitle from '../atomics/Typography/FontedTitle';
+import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
+import SubjectOption from '../components/SelectOptions/SubjectOption/SubjectOption';
+import GradeOption from '../components/SelectOptions/GradeOption';
+import TimesOption from '../components/SelectOptions/TimesOption';
+import LabelText from '../atomics/Typography/LabelText';
 
 const SelectStyle = styled.select`
     border: none;
@@ -59,7 +59,7 @@ const IconStyle = styled(FontAwesomeIcon)`
     }
 `;
 
-const MajorSubject: React.FC<RouteComponentProps> = ({ history }) => {
+const Subject: React.FC<RouteComponentProps> = ({ history }) => {
     const [subject, setSubject] = useState('');
     const [grade, setGrade] = useState('');
     const [times, setTimes] = useState('');
@@ -76,8 +76,8 @@ const MajorSubject: React.FC<RouteComponentProps> = ({ history }) => {
     return (
         <CbtLayout>
             <Container>
-                <FontedTitle>전공과목 CBT 시작하기</FontedTitle>
-                <FontedMiddleText>※ 정보처리와 관리는 교양과목으로 “일반과목CBT”로 시작할 수 있습니다.</FontedMiddleText>
+                <FontedTitle>일반과목 CBT 시작하기</FontedTitle>
+                <FontedMiddleText>※ 자격증은 학년, 학기를 기타 카테고리로 선택하여 풀 수 있습니다.</FontedMiddleText>
 
                 <BodyStyle>
                     <LabelText>학년</LabelText>
@@ -89,7 +89,7 @@ const MajorSubject: React.FC<RouteComponentProps> = ({ history }) => {
                     <LabelText>과목</LabelText>
                     <SelectStyle value={subject} onChange={(e) => setSubject(e.target.value)}>
                         <option value="">과목을 선택해주세요.</option>
-                        <MajorSubjectOption />
+                        <SubjectOption />
                     </SelectStyle>
 
                     <LabelText>학기</LabelText>
@@ -105,10 +105,10 @@ const MajorSubject: React.FC<RouteComponentProps> = ({ history }) => {
                     </div>
                 </BodyStyle>
 
-                <IconStyle icon={faLaptopCode} />
+                <IconStyle icon={faChalkboard} />
             </Container>
         </CbtLayout>
     );
 };
 
-export default withRouter(MajorSubject);
+export default withRouter(Subject);

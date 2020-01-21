@@ -10,8 +10,7 @@ import RegisterPage from './pages/RegisterPage';
 import Admin from './pages/Admin';
 import AdminEdit from './pages/Admin/AdminEdit';
 import Privacy from './pages/Privacy';
-import BasicSubject from './pages/Subjects/BasicSubject';
-import MajorSubject from './pages/Subjects/MajorSubject';
+import Subject from './pages/Subject';
 import { TokenProvider } from './hooks/useToken';
 
 const index = (
@@ -23,8 +22,7 @@ const index = (
                         <Route exact path="/" component={Home} />
                     </MealProvider>
                     <Route exact path="/cbt/:subject/:grade/:times" component={Cbt} />
-                    <Route exact path="/basic" component={BasicSubject} />
-                    <Route exact path="/major" component={MajorSubject} />
+                    <Route exact path="/subject" component={Subject} />
                     <Route exact path="/admin" component={Admin} />
                     <Route exact path="/admin/edit/:id" component={AdminEdit} />
                     <Route exact path="/register" component={RegisterPage} />

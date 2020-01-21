@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BasicSubjectOption: React.FC = () => {
+const SubjectOption: React.FC = () => {
     return (
         <>
             <option value="1">국어</option>
@@ -9,9 +9,11 @@ const BasicSubjectOption: React.FC = () => {
             <option value="4">과학</option>
             <option value="5">영어</option>
             <option value="6">정보처리와 관리</option>
-            <option value="9">자격증</option>
+            <option value="7">프로그래밍</option>
+            <option value="8">컴퓨터 구조</option>
+            <option value="999">자격증</option>
         </>
     );
 };
 
-export default BasicSubjectOption;
+export default SubjectOption;

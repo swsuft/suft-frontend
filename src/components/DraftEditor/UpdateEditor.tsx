@@ -10,8 +10,7 @@ import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import config from '../../config';
-import BasicSubjectOption from '../SelectOptions/SubjectOption/BasicSubjectOption';
-import MajorSubjectOption from '../SelectOptions/SubjectOption/MajorSubjectOption';
+import SubjectOption from '../SelectOptions/SubjectOption/SubjectOption';
 import GradeOption from '../SelectOptions/GradeOption';
 import TimesOption from '../SelectOptions/TimesOption';
 import uploadImageCallback from '../../utils/UploadImage';
@@ -186,8 +185,7 @@ const UpdateEditor: React.FC<RouteComponentProps<{}> & UpdateEditorProps> = ({ i
                   onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setSubject(evt.target.value)}
                 >
                     <option value="">과목</option>
-                    <BasicSubjectOption/>
-                    <MajorSubjectOption/>
+                    <SubjectOption/>
                 </SelectStyle>
                 &nbsp;
                 <SelectStyle
