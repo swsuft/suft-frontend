@@ -20,6 +20,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-draft-wysiwyg": "^1.13.2",
+    "react-modal": "^3.11.1",
     "react-router-dom": "^5.0.0",
     "react-table": "^6.10.0",
     "styled-components": "^4.2.0"
@@ -31,6 +32,7 @@
     "@types/react": "16.8.17",
     "@types/react-dom": "16.8.4",
     "@types/react-draft-wysiwyg": "^1.12.3",
+    "@types/react-modal": "^3.10.4",
     "@types/react-router-dom": "^4.3.3",
     "@types/react-table": "^6.8.4",
     "@types/styled-components": "^4.1.15",

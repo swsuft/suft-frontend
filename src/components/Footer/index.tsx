@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import Container from '../../utils/ContainerUtils/Container';
 import NoStyleLink from '../../atomics/NoStyleLink';
 import NoStyleA from '../../atomics/NoStyleA';
+import LicenseModal from '../Modals/LicenseModal';
 
 const FooterWrapStyle = styled.div`
     display: flex;
@@ -48,6 +49,9 @@ const TextRightStyle = styled.div`
 `;
 
 const Footer: React.FC = () => {
+    const licenseModalState = useState<boolean>(false);
+    const [, setLicenseModalOpen] = licenseModalState;
+
     return (
         <FooterWrapStyle>
             <FooterStyle>
@@ -63,14 +67,21 @@ const Footer: React.FC = () => {
                         <NoStyleA href="mailto://admin@skylightqp.kr">
                             <TextRightStyle>문의</TextRightStyle>
                         </NoStyleA>
-                        <NoStyleA href="https://github.com/swsuft/suft-frontend" target="_blank" rel="noopener noreferrer">
+                        <TextRightStyle onClick={() => setLicenseModalOpen(true)}>라이센스</TextRightStyle>
+                        <NoStyleA
+                          href="https://github.com/swsuft/suft-frontend"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                             <TextRightStyle>
-                                <FontAwesomeIcon icon={faGithub} /> GitHub
+                                <FontAwesomeIcon icon={faGithub}/> GitHub
                             </TextRightStyle>
                         </NoStyleA>
                     </TextWrapStyle>
                 </Container>
             </FooterStyle>
+
+            <LicenseModal state={licenseModalState}/>
         </FooterWrapStyle>
     );
 };
