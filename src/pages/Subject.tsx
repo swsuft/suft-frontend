@@ -7,9 +7,9 @@ import CbtLayout from '../layouts/CbtLayout';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
-import SubjectOption from '../components/SelectOptions/SubjectOption/SubjectOption';
-import GradeOption from '../components/SelectOptions/GradeOption';
-import TimesOption from '../components/SelectOptions/TimesOption';
+import SubjectOption from '../atomics/SelectOptions/SubjectOption/SubjectOption';
+import GradeOption from '../atomics/SelectOptions/GradeOption';
+import TimesOption from '../atomics/SelectOptions/TimesOption';
 import LabelText from '../atomics/Typography/LabelText';
 
 const SelectStyle = styled.select`
