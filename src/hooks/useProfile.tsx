@@ -37,7 +37,8 @@ export const ProfileProvider: React.FC = ({ children }) => {
             })
             .catch((error) => {
                 setProfile({ success: false } as Profile);
-                console.log(`유저 정보를 가져오지 못했습니다. ${error}`);
+                alert('서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.\n문제가 지속될 경우 관리자에게 알려주세요.');
+                console.log(`유저 정보 오류: ${error}`);
             });
     }, [token]);
 
