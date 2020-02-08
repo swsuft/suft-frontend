@@ -71,8 +71,8 @@ const ProblemBoxStyle = styled.div`
 const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times: string }>> = ({ match }) => {
     const token = useToken();
     const [isLoading, setBeLoading] = useState(false);
-    const [random, setRandom] = useState(-1);
-    const [overlapRandom, setOverlapRandom] = useState<number[]>([]);
+    const [random, setRandom] = useState(0);
+    const [overlapRandom, setOverlapRandom] = useState<number[]>([0]);
     const [data, setData] = useState<any[]>([]);
     const [userAnswer, setUserAnswer] = useState('');
     const [count, setCount] = useState(0);
@@ -94,31 +94,28 @@ const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times:
                     }
 
                     alert(res.data.message);
-                } else {
-                    setCount(res.data.problems.length);
-                    setData(res.data.problems);
+                    return;
                 }
+
+                setCount(res.data.problems.length);
+                setData(res.data.problems);
             })
             .catch((err) => {
                 console.log(err);
             });
 
         setBeLoading(true);
-
-        const rand = Math.floor(Math.random() * count);
-        setOverlapRandom((arr) => [...arr, rand]);
-        setRandom(rand);
-    }, [count, match.params, token]);
+    }, [count, match.params]);
 
     const pickRandomNumber = () => {
+        if (overlapRandom.length === count) {
+            alert('모든 문제를 풀었습니다. 새로고침하여 새로 시작할 수 있습니다.');
+            return;
+        }
+
         let rand = Math.floor(Math.random() * count);
 
         while (overlapRandom.includes(rand)) {
-            if (overlapRandom.length === count) {
-                alert('모든 문제를 풀었습니다. 새로고침하여 새로 시작할 수 있습니다.');
-                return;
-            }
-
             rand = Math.floor(Math.random() * count);
         }
 
@@ -126,43 +123,36 @@ const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times:
         setRandom(rand);
     };
 
-    const checkAnswer = () => {
+    const checkAnswerUsingValue = (value: string | number) => {
         const answer = isLoading && data[random] !== undefined ? data[random].answer : '';
 
+        if (value.toString() === answer) {
+            alert('정답입니다!');
+            pickRandomNumber();
+        } else {
+            alert('오답입니다. 다시 한번 시도해보세요.');
+        }
+
+        setUserAnswer('');
+    };
+
+    const checkAnswer = () => {
         if (userAnswer === undefined || userAnswer === '') {
-            alert('정답을 입력해주세요!');
+            alert('정답을 입력해주세요.');
             return;
         }
 
-        if (userAnswer === answer) {
-            alert('정답!');
-            pickRandomNumber();
-        } else {
-            alert('오답!');
-        }
-
-        setUserAnswer('');
-    };
-
-    const checkAnswerUsingNumber = (number: number) => {
-        const answer = isLoading && data[random] !== undefined ? data[random].answer : '';
-
-        if (number.toString() === answer) {
-            alert('정답!');
-            pickRandomNumber();
-        } else {
-            alert('오답!');
-        }
-
-        setUserAnswer('');
+        checkAnswerUsingValue(userAnswer);
     };
 
     let exp = '불러오는 중입니다...';
+    const expOfAuthor = isLoading && data[random] !== undefined ? data[random].author : '불러오는 중';
+
     if (isLoading && data[random] !== undefined) {
         exp = data[random].contents;
-    } else if (count === 0) exp = '<h3>해당 카테고리에 맞는 문제가 없습니다.</h3>';
-
-    const expOfAuthor = isLoading && data[random] !== undefined ? data[random].author : '불러오는 중';
+    } else if (count === 0) {
+        exp = '<h3>해당 카테고리에 맞는 문제가 없습니다.</h3>';
+    }
 
     return (
         <CbtLayout>
@@ -176,19 +166,19 @@ const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times:
                 <hr />
 
                 <NumberButtonWrapperStyle>
-                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingNumber(1)}>
+                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingValue(1)}>
                         1번
                     </NumberButtonStyle>
-                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingNumber(2)}>
+                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingValue(2)}>
                         2번
                     </NumberButtonStyle>
-                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingNumber(3)}>
+                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingValue(3)}>
                         3번
                     </NumberButtonStyle>
-                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingNumber(4)}>
+                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingValue(4)}>
                         4번
                     </NumberButtonStyle>
-                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingNumber(5)}>
+                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingValue(5)}>
                         5번
                     </NumberButtonStyle>
                 </NumberButtonWrapperStyle>
