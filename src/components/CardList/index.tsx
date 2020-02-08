@@ -65,7 +65,7 @@ const CardList: React.FC = () => {
             <Card onClick={onClickParkingCard}>
                 <CardTitle>내 정보</CardTitle>
                 <p>계정에 관련된 내용을 보거나 설정합니다.</p>
-                <IconWrapperStyle pcMargin="0.8" mobileMargin="-1.2">
+                <IconWrapperStyle pcMargin="0.8" mobileMargin="-2.5">
                     <SettingsIcon size="6rem" />
                 </IconWrapperStyle>
             </Card>
