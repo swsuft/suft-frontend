@@ -13,7 +13,7 @@ import GradeOption from '../../atomics/SelectOptions/GradeOption';
 import TimesOption from '../../atomics/SelectOptions/TimesOption';
 import uploadImageCallback from '../../utils/UploadImage';
 import ProblemPreview from './ProblemPreview';
-import { useToken } from '../../hooks/useToken';
+import useToken from '../../hooks/useToken';
 
 const EditorStyle = styled.div`
     background: #ffffff;
@@ -59,7 +59,7 @@ const ButtonStyle = styled.button`
 
 const CreateEditor: React.FC = () => {
     const profile = useProfile();
-    const token = useToken();
+    const refreshToken = useToken();
     const [editor, setEditor] = useState(EditorState.createEmpty());
     const [answer, setAnswer] = useState('');
     const [author, setAuthor] = useState(profile.name);
@@ -106,20 +106,20 @@ const CreateEditor: React.FC = () => {
         setEditor(EditorState.createEmpty());
         setAnswer('');
 
-        token.refreshToken();
+        refreshToken();
     };
 
     return (
         <>
             <EditorStyle>
                 <Editor
-                    editorState={editor}
-                    toolbarClassName="draft-toolbar"
-                    wrapperClassName="draft-wrapper"
-                    editorClassName="draft-editor"
-                    onEditorStateChange={(editorState: any) => setEditor(editorState)}
-                    localization={{ locale: 'ko' }}
-                    toolbar={{
+                  editorState={editor}
+                  toolbarClassName="draft-toolbar"
+                  wrapperClassName="draft-wrapper"
+                  editorClassName="draft-editor"
+                  onEditorStateChange={(editorState: any) => setEditor(editorState)}
+                  localization={{ locale: 'ko' }}
+                  toolbar={{
                         image: {
                             uploadCallback: uploadImageCallback,
                             alt: { present: true }

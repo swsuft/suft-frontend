@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import config from '../config';
-import { useToken } from './useToken';
+import useToken from './useToken';
 
 interface Profile {
     readonly success: boolean;
@@ -17,7 +17,7 @@ const context = createContext<Profile>({} as Profile);
 
 export const ProfileProvider: React.FC = ({ children }) => {
     const [profile, setProfile] = useState<Profile>();
-    const token = useToken();
+    const refreshToken = useToken();
 
     useEffect(() => {
         axios
@@ -30,7 +30,7 @@ export const ProfileProvider: React.FC = ({ children }) => {
                 if (!res.data.success) {
                     const msg = res.data.message;
                     if (msg === 'jwt expired') {
-                        token.refreshToken();
+                        refreshToken();
                     }
                 }
                 setProfile(res.data);
@@ -40,7 +40,7 @@ export const ProfileProvider: React.FC = ({ children }) => {
                 alert('서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.\n문제가 지속될 경우 관리자에게 알려주세요.');
                 console.log(`유저 정보 오류: ${error}`);
             });
-    }, []);
+    }, [refreshToken]);
 
     return <context.Provider value={profile!}>{children}</context.Provider>;
 };

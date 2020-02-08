@@ -9,7 +9,7 @@ import CbtLayout from '../layouts/CbtLayout';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
-import { useToken } from '../hooks/useToken';
+import useToken from '../hooks/useToken';
 
 const InputStyle = styled.input`
     border: none;
@@ -87,7 +87,7 @@ interface CbtParams {
 }
 
 const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
-    const token = useToken();
+    const refreshToken = useToken();
     const [isLoading, setBeLoading] = useState(false);
     const [random, setRandom] = useState(0);
     const [overlapRandom, setOverlapRandom] = useState<number[]>([0]);
@@ -107,7 +107,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
             .then((res) => {
                 if (!res.data.success) {
                     if (res.data.message === '토큰이 만료되었습니다.') {
-                        token.refreshToken();
+                        refreshToken();
                         return;
                     }
 
@@ -123,7 +123,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
             });
 
         setBeLoading(true);
-    }, [count, match.params]);
+    }, [match.params, refreshToken]);
 
     const pickRandomNumber = () => {
         if (overlapRandom.length === count) {

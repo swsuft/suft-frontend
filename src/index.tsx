@@ -12,24 +12,21 @@ import Admin from './pages/Admin';
 import AdminEdit from './pages/Admin/AdminEdit';
 import Privacy from './pages/Privacy';
 import Subject from './pages/Subject';
-import { TokenProvider } from './hooks/useToken';
 
 const index = (
     <BrowserRouter>
         <Switch>
-            <TokenProvider>
-                <ProfileProvider>
-                    <MealProvider>
-                        <Route exact path="/" component={Home} />
-                    </MealProvider>
-                    <Route exact path="/cbt/:subject/:grade/:times" component={Cbt} />
-                    <Route exact path="/subject" component={Subject} />
-                    <Route exact path="/admin" component={Admin} />
-                    <Route exact path="/admin/edit/:id" component={AdminEdit} />
-                    <Route exact path="/register" component={RegisterPage} />
-                    <Route exact path="/privacy" component={Privacy} />
-                </ProfileProvider>
-            </TokenProvider>
+            <ProfileProvider>
+                <MealProvider>
+                    <Route exact path="/" component={Home} />
+                </MealProvider>
+                <Route exact path="/cbt/:subject/:grade/:times" component={Cbt} />
+                <Route exact path="/subject" component={Subject} />
+                <Route exact path="/admin" component={Admin} />
+                <Route exact path="/admin/edit/:id" component={AdminEdit} />
+                <Route exact path="/register" component={RegisterPage} />
+                <Route exact path="/privacy" component={Privacy} />
+            </ProfileProvider>
         </Switch>
     </BrowserRouter>
 );
