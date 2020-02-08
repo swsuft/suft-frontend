@@ -68,7 +68,25 @@ const ProblemBoxStyle = styled.div`
     margin-bottom: 1rem;
 `;
 
-const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times: string }>> = ({ match }) => {
+const TitleStyle = styled.div`
+    & > p {
+        margin-bottom: 0;
+    }
+`;
+
+const SubTitleStyle = styled.div`
+    & > p {
+        margin-bottom: 2rem;
+    }
+`;
+
+interface CbtParams {
+    readonly subject: string;
+    readonly grade: string;
+    readonly times: string;
+}
+
+const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
     const token = useToken();
     const [isLoading, setBeLoading] = useState(false);
     const [random, setRandom] = useState(0);
@@ -157,9 +175,12 @@ const Cbt: React.FC<RouteComponentProps<{ subject: string; grade: string; times:
     return (
         <CbtLayout>
             <Container>
-                <FontedTitle>
-                    {isLoading ? random + 1 : '0'}번 문제 <FontedMiddleText>작성자: {expOfAuthor}</FontedMiddleText>
-                </FontedTitle>
+                <TitleStyle>
+                    <FontedTitle>{isLoading ? random + 1 : '0'}번 문제</FontedTitle>
+                </TitleStyle>
+                <SubTitleStyle>
+                    <FontedMiddleText>작성자: {expOfAuthor}</FontedMiddleText>
+                </SubTitleStyle>
 
                 <ProblemBoxStyle dangerouslySetInnerHTML={{ __html: exp }} />
 
