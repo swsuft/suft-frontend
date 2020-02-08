@@ -103,7 +103,7 @@ const UpdateEditor: React.FC<RouteComponentProps<{}> & UpdateEditorProps> = ({ i
             });
 
         token.refreshToken();
-    }, [id, token]);
+    }, [id]);
 
     const updateProblem = () => {
         if (answer === '' || subject === '' || grade === '' || times === '') {
