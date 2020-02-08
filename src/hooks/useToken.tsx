@@ -3,7 +3,7 @@ import axios from 'axios';
 import config from '../config';
 
 const useToken = () => {
-    const [, setFlag] = useState<boolean>(false);
+    const [, setRenderFlag] = useState<boolean>(false);
 
     const refreshToken = useCallback(() => {
         if (localStorage.getItem('token') === null) {
@@ -22,7 +22,7 @@ const useToken = () => {
                 } else {
                     console.log('AccessToken 재발급 완료');
                     localStorage.setItem('token', data.data.token);
-                    setFlag((f) => !f);
+                    setRenderFlag((flag) => !flag);
                 }
             })
             .catch((err) => {
