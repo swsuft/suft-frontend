@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import CardTitle from '../../atomics/Typography/CardTitle';
 import { useMeal } from '../../hooks/useMeal';
+import DayTag from '../../atomics/DayTag';
+import useDay from '../../hooks/useDay';
 
 const MealCardStyle = styled.div`
     width: calc(100% - 3rem);
@@ -42,20 +44,23 @@ const MealTextStyle = styled.pre`
 
 const MealCard: React.FC = () => {
     const meal = useMeal();
+    const [today, tomorrow] = useDay();
 
     return (
         <MealCardStyle>
             <MealWrapperStyle>
                 <MealBodyStyle>
                     <CardTitle>
-                        오늘 급식은?
+                        오늘 급식은?&nbsp;
+                        <DayTag>{today}일</DayTag>
                     </CardTitle>
 
                     <MealTextStyle>{meal[0]}</MealTextStyle>
                 </MealBodyStyle>
                 <MealBodyStyle>
                     <CardTitle>
-                        내일 급식은?
+                        내일 급식은?&nbsp;
+                        <DayTag>{tomorrow}일</DayTag>
                     </CardTitle>
                     <MealTextStyle>{meal[1]}</MealTextStyle>
                 </MealBodyStyle>
