@@ -69,7 +69,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
                     if (!data.data.success) {
                         alert(data.data.message);
                     } else {
-                        alert('회원가입이 완료되었습니다!\n메인 페이지로 이동합니다.');
+                        alert('회원가입 신청이 완료되었습니다. 가입 수락 후 이용 가능합니다.\n메인 페이지로 이동합니다.');
                         history.push('/');
                     }
                 })
