@@ -6,7 +6,6 @@ import Container from '../../utils/ContainerUtils/Container';
 import NoStyleLink from '../../atomics/NoStyleLink';
 import NoStyleA from '../../atomics/NoStyleA';
 import LicenseModal from '../Modals/LicenseModal';
-import MobileLineBreak from '../../atomics/MobileLineBreak';
 
 const FooterWrapStyle = styled.div`
     display: flex;
@@ -69,20 +68,16 @@ const Footer: React.FC = () => {
                             <TextRightStyle>문의</TextRightStyle>
                         </NoStyleA>
                         <TextRightStyle onClick={() => setLicenseModalOpen(true)}>라이센스</TextRightStyle>
-                        <NoStyleA
-                          href="https://github.com/swsuft/suft-frontend"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                        <NoStyleA href="https://github.com/swsuft/suft-frontend" target="_blank" rel="noopener noreferrer">
                             <TextRightStyle>
-                                <FontAwesomeIcon icon={faGithub}/>
+                                <FontAwesomeIcon icon={faGithub} />
                             </TextRightStyle>
                         </NoStyleA>
                     </TextWrapStyle>
                 </Container>
             </FooterStyle>
 
-            <LicenseModal state={licenseModalState}/>
+            <LicenseModal state={licenseModalState} />
         </FooterWrapStyle>
     );
 };
