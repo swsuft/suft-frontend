@@ -30,6 +30,12 @@ const IconWrapperStyle = styled.div<{ pcMargin: string; mobileMargin: string }>`
     }
 `;
 
+const DisableTextStyle = styled.div`
+  & > p {
+      color: var(--color-gray-background);
+  }
+`;
+
 const CardList: React.FC = () => {
     const onClickParkingCard = () => {
         alert('해당 서비스는 준비중입니다.');
@@ -50,27 +56,33 @@ const CardList: React.FC = () => {
             </Card>
 
             <Card onClick={onClickParkingCard}>
-                <CardTitle>기여도</CardTitle>
-                <p>문제 출제에 기여한 순위를 봅니다.</p>
-                <IconWrapperStyle pcMargin="0.8" mobileMargin="-1.2">
-                    <PodiumIcon size="6rem" />
-                </IconWrapperStyle>
+                <DisableTextStyle>
+                    <CardTitle>기여도</CardTitle>
+                    <p>문제 출제에 기여한 순위를 봅니다.</p>
+                    <IconWrapperStyle pcMargin="0.8" mobileMargin="-1.2">
+                        <PodiumIcon size="6rem" />
+                    </IconWrapperStyle>
+                </DisableTextStyle>
             </Card>
 
             <Card onClick={onClickParkingCard}>
-                <CardTitle>내 문제</CardTitle>
-                <p>새로운 문제를 출제하거나 기존 문제를 관리합니다.</p>
-                <IconWrapperStyle pcMargin="0.8" mobileMargin="-2.7">
-                    <TestIcon size="6rem" />
-                </IconWrapperStyle>
+                <DisableTextStyle>
+                    <CardTitle>내 문제</CardTitle>
+                    <p>새로운 문제를 출제하거나 기존 문제를 관리합니다.</p>
+                    <IconWrapperStyle pcMargin="0.8" mobileMargin="-2.7">
+                        <TestIcon size="6rem" />
+                    </IconWrapperStyle>
+                </DisableTextStyle>
             </Card>
 
             <Card onClick={onClickParkingCard}>
-                <CardTitle>내 정보</CardTitle>
-                <p>계정에 관련된 내용을 보거나 설정합니다.</p>
-                <IconWrapperStyle pcMargin="0.8" mobileMargin="-1.2">
-                    <SettingsIcon size="6rem" />
-                </IconWrapperStyle>
+                <DisableTextStyle>
+                    <CardTitle>내 정보</CardTitle>
+                    <p>계정에 관련된 내용을 보거나 설정합니다.</p>
+                    <IconWrapperStyle pcMargin="0.8" mobileMargin="-1.2">
+                        <SettingsIcon size="6rem" />
+                    </IconWrapperStyle>
+                </DisableTextStyle>
             </Card>
         </Container>
     );
