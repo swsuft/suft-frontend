@@ -27,11 +27,7 @@ const Logout: React.FC<RouteComponentProps & LogoutProps> = ({ history, styling,
 
         if (check) {
             axios
-                .post(
-                    `${config.ENDPOINT}/logout`,
-                    {},
-                    { withCredentials: true }
-                )
+                .post(`${config.ENDPOINT}/logout`, {}, { withCredentials: true })
                 .then((data) => {
                     if (!data.data.success) {
                         alert(data.data.message);
@@ -48,18 +44,10 @@ const Logout: React.FC<RouteComponentProps & LogoutProps> = ({ history, styling,
     };
 
     if (styling) {
-        return (
-            <LogoutTextStyle onClick={onLogoutClick}>
-                {children}
-            </LogoutTextStyle>
-        );
+        return <LogoutTextStyle onClick={onLogoutClick}>{children}</LogoutTextStyle>;
     }
 
-    return (
-        <div onClick={onLogoutClick}>
-            {children}
-        </div>
-    );
+    return <div onClick={onLogoutClick}>{children}</div>;
 };
 
 export default withRouter(Logout);
