@@ -6,6 +6,7 @@ import Container from '../../utils/ContainerUtils/Container';
 import NoStyleLink from '../../atomics/NoStyleLink';
 import NoStyleA from '../../atomics/NoStyleA';
 import LicenseModal from '../Modals/LicenseModal';
+import MobileLineBreak from '../../atomics/MobileLineBreak';
 
 const FooterWrapStyle = styled.div`
     display: flex;
@@ -21,7 +22,7 @@ const FooterStyle = styled.footer`
 const TextWrapStyle = styled.div`
     line-height: 100px;
 
-    @media screen and (max-width: 420px) {
+    @media screen and (max-width: 1000px) {
         margin: auto 5%;
     }
 `;
@@ -43,7 +44,7 @@ const TextRightStyle = styled.div`
     cursor: pointer;
     font-size: 14px;
 
-    @media screen and (max-width: 420px) {
+    @media screen and (max-width: 1000px) {
         margin-left: 16px;
     }
 `;
@@ -74,7 +75,7 @@ const Footer: React.FC = () => {
                           rel="noopener noreferrer"
                         >
                             <TextRightStyle>
-                                <FontAwesomeIcon icon={faGithub}/> GitHub
+                                <FontAwesomeIcon icon={faGithub}/>
                             </TextRightStyle>
                         </NoStyleA>
                     </TextWrapStyle>

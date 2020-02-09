@@ -49,12 +49,12 @@ const IconStyle = styled(FontAwesomeIcon)`
     font-size: 250px;
     opacity: 0.1;
     top: -50px;
-    left: 700px;
+    left: 600px;
     right: 0;
     bottom: 0;
     transform: rotate(-30deg);
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 1000px) {
         display: none;
     }
 `;
