@@ -7,6 +7,7 @@ import PodiumIcon from '../../atomics/icons/PodiumIcon';
 import TestIcon from '../../atomics/icons/TestIcon';
 import SettingsIcon from '../../atomics/icons/SettingsIcon';
 import NoStyleLink from '../../atomics/NoStyleLink';
+import MealCard from '../MealCard';
 
 const Container = styled.div`
     display: flex;
@@ -36,6 +37,8 @@ const CardList: React.FC = () => {
 
     return (
         <Container>
+            <MealCard />
+
             <Card>
                 <NoStyleLink to="/subject">
                     <CardTitle>문제풀이 시작하기</CardTitle>
@@ -65,7 +68,7 @@ const CardList: React.FC = () => {
             <Card onClick={onClickParkingCard}>
                 <CardTitle>내 정보</CardTitle>
                 <p>계정에 관련된 내용을 보거나 설정합니다.</p>
-                <IconWrapperStyle pcMargin="0.8" mobileMargin="-2.5">
+                <IconWrapperStyle pcMargin="0.8" mobileMargin="-1.2">
                     <SettingsIcon size="6rem" />
                 </IconWrapperStyle>
             </Card>
