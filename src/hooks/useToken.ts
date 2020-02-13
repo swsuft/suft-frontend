@@ -1,10 +1,8 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import axios from 'axios';
 import config from '../config';
 
 const useToken = () => {
-    const [, setRenderFlag] = useState<boolean>(false);
-
     const refreshToken = useCallback(() => {
         if (localStorage.getItem('token') === null) {
             return;
@@ -20,9 +18,9 @@ const useToken = () => {
 
                     alert(data.data.message);
                 } else {
-                    console.log('AccessToken 재발급 완료');
                     localStorage.setItem('token', data.data.token);
-                    setRenderFlag((flag) => !flag);
+                    window.location.reload();
+                    console.log('AccessToken 재발급 완료');
                 }
             })
             .catch((err) => {
