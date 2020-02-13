@@ -5,9 +5,9 @@
 교내 시험대비 CBT 사이트, 프론트엔드 소스 코드
 
 ## Branches
-- production
+- `production`
     - 실 서비스에 올라간 코드
-- master
+- `master`
     - 개발 중이거나 아직 서비스 하지 않는 코드
 
 ## 시작하기
