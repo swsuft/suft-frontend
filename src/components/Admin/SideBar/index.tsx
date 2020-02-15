@@ -15,7 +15,8 @@ const SideBarContainer = styled.div`
         max-width: none;
         flex: none;
         width: 100vw;
-        height: 320px;
+        min-height: 100%;
+        padding-bottom: 1rem;
     }
 `;
 
