@@ -100,7 +100,6 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
             return;
         }
 
-        let deletedCount = 0;
         const deletePromise = Object.keys(selected).map((key: string) => {
             return new Promise((resolve, reject) => {
                 axios
@@ -113,7 +112,6 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
                         if (!res.data.success) {
                             reject(res.data.message);
                         } else {
-                            deletedCount += 1;
                             resolve();
                         }
                     })
@@ -128,7 +126,7 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
                 rowManager.uncheckAllRow();
                 refreshProblem();
 
-                alert(`${deletedCount}개 문제 삭제 완료`);
+                alert(`${Object.keys(selected).length}개 문제 삭제 완료`);
             })
             .catch((err) => {
                 alert(err);

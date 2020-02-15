@@ -40,10 +40,10 @@ const UnBlockButtonStyle = styled.button`
 
 const UserTable: React.FC = () => {
     const [data, setData] = useState<[]>();
-    const [check, setRow] = useSelect();
+    const [check, rowManager] = useSelect();
     const profile = useProfile();
 
-    const refresh = () => {
+    const refreshUser = () => {
         axios
             .get(`${config.ENDPOINT}/user/all`, {
                 headers: {
@@ -63,92 +63,94 @@ const UserTable: React.FC = () => {
     };
 
     useEffect(() => {
-        refresh();
+        refreshUser();
     }, []);
 
     const blockUsers = () => {
-        if (Object.keys(check.selected).length === 0) {
+        const { selected } = check;
+
+        if (Object.keys(selected).length === 0) {
             alert('차단 할 유저를 선택해주세요.');
             return;
         }
 
-        const isReal = window.confirm(`${Object.keys(check.selected).length}명을 차단 하시겠습니까?`);
+        const isReal = window.confirm(`${Object.keys(selected).length}명을 차단 하시겠습니까?`);
 
-        if (isReal) {
-            for (const item in check.selected) {
-                if (check.selected[item]) {
-                    if (item === profile.email) {
-                        alert('자기 자신을 차단 할 수 없습니다.');
-                        return;
-                    }
+        if (!isReal) return;
 
-                    axios
-                        .put(
-                            `${config.ENDPOINT}/user/block`,
-                            { email: item },
-                            {
-                                headers: {
-                                    Authorization: `JWT ${localStorage.getItem('token')}`
-                                }
-                            }
-                        )
-                        .then((res) => {
-                            if (!res.data.success) {
-                                alert(res.data.message);
-                            } else {
-                                refresh();
-
-                                setRow.uncheckAllRow();
-                            }
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
-                }
+        Object.keys(selected).forEach((key: string) => {
+            if (!selected[key]) return;
+            if (key === profile.email) {
+                alert('자기 자신은 차단 할 수 없습니다.');
+                return;
             }
 
-            alert(`${Object.keys(check.selected).length}명 차단 완료`);
-        }
+            axios
+                .put(
+                    `${config.ENDPOINT}/user/block`,
+                    { email: key },
+                    {
+                        headers: {
+                            Authorization: `JWT ${localStorage.getItem('token')}`
+                        }
+                    }
+                )
+                .then((res) => {
+                    if (!res.data.success) {
+                        alert(res.data.message);
+                    } else {
+                        refreshUser();
+
+                        rowManager.uncheckAllRow();
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        });
+
+        alert(`${Object.keys(selected).length}명 차단 완료`);
     };
 
     const unBlockUsers = () => {
-        if (Object.keys(check.selected).length === 0) {
+        const { selected } = check;
+
+        if (Object.keys(selected).length === 0) {
             alert('차단 해제 할 유저를 선택해주세요.');
             return;
         }
 
-        const isReal = window.confirm(`${Object.keys(check.selected).length}명을 차단 해제 하시겠습니까?`);
+        const isReal = window.confirm(`${Object.keys(selected).length}명을 차단 해제 하시겠습니까?`);
 
-        if (isReal) {
-            for (const item in check.selected) {
-                if (check.selected[item]) {
-                    axios
-                        .put(
-                            `${config.ENDPOINT}/user/unblock`,
-                            { email: item },
-                            {
-                                headers: {
-                                    Authorization: `JWT ${localStorage.getItem('token')}`
-                                }
-                            }
-                        )
-                        .then((res) => {
-                            if (!res.data.success) {
-                                alert(res.data.message);
-                            } else {
-                                refresh();
+        if (!isReal) return;
 
-                                setRow.uncheckAllRow();
-                            }
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
-                }
-            }
+        Object.keys(selected).forEach((key: string) => {
+            if (!selected[key]) return;
+            axios
+                .put(
+                    `${config.ENDPOINT}/user/unblock`,
+                    { email: key },
+                    {
+                        headers: {
+                            Authorization: `JWT ${localStorage.getItem('token')}`
+                        }
+                    }
+                )
+                .then((res) => {
+                    if (!res.data.success) {
+                        alert(res.data.message);
+                    } else {
+                        refreshUser();
 
-            alert(`${Object.keys(check.selected).length}명 차단 해제 완료`);
-        }
+                        rowManager.uncheckAllRow();
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        });
+
+        alert(`${Object.keys(selected).length}명 차단 해제 완료`);
     };
 
     const columns = [
@@ -166,7 +168,7 @@ const UserTable: React.FC = () => {
                                     input.indeterminate = check.selectAll === 2;
                                 }
                             }}
-                          onChange={() => setRow.toggleAllRow(data, 'email')}
+                          onChange={() => rowManager.toggleAllRow(data, 'email')}
                         />
                     </CheckboxWrapStyle>
                 );
@@ -174,7 +176,7 @@ const UserTable: React.FC = () => {
             Cell: ({ original }: any) => {
                 return (
                     <CheckboxWrapStyle>
-                        <input type="checkbox" checked={check.selected[original.email]} onChange={() => setRow.toggleRow(original.email)} />
+                        <input type="checkbox" checked={check.selected[original.email]} onChange={() => rowManager.toggleRow(original.email)} />
                     </CheckboxWrapStyle>
                 );
             },
@@ -182,7 +184,6 @@ const UserTable: React.FC = () => {
             width: 45
         },
         {
-            Header: '계정정보',
             columns: [
                 {
                     Header: '이메일',
@@ -196,7 +197,6 @@ const UserTable: React.FC = () => {
             ]
         },
         {
-            Header: '상세정보',
             columns: [
                 {
                     Header: '학년',
@@ -236,7 +236,7 @@ const UserTable: React.FC = () => {
             </div>
 
             <TableWrap>
-                <ReactTable data={data} columns={columns} defaultPageSize={10} className="-highlight" />
+                <ReactTable data={data} columns={columns} defaultPageSize={20} className="-highlight" />
             </TableWrap>
         </>
     );
