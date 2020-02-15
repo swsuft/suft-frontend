@@ -7,13 +7,8 @@ import CreateEditor from '../../components/DraftEditor/CreateEditor';
 import ProblemTable from '../../components/Admin/ProblemTable';
 import UserTable from '../../components/Admin/UserTable';
 
-const TitleStyle = styled.h1`
+const AdminTitleStyle = styled.h1`
     margin: 1rem auto;
-`;
-
-const TextStyle = styled.span`
-    font-size: 20px;
-    font-weight: normal;
 `;
 
 const Admin: React.FC = () => {
@@ -24,24 +19,21 @@ const Admin: React.FC = () => {
             case AdminMenuStatus.ADMIN_PROBLEM:
                 return (
                     <>
-                        <TitleStyle>
-                            문제 등록 <TextStyle>자격증은 학년, 학기 기타 카테고리입니다.</TextStyle>
-                        </TitleStyle>
+                        <AdminTitleStyle>문제 등록</AdminTitleStyle>
                         <CreateEditor />
-                        <br />
                     </>
                 );
             case AdminMenuStatus.ADMIN_VIEW:
                 return (
                     <>
-                        <TitleStyle>문제 관리</TitleStyle>
+                        <AdminTitleStyle>문제 관리</AdminTitleStyle>
                         <ProblemTable />
                     </>
                 );
             case AdminMenuStatus.ADMIN_USERBLOCK:
                 return (
                     <>
-                        <TitleStyle>유저 차단 설정</TitleStyle>
+                        <AdminTitleStyle>유저 차단 설정</AdminTitleStyle>
                         <UserTable />
                     </>
                 );
