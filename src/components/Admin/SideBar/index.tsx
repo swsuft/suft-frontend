@@ -5,7 +5,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logout from '../../Logout';
 import AdminMenuStatus, { AdminMenuStatusType } from '../../../constants/AdminMenuStatus';
 
-const SideBarWrapStyle = styled.div`
+const SideBarContainer = styled.div`
     max-width: 13%;
     min-height: 100vh;
     flex: 0 0 13%;
@@ -15,25 +15,18 @@ const SideBarWrapStyle = styled.div`
         max-width: none;
         flex: none;
         width: 100vw;
-        height: 320px;
+        min-height: 100%;
+        padding-bottom: 1rem;
     }
 `;
 
-const MainTitleStyle = styled.p`
-    font-family: 'Gugi';
-    font-size: 38px;
-    text-align: center;
-    color: #ffffff;
-    margin-top: 2px;
-`;
-
-const SideBarTitleStyle = styled.p`
-    font-size: 18px;
+const MenuTitleStyle = styled.p`
+    font-size: 20px;
     color: #ffffff;
     margin: 10px auto auto 10px;
 `;
 
-const SideBarUlStyle = styled.ul`
+const SideBarMenuStyle = styled.ul`
     list-style: none;
 `;
 
@@ -55,29 +48,32 @@ interface AdminSideBarProps {
 
 const AdminSideBar: React.FC<AdminSideBarProps> = ({ setNowMenu }) => {
     return (
-        <SideBarWrapStyle>
-            <MainTitleStyle>ADMIN</MainTitleStyle>
-
-            <SideBarTitleStyle>문제풀이</SideBarTitleStyle>
-            <SideBarUlStyle>
+        <SideBarContainer>
+            <MenuTitleStyle>문제풀이</MenuTitleStyle>
+            <SideBarMenuStyle>
                 <SideBarItemStyle id="problem" onClick={() => setNowMenu(AdminMenuStatus.ADMIN_PROBLEM)}>
-                    문제 등록
+                    새 문제 등록
                 </SideBarItemStyle>
                 <SideBarItemStyle id="view" onClick={() => setNowMenu(AdminMenuStatus.ADMIN_VIEW)}>
                     문제 관리
                 </SideBarItemStyle>
-            </SideBarUlStyle>
+            </SideBarMenuStyle>
 
-            <SideBarTitleStyle>유저관리</SideBarTitleStyle>
-            <SideBarUlStyle>
-                <SideBarItemStyle id="userblock" onClick={() => setNowMenu(AdminMenuStatus.ADMIN_USERBLOCK)}>
-                    차단 설정
+            <MenuTitleStyle>유저관리</MenuTitleStyle>
+            <SideBarMenuStyle>
+                <SideBarItemStyle id="user-block" onClick={() => setNowMenu(AdminMenuStatus.ADMIN_USERBLOCK)}>
+                    유저 관리
                 </SideBarItemStyle>
-            </SideBarUlStyle>
+                <SideBarItemStyle id="waiting-user" onClick={() => setNowMenu(AdminMenuStatus.ADMIN_WAITINGUSER)}>
+                    가입 수락
+                </SideBarItemStyle>
+            </SideBarMenuStyle>
 
-            <br/>
-            <Logout styling><FontAwesomeIcon icon={faSignOutAlt}/> 로그아웃</Logout>
-        </SideBarWrapStyle>
+            <br />
+            <Logout styling>
+                <FontAwesomeIcon icon={faSignOutAlt} /> 로그아웃
+            </Logout>
+        </SideBarContainer>
     );
 };
 

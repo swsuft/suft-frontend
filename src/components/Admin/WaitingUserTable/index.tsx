@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import ReactTable from 'react-table';
 import axios from 'axios';
 import config from '../../../config';
-import { useProfile } from '../../../hooks/useProfile';
 import useSelect from '../../../hooks/useSelect';
 
 const TableWrap = styled.div`
@@ -18,21 +17,10 @@ const CheckboxWrapStyle = styled.div`
     text-align: center;
 `;
 
-const BlockButtonStyle = styled.button`
+const AllowButtonStyle = styled.button`
     margin-bottom: 15px;
     border: none;
     border-radius: 10px 0px 0px 10px;
-    width: 150px;
-    height: 35px;
-    color: #ffffff;
-    background: var(--color-red);
-    cursor: pointer;
-`;
-
-const UnBlockButtonStyle = styled.button`
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 0px 10px 10px 0px;
     width: 150px;
     height: 35px;
     color: #ffffff;
@@ -40,14 +28,24 @@ const UnBlockButtonStyle = styled.button`
     cursor: pointer;
 `;
 
-const UserTable: React.FC = () => {
+const DenyButtonStyle = styled.button`
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 0px 10px 10px 0px;
+    width: 150px;
+    height: 35px;
+    color: #ffffff;
+    background: var(--color-red);
+    cursor: pointer;
+`;
+
+const WaitingUserTable: React.FC = () => {
     const [data, setData] = useState<[]>();
     const [check, rowManager] = useSelect();
-    const profile = useProfile();
 
-    const refreshUser = () => {
+    const refreshWaitingUserList = () => {
         axios
-            .get(`${config.ENDPOINT}/user/all`, {
+            .get(`${config.ENDPOINT}/waiting/users`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
@@ -56,7 +54,7 @@ const UserTable: React.FC = () => {
                 if (!res.data.success) {
                     alert(res.data.message);
                 } else {
-                    setData(res.data.users);
+                    setData(res.data.data);
                 }
             })
             .catch((err) => {
@@ -65,31 +63,27 @@ const UserTable: React.FC = () => {
     };
 
     useEffect(() => {
-        refreshUser();
+        refreshWaitingUserList();
     }, []);
 
-    const blockUsers = () => {
+    const allowUsers = () => {
         const { selected } = check;
 
         if (Object.keys(selected).length === 0) {
-            alert('차단 할 유저를 선택해주세요.');
+            alert('가입 수락 할 유저를 선택해주세요.');
             return;
         }
 
-        const isReal = window.confirm(`${Object.keys(selected).length}명을 차단 하시겠습니까?`);
+        const isReal = window.confirm(`${Object.keys(selected).length}명을 가입 수락 하시겠습니까?\n가입 수락은 되돌릴 수 없습니다.`);
 
         if (!isReal) return;
 
         Object.keys(selected).forEach((key: string) => {
             if (!selected[key]) return;
-            if (key === profile.email) {
-                alert('자기 자신은 차단 할 수 없습니다.');
-                return;
-            }
 
             axios
                 .put(
-                    `${config.ENDPOINT}/user/block`,
+                    `${config.ENDPOINT}/waiting/allow`,
                     { email: key },
                     {
                         headers: {
@@ -101,7 +95,7 @@ const UserTable: React.FC = () => {
                     if (!res.data.success) {
                         alert(res.data.message);
                     } else {
-                        refreshUser();
+                        refreshWaitingUserList();
 
                         rowManager.uncheckAllRow();
                     }
@@ -111,18 +105,18 @@ const UserTable: React.FC = () => {
                 });
         });
 
-        alert(`${Object.keys(selected).length}명 차단 완료`);
+        alert(`${Object.keys(selected).length}명 가입 수락 완료`);
     };
 
-    const unBlockUsers = () => {
+    const denyUsers = () => {
         const { selected } = check;
 
         if (Object.keys(selected).length === 0) {
-            alert('차단 해제 할 유저를 선택해주세요.');
+            alert('가입 거절 할 유저를 선택해주세요.');
             return;
         }
 
-        const isReal = window.confirm(`${Object.keys(selected).length}명을 차단 해제 하시겠습니까?`);
+        const isReal = window.confirm(`${Object.keys(selected).length}명을 가입 거절 하시겠습니까?`);
 
         if (!isReal) return;
 
@@ -130,7 +124,7 @@ const UserTable: React.FC = () => {
             if (!selected[key]) return;
             axios
                 .put(
-                    `${config.ENDPOINT}/user/unblock`,
+                    `${config.ENDPOINT}/waiting/deny`,
                     { email: key },
                     {
                         headers: {
@@ -142,7 +136,7 @@ const UserTable: React.FC = () => {
                     if (!res.data.success) {
                         alert(res.data.message);
                     } else {
-                        refreshUser();
+                        refreshWaitingUserList();
 
                         rowManager.uncheckAllRow();
                     }
@@ -152,7 +146,7 @@ const UserTable: React.FC = () => {
                 });
         });
 
-        alert(`${Object.keys(selected).length}명 차단 해제 완료`);
+        alert(`${Object.keys(selected).length}명 가입 거절 완료`);
     };
 
     const columns = [
@@ -165,14 +159,14 @@ const UserTable: React.FC = () => {
                         return (
                             <CheckboxWrapStyle>
                                 <input
-                                  type="checkbox"
-                                  checked={check.selectAll === 1}
-                                  ref={(input) => {
+                                    type="checkbox"
+                                    checked={check.selectAll === 1}
+                                    ref={(input) => {
                                         if (input) {
                                             input.indeterminate = check.selectAll === 2;
                                         }
                                     }}
-                                  onChange={() => rowManager.toggleAllRow(data, 'email')}
+                                    onChange={() => rowManager.toggleAllRow(data, 'email')}
                                 />
                             </CheckboxWrapStyle>
                         );
@@ -201,25 +195,15 @@ const UserTable: React.FC = () => {
                     accessor: 'grade'
                 },
                 {
-                    Header: '관리자 여부',
+                    Header: '가입 상태',
                     accessor: 'isAdmin',
                     Cell: ({ original }: any) => {
-                        return original.isAdmin ? 'YES' : 'NO';
+                        return original.isDeny ? '거절' : '대기 중';
                     }
                 },
                 {
-                    Header: '차단 여부',
-                    accessor: 'isBlocked',
-                    Cell: ({ original }: any) => {
-                        return original.isBlocked ? 'YES' : 'NO';
-                    }
-                },
-                {
-                    Header: '최고 관리자 여부',
-                    accessor: 'root',
-                    Cell: ({ original }: any) => {
-                        return original.root ? 'YES' : 'NO';
-                    }
+                    Header: '가입 요청일',
+                    accessor: 'createdAt'
                 }
             ]
         }
@@ -228,9 +212,8 @@ const UserTable: React.FC = () => {
     return (
         <>
             <div>
-                <BlockButtonStyle onClick={blockUsers}>차단</BlockButtonStyle>
-                <UnBlockButtonStyle onClick={unBlockUsers}>차단 해제</UnBlockButtonStyle>
-                <span> * 차단 시 해당 유저는 로그인이 불가능합니다.</span>
+                <AllowButtonStyle onClick={allowUsers}>수락</AllowButtonStyle>
+                <DenyButtonStyle onClick={denyUsers}>거절</DenyButtonStyle>
             </div>
 
             <TableWrap>
@@ -240,4 +223,4 @@ const UserTable: React.FC = () => {
     );
 };
 
-export default UserTable;
+export default WaitingUserTable;
