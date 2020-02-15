@@ -75,8 +75,10 @@ const AdminSideBar: React.FC<AdminSideBarProps> = ({ setNowMenu }) => {
                 </SideBarItemStyle>
             </SideBarUlStyle>
 
-            <br/>
-            <Logout styling><FontAwesomeIcon icon={faSignOutAlt}/> 로그아웃</Logout>
+            <br />
+            <Logout styling>
+                <FontAwesomeIcon icon={faSignOutAlt} /> 로그아웃
+            </Logout>
         </SideBarWrapStyle>
     );
 };
