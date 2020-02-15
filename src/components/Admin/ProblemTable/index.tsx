@@ -135,54 +135,46 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
 
     const columns = [
         {
-            id: 'checkbox',
-            accessor: 'checkbox',
-            Header: () => {
-                return (
-                    <CheckBoxWrapper>
-                        <input
-                          type="checkbox"
-                          checked={check.selectAll === 1}
-                          ref={(input) => {
-                                if (input) {
-                                    input.indeterminate = check.selectAll === 2;
-                                }
-                            }}
-                          onChange={() => rowManager.toggleAllRow(data, 'id')}
-                        />
-                    </CheckBoxWrapper>
-                );
-            },
-            Cell: ({ original }: any) => {
-                return (
-                    <CheckBoxWrapper>
-                        <input type="checkbox" checked={check.selected[original.id]} onChange={() => rowManager.toggleRow(original.id)} />
-                    </CheckBoxWrapper>
-                );
-            },
-            sortable: false,
-            width: 45
-        },
-        {
             columns: [
+                {
+                    id: 'checkbox',
+                    accessor: 'checkbox',
+                    Header: () => {
+                        return (
+                            <CheckBoxWrapper>
+                                <input
+                                  type="checkbox"
+                                  checked={check.selectAll === 1}
+                                  ref={(input) => {
+                                        if (input) {
+                                            input.indeterminate = check.selectAll === 2;
+                                        }
+                                    }}
+                                  onChange={() => rowManager.toggleAllRow(data, 'id')}
+                                />
+                            </CheckBoxWrapper>
+                        );
+                    },
+                    Cell: ({ original }: any) => {
+                        return (
+                            <CheckBoxWrapper>
+                                <input type="checkbox" checked={check.selected[original.id]} onChange={() => rowManager.toggleRow(original.id)} />
+                            </CheckBoxWrapper>
+                        );
+                    },
+                    sortable: false,
+                    width: 45
+                },
                 {
                     Header: '#',
                     accessor: 'id',
                     width: 45
-                }
-            ]
-        },
-        {
-            columns: [
+                },
                 {
                     Header: '작성자',
                     width: 150,
                     accessor: 'author'
-                }
-            ]
-        },
-        {
-            columns: [
+                },
                 {
                     Header: '문제',
                     width: 400,
@@ -195,11 +187,7 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
                     Header: '답',
                     width: 150,
                     accessor: 'answer'
-                }
-            ]
-        },
-        {
-            columns: [
+                },
                 {
                     Header: '과목',
                     width: 120,

@@ -10,6 +10,8 @@ const TableWrap = styled.div`
     .ReactTable {
         background-color: #ffffff;
     }
+
+    margin-bottom: 1rem;
 `;
 
 const CheckboxWrapStyle = styled.div`
@@ -155,36 +157,36 @@ const UserTable: React.FC = () => {
 
     const columns = [
         {
-            id: 'checkbox',
-            accessor: 'checkbox',
-            Header: () => {
-                return (
-                    <CheckboxWrapStyle>
-                        <input
-                          type="checkbox"
-                          checked={check.selectAll === 1}
-                          ref={(input) => {
-                                if (input) {
-                                    input.indeterminate = check.selectAll === 2;
-                                }
-                            }}
-                          onChange={() => rowManager.toggleAllRow(data, 'email')}
-                        />
-                    </CheckboxWrapStyle>
-                );
-            },
-            Cell: ({ original }: any) => {
-                return (
-                    <CheckboxWrapStyle>
-                        <input type="checkbox" checked={check.selected[original.email]} onChange={() => rowManager.toggleRow(original.email)} />
-                    </CheckboxWrapStyle>
-                );
-            },
-            sortable: false,
-            width: 45
-        },
-        {
             columns: [
+                {
+                    id: 'checkbox',
+                    accessor: 'checkbox',
+                    Header: () => {
+                        return (
+                            <CheckboxWrapStyle>
+                                <input
+                                  type="checkbox"
+                                  checked={check.selectAll === 1}
+                                  ref={(input) => {
+                                        if (input) {
+                                            input.indeterminate = check.selectAll === 2;
+                                        }
+                                    }}
+                                  onChange={() => rowManager.toggleAllRow(data, 'email')}
+                                />
+                            </CheckboxWrapStyle>
+                        );
+                    },
+                    Cell: ({ original }: any) => {
+                        return (
+                            <CheckboxWrapStyle>
+                                <input type="checkbox" checked={check.selected[original.email]} onChange={() => rowManager.toggleRow(original.email)} />
+                            </CheckboxWrapStyle>
+                        );
+                    },
+                    sortable: false,
+                    width: 45
+                },
                 {
                     Header: '이메일',
                     accessor: 'email',
@@ -193,11 +195,7 @@ const UserTable: React.FC = () => {
                 {
                     Header: '이름',
                     accessor: 'name'
-                }
-            ]
-        },
-        {
-            columns: [
+                },
                 {
                     Header: '학년',
                     accessor: 'grade'
