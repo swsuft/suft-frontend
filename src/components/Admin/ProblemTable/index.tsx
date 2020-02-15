@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import ReactTable from 'react-table';
 import axios from 'axios';
@@ -15,7 +15,7 @@ const TableWrapper = styled.div`
     margin-bottom: 1rem;
 `;
 
-const CheckboxWrapStyle = styled.div`
+const CheckBoxWrapper = styled.div`
     text-align: center;
 `;
 
@@ -141,25 +141,25 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
             accessor: 'checkbox',
             Header: () => {
                 return (
-                    <CheckboxWrapStyle>
+                    <CheckBoxWrapper>
                         <input
-                            type="checkbox"
-                            checked={check.selectAll === 1}
-                            ref={(input) => {
+                          type="checkbox"
+                          checked={check.selectAll === 1}
+                          ref={(input) => {
                                 if (input) {
                                     input.indeterminate = check.selectAll === 2;
                                 }
                             }}
-                            onChange={() => rowManager.toggleAllRow(data, 'id')}
+                          onChange={() => rowManager.toggleAllRow(data, 'id')}
                         />
-                    </CheckboxWrapStyle>
+                    </CheckBoxWrapper>
                 );
             },
             Cell: ({ original }: any) => {
                 return (
-                    <CheckboxWrapStyle>
+                    <CheckBoxWrapper>
                         <input type="checkbox" checked={check.selected[original.id]} onChange={() => rowManager.toggleRow(original.id)} />
-                    </CheckboxWrapStyle>
+                    </CheckBoxWrapper>
                 );
             },
             sortable: false,
@@ -234,11 +234,11 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
 
             <TableWrapper>
                 <ReactTable
-                    data={data}
-                    columns={columns}
-                    defaultPageSize={20}
-                    className="-highlight"
-                    getTdProps={(state: any, rowInfo: any, column: any) => {
+                  data={data}
+                  columns={columns}
+                  defaultPageSize={20}
+                  className="-highlight"
+                  getTdProps={(state: any, rowInfo: any, column: any) => {
                         return {
                             onClick: () => {
                                 if (rowInfo !== undefined && column.Header === '문제') {
