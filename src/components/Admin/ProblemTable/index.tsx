@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import styled from 'styled-components';
 import ReactTable from 'react-table';
-
 import axios from 'axios';
 import config from '../../../config';
 import SubjectToString from '../../../utils/SubjectToString';
@@ -12,7 +11,7 @@ const TableWrapper = styled.div`
     .ReactTable {
         background-color: #ffffff;
     }
-    
+
     margin-bottom: 1rem;
 `;
 
@@ -44,9 +43,9 @@ const DeleteButtonStyle = styled.button`
 
 const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
     const [data, setData] = useState<[]>();
-    const [check, setRow] = useSelect();
+    const [check, rowManager] = useSelect();
 
-    const refresh = () => {
+    const refreshProblem = () => {
         axios
             .get(`${config.ENDPOINT}/problem/all`, {
                 headers: {
@@ -66,62 +65,74 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
     };
 
     useEffect(() => {
-        refresh();
+        refreshProblem();
     }, []);
 
     const updateProblem = () => {
-        if (Object.keys(check.selected).length === 0) {
+        const { selected } = check;
+
+        if (Object.keys(selected).length === 0) {
             alert('수정할 문제를 선택해주세요.');
             return;
         }
 
-        if (Object.keys(check.selected).length !== 1) {
+        if (Object.keys(selected).length !== 1) {
             alert('수정할 문제가 2개 이상입니다. 1개만 선택해주세요.');
             return;
         }
 
-        for (const item in check.selected) {
-            if (check.selected[item]) {
-                history.push(`/admin/edit/${item}`);
-                return;
-            }
-        }
+        Object.keys(check.selected).forEach((key: string) => {
+            if (!selected[key]) return;
+            history.push(`/admin/edit/${key}`);
+        });
     };
 
     const deleteProblem = () => {
-        if (Object.keys(check.selected).length === 0) {
+        const { selected } = check;
+        if (Object.keys(selected).length === 0) {
             alert('삭제할 문제를 선택해주세요.');
             return;
         }
 
         const isRealDelete = window.confirm('정말로 삭제 하시겠습니까?');
 
-        if (isRealDelete) {
-            for (const item in check.selected) {
-                if (check.selected[item]) {
-                    axios
-                        .delete(`${config.ENDPOINT}/problem/delete/${item}`, {
-                            headers: {
-                                Authorization: `JWT ${localStorage.getItem('token')}`
-                            }
-                        })
-                        .then((res) => {
-                            if (!res.data.success) {
-                                alert(res.data.message);
-                            } else {
-                                refresh();
-
-                                setRow.uncheckAllRow();
-                            }
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
-                }
-            }
-
-            alert('삭제 완료!');
+        if (!isRealDelete) {
+            return;
         }
+
+        let deletedCount = 0;
+        const deletePromise = Object.keys(selected).map((key: string) => {
+            return new Promise((resolve, reject) => {
+                axios
+                    .delete(`${config.ENDPOINT}/problem/delete/${key}`, {
+                        headers: {
+                            Authorization: `JWT ${localStorage.getItem('token')}`
+                        }
+                    })
+                    .then((res) => {
+                        if (!res.data.success) {
+                            reject(res.data.message);
+                        } else {
+                            deletedCount += 1;
+                            resolve();
+                        }
+                    })
+                    .catch((err) => {
+                        reject(err);
+                    });
+            });
+        });
+
+        Promise.all(deletePromise)
+            .then(() => {
+                rowManager.uncheckAllRow();
+                refreshProblem();
+
+                alert(`${deletedCount}개 문제 삭제 완료`);
+            })
+            .catch((err) => {
+                alert(err);
+            });
     };
 
     const columns = [
@@ -132,14 +143,14 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
                 return (
                     <CheckboxWrapStyle>
                         <input
-                          type="checkbox"
-                          checked={check.selectAll === 1}
-                          ref={(input) => {
+                            type="checkbox"
+                            checked={check.selectAll === 1}
+                            ref={(input) => {
                                 if (input) {
-                                    input.indeterminate = (check.selectAll === 2);
+                                    input.indeterminate = check.selectAll === 2;
                                 }
                             }}
-                          onChange={() => setRow.toggleAllRow(data, 'id')}
+                            onChange={() => rowManager.toggleAllRow(data, 'id')}
                         />
                     </CheckboxWrapStyle>
                 );
@@ -147,7 +158,7 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
             Cell: ({ original }: any) => {
                 return (
                     <CheckboxWrapStyle>
-                        <input type="checkbox" checked={check.selected[original.id]} onChange={() => setRow.toggleRow(original.id)} />
+                        <input type="checkbox" checked={check.selected[original.id]} onChange={() => rowManager.toggleRow(original.id)} />
                     </CheckboxWrapStyle>
                 );
             },
@@ -223,11 +234,11 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
 
             <TableWrapper>
                 <ReactTable
-                  data={data}
-                  columns={columns}
-                  defaultPageSize={20}
-                  className="-highlight"
-                  getTdProps={(state: any, rowInfo: any, column: any) => {
+                    data={data}
+                    columns={columns}
+                    defaultPageSize={20}
+                    className="-highlight"
+                    getTdProps={(state: any, rowInfo: any, column: any) => {
                         return {
                             onClick: () => {
                                 if (rowInfo !== undefined && column.Header === '문제') {
