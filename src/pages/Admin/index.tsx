@@ -33,7 +33,7 @@ const Admin: React.FC = () => {
             case AdminMenuStatus.ADMIN_USERBLOCK:
                 return (
                     <>
-                        <AdminTitleStyle>유저 차단 설정</AdminTitleStyle>
+                        <AdminTitleStyle>유저 관리</AdminTitleStyle>
                         <UserTable />
                     </>
                 );
