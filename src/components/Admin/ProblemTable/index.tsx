@@ -21,7 +21,7 @@ const CheckboxWrapStyle = styled.div`
 const EditButtonStyle = styled.button`
     margin-bottom: 15px;
     border: none;
-    border-radius: 10px;
+    border-radius: 10px 0px 0px 10px;
     width: 150px;
     height: 35px;
     color: #ffffff;
@@ -32,7 +32,7 @@ const EditButtonStyle = styled.button`
 const DeleteButtonStyle = styled.button`
     margin-bottom: 15px;
     border: none;
-    border-radius: 10px;
+    border-radius: 0px 10px 10px 0px;
     width: 150px;
     height: 35px;
     color: #ffffff;
@@ -222,7 +222,6 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
         <>
             <div>
                 <EditButtonStyle onClick={updateProblem}>수정</EditButtonStyle>
-                &nbsp;
                 <DeleteButtonStyle onClick={deleteProblem}>삭제</DeleteButtonStyle>
                 <span> * 문제 표시 칸을 클릭하여 바로 수정 페이지로 들어갈 수 있습니다.</span>
             </div>
