@@ -8,7 +8,9 @@
 - `production`
     - 실 서비스에 올라간 코드
 - `master`
-    - 개발 중이거나 아직 서비스 하지 않는 코드
+    - 실 서비스에 올라가도 문제가 없는 코드
+- `dev` `feature/~`
+    - 개발 중인 코드
 
 ## 시작하기
 ### 의존성 설치하기
@@ -21,9 +23,7 @@
 `npm run build` (으로) production build를 합니다.
 
 ## TODO
-- [ ] CI/CD 적용
 - [ ] 문제 출제 권한 공개하기
-- [ ] 디자인 리뉴얼
 
 ## 기여하기
 수프트 프로젝트에 기여하고 싶으신 분은 [이곳(Pull requests)](https://github.com/swsuft/suft-frontend/pulls)에서 하실 수 있습니다.
