@@ -101,8 +101,7 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
             .catch((err) => {
                 console.log(err);
             });
-        refreshToken();
-    }, [id, refreshToken]);
+    }, [id]);
 
     const updateProblem = () => {
         if (answer === '' || subject === '' || grade === '' || times === '') {
@@ -134,7 +133,8 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
                     alert(res.data.message);
                 } else {
                     alert('문제 수정 완료!');
-                    history.push('/admin/view');
+                    history.push('/admin');
+                    refreshToken();
                 }
             })
             .catch((err) => {
