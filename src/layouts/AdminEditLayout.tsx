@@ -4,14 +4,14 @@ import Footer from '../components/Footer';
 import useAdmin from '../hooks/useAdmin';
 import NoPermissionError from '../components/Error/NoPermissionError';
 
-const AdminStyle = styled.div`
+const AdminContainerStyle = styled.div`
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     width: 100%;
 `;
 
-const AdminContentsStyle = styled.div`
+const AdminContentStyle = styled.div`
     flex: 1;
 `;
 
@@ -20,19 +20,18 @@ const AdminEditLayout: React.FC = ({ children }) => {
 
     if (isAdmin) {
         return (
-            <AdminStyle>
-                <AdminContentsStyle>{children}</AdminContentsStyle>
-
+            <AdminContainerStyle>
+                <AdminContentStyle>{children}</AdminContentStyle>
                 <Footer />
-            </AdminStyle>
+            </AdminContainerStyle>
         );
     }
 
     return (
-        <AdminStyle>
+        <AdminContainerStyle>
             <NoPermissionError />
             <Footer />
-        </AdminStyle>
+        </AdminContainerStyle>
     );
 };
 

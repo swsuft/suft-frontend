@@ -6,14 +6,14 @@ import { AdminMenuStatusType } from '../constants/AdminMenuStatus';
 import useAdmin from '../hooks/useAdmin';
 import NoPermissionError from '../components/Error/NoPermissionError';
 
-const AdminStyle = styled.div`
+const AdminContainer = styled.div`
     display: flex;
     min-height: 100vh;
     flex-direction: column;
     width: 100%;
 `;
 
-const AdminWrapStyle = styled.div`
+const AdminBodyStyle = styled.div`
     display: flex;
 
     @media screen and (max-width: 420px) {
@@ -21,7 +21,7 @@ const AdminWrapStyle = styled.div`
     }
 `;
 
-const AdminContentsStyle = styled.div`
+const AdminContentStyle = styled.div`
     flex: 1;
 `;
 
@@ -34,24 +34,22 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, setNowMenu }) => {
 
     if (isAdmin) {
         return (
-            <AdminStyle>
-                <AdminWrapStyle>
+            <AdminContainer>
+                <AdminBodyStyle>
                     <AdminSideBar setNowMenu={setNowMenu} />
-
-                    <AdminContentsStyle>{children}</AdminContentsStyle>
-                </AdminWrapStyle>
+                    <AdminContentStyle>{children}</AdminContentStyle>
+                </AdminBodyStyle>
 
                 <Footer />
-            </AdminStyle>
+            </AdminContainer>
         );
     }
 
     return (
-        <AdminStyle>
+        <AdminContainer>
             <NoPermissionError />
-
             <Footer />
-        </AdminStyle>
+        </AdminContainer>
     );
 };
 
