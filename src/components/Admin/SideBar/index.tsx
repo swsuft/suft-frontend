@@ -61,8 +61,11 @@ const AdminSideBar: React.FC<AdminSideBarProps> = ({ setNowMenu }) => {
 
             <MenuTitleStyle>유저관리</MenuTitleStyle>
             <SideBarMenuStyle>
-                <SideBarItemStyle id="userblock" onClick={() => setNowMenu(AdminMenuStatus.ADMIN_USERBLOCK)}>
-                    차단 설정
+                <SideBarItemStyle id="user-block" onClick={() => setNowMenu(AdminMenuStatus.ADMIN_USERBLOCK)}>
+                    유저 관리
+                </SideBarItemStyle>
+                <SideBarItemStyle id="waiting-user" onClick={() => setNowMenu(AdminMenuStatus.ADMIN_WAITINGUSER)}>
+                    가입 수락
                 </SideBarItemStyle>
             </SideBarMenuStyle>
 

@@ -6,6 +6,7 @@ import AdminMenuStatus, { AdminMenuStatusType } from '../../constants/AdminMenuS
 import CreateEditor from '../../components/DraftEditor/CreateEditor';
 import ProblemTable from '../../components/Admin/ProblemTable';
 import UserTable from '../../components/Admin/UserTable';
+import WaitingUserTable from '../../components/Admin/WaitingUserTable';
 
 const AdminTitleStyle = styled.h1`
     margin: 1rem auto;
@@ -35,6 +36,13 @@ const Admin: React.FC = () => {
                     <>
                         <AdminTitleStyle>유저 관리</AdminTitleStyle>
                         <UserTable />
+                    </>
+                );
+            case AdminMenuStatus.ADMIN_WAITINGUSER:
+                return (
+                    <>
+                        <AdminTitleStyle>가입 수락</AdminTitleStyle>
+                        <WaitingUserTable />
                     </>
                 );
             default:
