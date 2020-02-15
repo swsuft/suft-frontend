@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import ReactTable from 'react-table';
 import axios from 'axios';
 import config from '../../../config';
-import { useProfile } from '../../../hooks/useProfile';
 import useSelect from '../../../hooks/useSelect';
 
 const TableWrap = styled.div`
@@ -152,36 +151,36 @@ const WaitingUserTable: React.FC = () => {
 
     const columns = [
         {
-            id: 'checkbox',
-            accessor: 'checkbox',
-            Header: () => {
-                return (
-                    <CheckboxWrapStyle>
-                        <input
-                          type="checkbox"
-                          checked={check.selectAll === 1}
-                          ref={(input) => {
-                                if (input) {
-                                    input.indeterminate = check.selectAll === 2;
-                                }
-                            }}
-                          onChange={() => rowManager.toggleAllRow(data, 'email')}
-                        />
-                    </CheckboxWrapStyle>
-                );
-            },
-            Cell: ({ original }: any) => {
-                return (
-                    <CheckboxWrapStyle>
-                        <input type="checkbox" checked={check.selected[original.email]} onChange={() => rowManager.toggleRow(original.email)} />
-                    </CheckboxWrapStyle>
-                );
-            },
-            sortable: false,
-            width: 45
-        },
-        {
             columns: [
+                {
+                    id: 'checkbox',
+                    accessor: 'checkbox',
+                    Header: () => {
+                        return (
+                            <CheckboxWrapStyle>
+                                <input
+                                    type="checkbox"
+                                    checked={check.selectAll === 1}
+                                    ref={(input) => {
+                                        if (input) {
+                                            input.indeterminate = check.selectAll === 2;
+                                        }
+                                    }}
+                                    onChange={() => rowManager.toggleAllRow(data, 'email')}
+                                />
+                            </CheckboxWrapStyle>
+                        );
+                    },
+                    Cell: ({ original }: any) => {
+                        return (
+                            <CheckboxWrapStyle>
+                                <input type="checkbox" checked={check.selected[original.email]} onChange={() => rowManager.toggleRow(original.email)} />
+                            </CheckboxWrapStyle>
+                        );
+                    },
+                    sortable: false,
+                    width: 45
+                },
                 {
                     Header: '이메일',
                     accessor: 'email',
