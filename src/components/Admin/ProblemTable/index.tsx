@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import styled from 'styled-components';
 import ReactTable from 'react-table';
-import 'react-table/react-table.css';
+
 import axios from 'axios';
 import config from '../../../config';
 import SubjectToString from '../../../utils/SubjectToString';
 import useSelect from '../../../hooks/useSelect';
 
-const TableWrap = styled.div`
+const TableWrapper = styled.div`
     .ReactTable {
         background-color: #ffffff;
     }
+    
+    margin-bottom: 1rem;
 `;
 
 const CheckboxWrapStyle = styled.div`
@@ -86,10 +88,6 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
         }
     };
 
-    const updateProblemById = (id: number) => {
-        history.push(`/admin/edit/${id}`);
-    };
-
     const deleteProblem = () => {
         if (Object.keys(check.selected).length === 0) {
             alert('삭제할 문제를 선택해주세요.');
@@ -138,7 +136,7 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
                           checked={check.selectAll === 1}
                           ref={(input) => {
                                 if (input) {
-                                    input.indeterminate = check.selectAll === 2;
+                                    input.indeterminate = (check.selectAll === 2);
                                 }
                             }}
                           onChange={() => setRow.toggleAllRow(data, 'id')}
@@ -166,7 +164,6 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
             ]
         },
         {
-            Header: '작성자',
             columns: [
                 {
                     Header: '작성자',
@@ -176,7 +173,6 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
             ]
         },
         {
-            Header: '문제',
             columns: [
                 {
                     Header: '문제',
@@ -194,7 +190,6 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
             ]
         },
         {
-            Header: '카테고리',
             columns: [
                 {
                     Header: '과목',
@@ -226,23 +221,23 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
                 <span> * 문제 표시 칸을 클릭하여 바로 수정 페이지로 들어갈 수 있습니다.</span>
             </div>
 
-            <TableWrap>
+            <TableWrapper>
                 <ReactTable
                   data={data}
                   columns={columns}
-                  defaultPageSize={10}
+                  defaultPageSize={20}
                   className="-highlight"
                   getTdProps={(state: any, rowInfo: any, column: any) => {
                         return {
                             onClick: () => {
                                 if (rowInfo !== undefined && column.Header === '문제') {
-                                    updateProblemById(rowInfo.original.id);
+                                    history.push(`/admin/edit/${rowInfo.original.id}`);
                                 }
                             }
                         };
                     }}
                 />
-            </TableWrap>
+            </TableWrapper>
         </>
     );
 };
