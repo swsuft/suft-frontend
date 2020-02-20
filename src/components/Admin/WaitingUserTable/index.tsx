@@ -159,14 +159,14 @@ const WaitingUserTable: React.FC = () => {
                         return (
                             <CheckboxWrapStyle>
                                 <input
-                                    type="checkbox"
-                                    checked={check.selectAll === 1}
-                                    ref={(input) => {
+                                  type="checkbox"
+                                  checked={check.selectAll === 1}
+                                  ref={(input) => {
                                         if (input) {
                                             input.indeterminate = check.selectAll === 2;
                                         }
                                     }}
-                                    onChange={() => rowManager.toggleAllRow(data, 'email')}
+                                  onChange={() => rowManager.toggleAllRow(data, 'email')}
                                 />
                             </CheckboxWrapStyle>
                         );
