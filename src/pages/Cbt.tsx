@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import axios, { AxiosResponse } from 'axios';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
@@ -45,36 +45,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
     const [data, setData] = useState<any[]>([]);
     const [userAnswer, setUserAnswer] = useState('');
     const [count, setCount] = useState(0);
-
-    useEffect(() => {
-        const { subject, grade, times } = match.params;
-
-        axios
-            .get(`${config.ENDPOINT}/problem/get/${subject}/${grade}/${times}`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('token')}`
-                }
-            })
-            .then((res: AxiosResponse) => {
-                if (!res.data.success) {
-                    if (res.data.message === '토큰이 만료되었습니다.') {
-                        refreshToken();
-                        return;
-                    }
-
-                    alert(res.data.message);
-                    return;
-                }
-
-                setCount(res.data.problems.length);
-                setData(res.data.problems);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-
-        setBeLoading(true);
-    }, [match.params, refreshToken]);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const pickRandomNumber = () => {
         if (overlapRandom.length === count) {
@@ -114,6 +85,36 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
         checkAnswerUsingValue(userAnswer);
     };
 
+    useEffect(() => {
+        const { subject, grade, times } = match.params;
+
+        axios
+            .get(`${config.ENDPOINT}/problem/get/${subject}/${grade}/${times}`, {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('token')}`
+                }
+            })
+            .then((res: AxiosResponse) => {
+                if (!res.data.success) {
+                    if (res.data.message === '토큰이 만료되었습니다.') {
+                        refreshToken();
+                        return;
+                    }
+
+                    alert(res.data.message);
+                    return;
+                }
+
+                setCount(res.data.problems.length);
+                setData(res.data.problems);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+        setBeLoading(true);
+    }, [match.params, refreshToken]);
+
     let exp = '불러오는 중입니다...';
     const expOfAuthor = isLoading && data[random] !== undefined ? data[random].author : '불러오는 중';
 
@@ -146,6 +147,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
                 </NumberButtonContainer>
 
                 <CbtAnswer
+                  inputRef={inputRef}
                   answerValue={userAnswer}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(e.target.value)}
                   onKeyPress={(e: React.KeyboardEvent) => {

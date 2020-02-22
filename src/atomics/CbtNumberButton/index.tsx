@@ -11,6 +11,10 @@ const ButtonStyle = styled.button`
     background-color: var(--color-yellow);
     cursor: pointer;
     margin-right: 10px;
+
+    &:hover {
+        color: white;
+    }
 `;
 
 interface CbtNumberButtonProps {
@@ -18,11 +22,7 @@ interface CbtNumberButtonProps {
 }
 
 const CbtNumberButton: React.FC<CbtNumberButtonProps> = ({ onClick, children }) => {
-    return (
-        <ButtonStyle onClick={onClick}>
-            {children}
-        </ButtonStyle>
-    );
+    return <ButtonStyle onClick={onClick}>{children}</ButtonStyle>;
 };
 
 export default CbtNumberButton;
