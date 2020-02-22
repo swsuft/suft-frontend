@@ -15,7 +15,7 @@ const InputStyle = styled.input`
     height: 46px;
     padding-left: 20px;
     margin-bottom: 10px;
-    background-color: white;    
+    background-color: white;
 `;
 
 const SelectStyle = styled.select`
@@ -54,7 +54,6 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
             alert('비밀번호가 일치 하지 않습니다.');
         } else if (!emailRegExp.test(email)) {
             alert('올바른 이메일이 아닙니다.');
-        } else if (password !== rePassword) {
         } else if (!pwRegExp.test(password)) {
             alert('비밀번호는 영문자, 특수문자, 숫자가 포함되어야 하며 최소 6글자이여야합니다.');
         } else {
@@ -81,20 +80,18 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
 
     return (
         <div>
-            <RegisterHeaderText/>
+            <RegisterHeaderText />
 
             <RegisterWrapperStyle>
                 <LabelText>이메일</LabelText>
-                <InputStyle value={email} type="email" placeholder="사용할 이메일을 입력해주세요." onChange={(evt) => setEmail(evt.target.value)}/>
+                <InputStyle value={email} type="email" placeholder="사용할 이메일을 입력해주세요." onChange={(evt) => setEmail(evt.target.value)} />
 
-                <LabelText>
-                    비밀번호 (최소 6글자 이상, 영문자, 숫자, 특수문자 포함)
-                </LabelText>
-                <InputStyle value={password} type="password" placeholder="조건에 맞는 비밀번호를 입력해주세요." onChange={(evt) => setPassword(evt.target.value)}/>
-                <InputStyle value={rePassword} type="password" placeholder="확인을 위해 한 번 더 비밀번호를 입력해주세요." onChange={(evt) => setRePassword(evt.target.value)}/>
+                <LabelText>비밀번호 (최소 6글자 이상, 영문자, 숫자, 특수문자 포함)</LabelText>
+                <InputStyle value={password} type="password" placeholder="조건에 맞는 비밀번호를 입력해주세요." onChange={(evt) => setPassword(evt.target.value)} />
+                <InputStyle value={rePassword} type="password" placeholder="확인을 위해 한 번 더 비밀번호를 입력해주세요." onChange={(evt) => setRePassword(evt.target.value)} />
 
                 <LabelText>이름</LabelText>
-                <InputStyle value={name} type="text" placeholder="자신의 실명을 입력해주세요." onChange={(evt) => setName(evt.target.value)}/>
+                <InputStyle value={name} type="text" placeholder="자신의 실명을 입력해주세요." onChange={(evt) => setName(evt.target.value)} />
 
                 <LabelText>학년</LabelText>
                 <SelectStyle value={grade} onChange={onSelectChange}>
@@ -104,9 +101,9 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
                 </SelectStyle>
             </RegisterWrapperStyle>
 
-            <RegisterButton onClick={onRegisterButtonClick}/>
+            <RegisterButton onClick={onRegisterButtonClick} />
 
-            <RegisterFooterText/>
+            <RegisterFooterText />
         </div>
     );
 };

@@ -163,6 +163,7 @@ const WaitingUserTable: React.FC = () => {
                                   checked={check.selectAll === 1}
                                   ref={(input) => {
                                         if (input) {
+                                            // eslint-disable-next-line
                                             input.indeterminate = check.selectAll === 2;
                                         }
                                     }}

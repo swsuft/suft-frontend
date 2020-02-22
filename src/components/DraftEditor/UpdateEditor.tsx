@@ -83,19 +83,19 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
                 if (!res.data.success) {
                     alert(res.data.message);
                 } else {
-                    const { author, contents, answer, subject, grade, times } = res.data.problem;
+                    const { _author, _contents, _answer, _subject, _grade, _times } = res.data.problem;
 
-                    const blocksFromHtml = htmlToDraft(contents);
+                    const blocksFromHtml = htmlToDraft(_contents);
                     const { contentBlocks, entityMap } = blocksFromHtml;
                     const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
                     const editorState = EditorState.createWithContent(contentState);
 
-                    setAuthor(author);
+                    setAuthor(_author);
                     setEditor(editorState);
-                    setAnswer(answer);
-                    setSubject(subject);
-                    setGrade(grade);
-                    setTimes(times);
+                    setAnswer(_answer);
+                    setSubject(_subject);
+                    setGrade(_grade);
+                    setTimes(_times);
                 }
             })
             .catch((err) => {
