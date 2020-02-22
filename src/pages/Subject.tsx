@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChalkboard, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import CbtLayout from '../layouts/CbtLayout';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
@@ -11,6 +10,7 @@ import SubjectOption from '../atomics/SelectOptions/SubjectOption/SubjectOption'
 import GradeOption from '../atomics/SelectOptions/GradeOption';
 import TimesOption from '../atomics/SelectOptions/TimesOption';
 import LabelText from '../atomics/Typography/LabelText';
+import DefaultLayout from '../layouts/DefaultLayout';
 
 const SelectStyle = styled.select`
     border: none;
@@ -74,7 +74,7 @@ const Subject: React.FC<RouteComponentProps> = ({ history }) => {
     };
 
     return (
-        <CbtLayout>
+        <DefaultLayout>
             <Container>
                 <FontedTitle>문제풀이 시작하기</FontedTitle>
                 <FontedMiddleText>※ 자격증은 학년, 학기를 기타 카테고리로 선택하여 풀 수 있습니다.</FontedMiddleText>
@@ -107,7 +107,7 @@ const Subject: React.FC<RouteComponentProps> = ({ history }) => {
 
                 <IconStyle icon={faChalkboard} />
             </Container>
-        </CbtLayout>
+        </DefaultLayout>
     );
 };
 

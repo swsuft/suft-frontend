@@ -1,15 +1,15 @@
 import React from 'react';
 import Register from '../components/Register';
-import MainLayout from '../layouts/MainLayout';
+import DefaultLayout from '../layouts/DefaultLayout';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 
 const RegisterPage: React.FC = () => {
     return (
-        <MainLayout>
+        <DefaultLayout>
             <CenterContainer>
                 <Register />
             </CenterContainer>
-        </MainLayout>
+        </DefaultLayout>
     );
 };
 

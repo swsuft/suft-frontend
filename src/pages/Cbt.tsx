@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import config from '../config';
-import CbtLayout from '../layouts/CbtLayout';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
 import useToken from '../hooks/useToken';
+import DefaultLayout from '../layouts/DefaultLayout';
 
 const InputStyle = styled.input`
     border: none;
@@ -173,7 +173,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
     }
 
     return (
-        <CbtLayout>
+        <DefaultLayout>
             <Container>
                 <TitleStyle>
                     <FontedTitle>{isLoading ? random + 1 : '0'}번 문제</FontedTitle>
@@ -220,7 +220,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
                     <EtcTextStyle>* 숫자 버튼을 이용하거나 입력칸을 이용하여 정답을 제출 할 수 있습니다.</EtcTextStyle>
                 </AnswerWrapStyle>
             </Container>
-        </CbtLayout>
+        </DefaultLayout>
     );
 };
 
