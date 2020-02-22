@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import config from '../config';
 import Container from '../utils/ContainerUtils/Container';
@@ -55,7 +55,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
             })
-            .then((res) => {
+            .then((res: AxiosResponse) => {
                 if (!res.data.success) {
                     if (res.data.message === '토큰이 만료되었습니다.') {
                         refreshToken();
