@@ -13,6 +13,7 @@ import Admin from './pages/Admin';
 import AdminEdit from './pages/Admin/AdminEdit';
 import Privacy from './pages/Privacy';
 import Subject from './pages/Subject';
+import MyInfo from './pages/MyInfo';
 
 const index = (
     <BrowserRouter>
@@ -27,6 +28,7 @@ const index = (
                 <Route exact path="/admin/edit/:id" component={AdminEdit} />
                 <Route exact path="/register" component={RegisterPage} />
                 <Route exact path="/privacy" component={Privacy} />
+                <Route exact path="/myinfo" component={MyInfo} />
             </ProfileProvider>
         </Switch>
     </BrowserRouter>

@@ -31,9 +31,9 @@ const IconWrapperStyle = styled.div<{ pcMargin: string; mobileMargin: string }>`
 `;
 
 const DisableTextStyle = styled.div`
-  & > p {
-      color: var(--color-gray-background);
-  }
+    & > p {
+        color: var(--color-gray-background);
+    }
 `;
 
 const CardList: React.FC = () => {
@@ -45,7 +45,7 @@ const CardList: React.FC = () => {
         <Container>
             <MealCard />
 
-            <Card>
+            <Card pcWidth="calc(50% - 3rem)" pcHeight="10rem" mobileWidth="18rem" mobileHeight="8rem" inline isClick>
                 <NoStyleLink to="/subject">
                     <CardTitle>문제풀이 시작하기</CardTitle>
                     <p>국어, 수학 같은 일반과목 또는 전공과목 문제를 풉니다.</p>
@@ -55,7 +55,7 @@ const CardList: React.FC = () => {
                 </NoStyleLink>
             </Card>
 
-            <Card onClick={onClickParkingCard}>
+            <Card pcWidth="calc(50% - 3rem)" pcHeight="10rem" mobileWidth="18rem" mobileHeight="8rem" inline isClick onClick={onClickParkingCard}>
                 <DisableTextStyle>
                     <CardTitle>기여도</CardTitle>
                     <p>문제 출제에 기여한 순위를 봅니다.</p>
@@ -65,7 +65,7 @@ const CardList: React.FC = () => {
                 </DisableTextStyle>
             </Card>
 
-            <Card onClick={onClickParkingCard}>
+            <Card pcWidth="calc(50% - 3rem)" pcHeight="10rem" mobileWidth="18rem" mobileHeight="8rem" inline isClick onClick={onClickParkingCard}>
                 <DisableTextStyle>
                     <CardTitle>내 문제</CardTitle>
                     <p>새로운 문제를 출제하거나 기존 문제를 관리합니다.</p>
@@ -75,14 +75,14 @@ const CardList: React.FC = () => {
                 </DisableTextStyle>
             </Card>
 
-            <Card onClick={onClickParkingCard}>
-                <DisableTextStyle>
+            <Card pcWidth="calc(50% - 3rem)" pcHeight="10rem" mobileWidth="18rem" mobileHeight="8rem" inline isClick>
+                <NoStyleLink to="/myinfo">
                     <CardTitle>내 정보</CardTitle>
                     <p>계정에 관련된 내용을 보거나 설정합니다.</p>
                     <IconWrapperStyle pcMargin="0.8" mobileMargin="-1.2">
                         <SettingsIcon size="6rem" />
                     </IconWrapperStyle>
-                </DisableTextStyle>
+                </NoStyleLink>
             </Card>
         </Container>
     );
