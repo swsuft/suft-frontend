@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const InputStyle = styled.input<{ width?: string; height?: string }>`
+const InputStyle = styled.input<{ width?: string; height?: string; disabled?: boolean }>`
     border: none;
     border-radius: 20px;
     width: ${(props) => props.width || '95%'};
     height: ${(props) => props.height || '46px'};
     padding-left: 20px;
     margin-bottom: 10px;
-    background-color: white;
+    background-color: ${(props) => (props.disabled ? '#DDD' : 'white')};
+    ${(props) => (props.disabled ? 'cursor: no-drop' : '')}
 `;
 
 interface InputProps {
