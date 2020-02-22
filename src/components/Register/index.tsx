@@ -7,27 +7,8 @@ import RegisterHeaderText from './RegisterHeaderText';
 import RegisterButton from './RegisterButton';
 import RegisterFooterText from './RegisterFooterText';
 import LabelText from '../../atomics/Typography/LabelText';
-
-const InputStyle = styled.input`
-    border: none;
-    border-radius: 20px;
-    width: 95%;
-    height: 46px;
-    padding-left: 20px;
-    margin-bottom: 10px;
-    background-color: white;
-`;
-
-const SelectStyle = styled.select`
-    border: none;
-    border-radius: 20px;
-    width: 100%;
-    height: 46px;
-    padding-left: 20px;
-    appearance: none;
-    margin-bottom: 10px;
-    background-color: white;
-`;
+import Input from '../../atomics/Input';
+import Select from '../../atomics/Select';
 
 const RegisterWrapperStyle = styled.div`
     margin: 32px auto;
@@ -84,21 +65,21 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
 
             <RegisterWrapperStyle>
                 <LabelText>이메일</LabelText>
-                <InputStyle value={email} type="email" placeholder="사용할 이메일을 입력해주세요." onChange={(evt) => setEmail(evt.target.value)} />
+                <Input value={email} type="email" placeholder="사용할 이메일을 입력해주세요." onChange={(evt) => setEmail(evt.target.value)} />
 
                 <LabelText>비밀번호 (최소 6글자 이상, 영문자, 숫자, 특수문자 포함)</LabelText>
-                <InputStyle value={password} type="password" placeholder="조건에 맞는 비밀번호를 입력해주세요." onChange={(evt) => setPassword(evt.target.value)} />
-                <InputStyle value={rePassword} type="password" placeholder="확인을 위해 한 번 더 비밀번호를 입력해주세요." onChange={(evt) => setRePassword(evt.target.value)} />
+                <Input value={password} type="password" placeholder="조건에 맞는 비밀번호를 입력해주세요." onChange={(evt) => setPassword(evt.target.value)} />
+                <Input value={rePassword} type="password" placeholder="확인을 위해 한 번 더 비밀번호를 입력해주세요." onChange={(evt) => setRePassword(evt.target.value)} />
 
                 <LabelText>이름</LabelText>
-                <InputStyle value={name} type="text" placeholder="자신의 실명을 입력해주세요." onChange={(evt) => setName(evt.target.value)} />
+                <Input value={name} type="text" placeholder="자신의 실명을 입력해주세요." onChange={(evt) => setName(evt.target.value)} />
 
                 <LabelText>학년</LabelText>
-                <SelectStyle value={grade} onChange={onSelectChange}>
+                <Select value={grade} onChange={onSelectChange} width="100%">
                     <option value="1">1학년</option>
                     <option value="2">2학년</option>
                     <option value="3">3학년</option>
-                </SelectStyle>
+                </Select>
             </RegisterWrapperStyle>
 
             <RegisterButton onClick={onRegisterButtonClick} />

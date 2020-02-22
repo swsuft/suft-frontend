@@ -11,17 +11,7 @@ import GradeOption from '../atomics/SelectOptions/GradeOption';
 import TimesOption from '../atomics/SelectOptions/TimesOption';
 import LabelText from '../atomics/Typography/LabelText';
 import DefaultLayout from '../layouts/DefaultLayout';
-
-const SelectStyle = styled.select`
-    border: none;
-    border-radius: 20px;
-    width: 340px;
-    height: 45px;
-    padding-left: 20px;
-    appearance: none;
-    margin-bottom: 10px;
-    background-color: white;
-`;
+import Select from '../atomics/Select';
 
 const BodyStyle = styled.div`
     margin-top: 50px;
@@ -81,22 +71,22 @@ const Subject: React.FC<RouteComponentProps> = ({ history }) => {
 
                 <BodyStyle>
                     <LabelText>학년</LabelText>
-                    <SelectStyle value={grade} onChange={(e) => setGrade(e.target.value)}>
+                    <Select value={grade} onChange={(e) => setGrade(e.target.value)}>
                         <option value="">학년을 선택해주세요.</option>
                         <GradeOption />
-                    </SelectStyle>
+                    </Select>
 
                     <LabelText>과목</LabelText>
-                    <SelectStyle value={subject} onChange={(e) => setSubject(e.target.value)}>
+                    <Select value={subject} onChange={(e) => setSubject(e.target.value)}>
                         <option value="">과목을 선택해주세요.</option>
                         <SubjectOption />
-                    </SelectStyle>
+                    </Select>
 
                     <LabelText>학기</LabelText>
-                    <SelectStyle value={times} onChange={(e) => setTimes(e.target.value)}>
+                    <Select value={times} onChange={(e) => setTimes(e.target.value)}>
                         <option value="">학기를 선택해주세요.</option>
                         <TimesOption />
-                    </SelectStyle>
+                    </Select>
 
                     <div>
                         <ButtonStyle onClick={onStartButtonClick}>
