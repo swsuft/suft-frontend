@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const MainTextStyle = styled.p`
     font-family: 'Gugi';
-    font-size: 42px;
+    font-size: 46px;
     
     @media screen and (max-width: 420px) {
         text-align: center;

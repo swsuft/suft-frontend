@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import config from '../../config';
-import LoginButton from './LoginButton';
 import LoginHeaderText from './LoginHeaderText';
 import LoginFooterText from './LoginFooterText';
 import LabelText from '../../atomics/Typography/LabelText';
 import Input from '../../atomics/Input';
+import SquareButton from '../../atomics/SquareButton';
 
 const MenuLoginWrapStyle = styled.div`
     margin: 32px auto;
@@ -64,7 +66,9 @@ const Login: React.FC = () => {
                 <Input value={password} type="password" placeholder="비밀번호를 입력해주세요." onChange={onPasswordInputChange} onKeyPress={onEnterKeyPress} />
             </MenuLoginWrapStyle>
 
-            <LoginButton onClick={runLogin} />
+            <SquareButton onClick={runLogin}>
+                <FontAwesomeIcon icon={faDoorOpen} /> 로그인
+            </SquareButton>
 
             <LoginFooterText />
         </div>

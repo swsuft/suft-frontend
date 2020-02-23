@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import config from '../../config';
 import RegisterHeaderText from './RegisterHeaderText';
-import RegisterButton from './RegisterButton';
 import RegisterFooterText from './RegisterFooterText';
 import LabelText from '../../atomics/Typography/LabelText';
 import Input from '../../atomics/Input';
 import Select from '../../atomics/Select';
+import SquareButton from '../../atomics/SquareButton';
 
 const RegisterWrapperStyle = styled.div`
     margin: 32px auto;
@@ -82,7 +84,9 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
                 </Select>
             </RegisterWrapperStyle>
 
-            <RegisterButton onClick={onRegisterButtonClick} />
+            <SquareButton onClick={onRegisterButtonClick}>
+                <FontAwesomeIcon icon={faUserPlus} /> 회원가입
+            </SquareButton>
 
             <RegisterFooterText />
         </div>
