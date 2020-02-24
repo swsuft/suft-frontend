@@ -89,7 +89,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
         const { subject, grade, times } = match.params;
 
         axios
-            .get(`${config.ENDPOINT}/problem/get/${subject}/${grade}/${times}`, {
+            .get(`${config.ENDPOINT}/problem/${subject}/${grade}/${times}`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }

@@ -74,7 +74,7 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
 
     useEffect(() => {
         axios
-            .get(`${config.ENDPOINT}/problem/get/${id}`, {
+            .get(`${config.ENDPOINT}/problem/${id}`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
@@ -83,19 +83,20 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
                 if (!res.data.success) {
                     alert(res.data.message);
                 } else {
-                    const { _author, _contents, _answer, _subject, _grade, _times } = res.data.problem;
+                    // eslint-disable-next-line
+                    const { author, contents, answer, subject, grade, times } = res.data.problem;
 
-                    const blocksFromHtml = htmlToDraft(_contents);
+                    const blocksFromHtml = htmlToDraft(contents);
                     const { contentBlocks, entityMap } = blocksFromHtml;
                     const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
                     const editorState = EditorState.createWithContent(contentState);
 
-                    setAuthor(_author);
+                    setAuthor(author);
                     setEditor(editorState);
-                    setAnswer(_answer);
-                    setSubject(_subject);
-                    setGrade(_grade);
-                    setTimes(_times);
+                    setAnswer(answer);
+                    setSubject(subject);
+                    setGrade(grade);
+                    setTimes(times);
                 }
             })
             .catch((err) => {
@@ -113,7 +114,7 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
 
         axios
             .put(
-                `${config.ENDPOINT}/problem/update/${id}`,
+                `${config.ENDPOINT}/problem/${id}`,
                 {
                     author: author !== '' ? author : '익명',
                     contents: html,

@@ -77,7 +77,7 @@ const CreateEditor: React.FC = () => {
 
         axios
             .post(
-                `${config.ENDPOINT}/problem/create`,
+                `${config.ENDPOINT}/problem`,
                 {
                     author: author !== '' ? author : '익명',
                     contents: html,

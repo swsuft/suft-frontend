@@ -103,7 +103,7 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
         const deletePromise = Object.keys(selected).map((key: string) => {
             return new Promise((resolve, reject) => {
                 axios
-                    .delete(`${config.ENDPOINT}/problem/delete/${key}`, {
+                    .delete(`${config.ENDPOINT}/problem/${key}`, {
                         headers: {
                             Authorization: `JWT ${localStorage.getItem('token')}`
                         }
