@@ -89,8 +89,8 @@ const UserTable: React.FC = () => {
 
             axios
                 .put(
-                    `${config.ENDPOINT}/user/block`,
-                    { email: key },
+                    `${config.ENDPOINT}/user/block/${key}`,
+                    {},
                     {
                         headers: {
                             Authorization: `JWT ${localStorage.getItem('token')}`
@@ -130,8 +130,8 @@ const UserTable: React.FC = () => {
             if (!selected[key]) return;
             axios
                 .put(
-                    `${config.ENDPOINT}/user/unblock`,
-                    { email: key },
+                    `${config.ENDPOINT}/user/unblock/${key}`,
+                    {},
                     {
                         headers: {
                             Authorization: `JWT ${localStorage.getItem('token')}`
