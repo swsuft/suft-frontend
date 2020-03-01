@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+import { RouteComponentProps, withRouter } from 'react-router';
 import DefaultLayout from '../layouts/DefaultLayout';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import Input from '../atomics/Input';
@@ -11,12 +13,13 @@ import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import SquareButton from '../atomics/SquareButton';
 import { useProfile } from '../hooks/useProfile';
 import Login from '../components/Login';
+import config from '../config';
 
 const BodyStyle = styled.div`
     margin: 32px auto;
 `;
 
-const MyInfo: React.FC = () => {
+const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
     const profile = useProfile();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -41,6 +44,47 @@ const MyInfo: React.FC = () => {
             </DefaultLayout>
         );
     }
+
+    const updateMyInfo = () => {
+        const pwRegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/;
+
+        if (password === '') {
+            alert('현재 비밀번호를 입력하지 않았습니다.');
+        } else if (newPassword !== '' && newPassword !== rePassword) {
+            alert('변경하려는 비밀번호가 일치 하지 않습니다.');
+        } else if (newPassword !== '' && password === newPassword) {
+            alert('변경하려는 비밀번호가 기존과 동일합니다.');
+        } else if (newPassword !== '' && !pwRegExp.test(newPassword)) {
+            alert('비밀번호는 영문자, 특수문자, 숫자가 포함되어야 하며 최소 6글자이여야합니다.');
+        } else {
+            axios
+                .put(
+                    `${config.ENDPOINT}/user/${profile.email}`,
+                    {
+                        nowPassword: password,
+                        newPassword: newPassword === '' ? undefined : newPassword,
+                        grade
+                    },
+                    {
+                        headers: {
+                            Authorization: `JWT ${localStorage.getItem('token')}`
+                        }
+                    }
+                )
+                .then((data) => {
+                    if (!data.data.success) {
+                        alert(data.data.message);
+                    } else {
+                        alert('내 정보가 수정되었습니다!');
+                        history.push('/');
+                    }
+                })
+                .catch((err) => {
+                    alert('내 정보 수정 중 서버 오류가 발생하였습니다.');
+                    console.log(err);
+                });
+        }
+    };
 
     return (
         <DefaultLayout>
@@ -70,7 +114,7 @@ const MyInfo: React.FC = () => {
                         </Select>
                     </BodyStyle>
 
-                    <SquareButton>
+                    <SquareButton onClick={updateMyInfo}>
                         <FontAwesomeIcon icon={faPen} /> 수정하기
                     </SquareButton>
                 </div>
@@ -79,4 +123,4 @@ const MyInfo: React.FC = () => {
     );
 };
 
-export default MyInfo;
+export default withRouter(MyInfo);
