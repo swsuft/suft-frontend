@@ -9,8 +9,9 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - name: checkout
-      uses: actions/checkout@master
+    - uses: actions/checkout@master
+      with:
+        ref: ${{ github.ref }}
     - name: npm install
       run: npm install
     - name: npm run lint
