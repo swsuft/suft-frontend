@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChalkboard, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import CbtLayout from '../layouts/CbtLayout';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
@@ -11,17 +10,11 @@ import SubjectOption from '../atomics/SelectOptions/SubjectOption/SubjectOption'
 import GradeOption from '../atomics/SelectOptions/GradeOption';
 import TimesOption from '../atomics/SelectOptions/TimesOption';
 import LabelText from '../atomics/Typography/LabelText';
-
-const SelectStyle = styled.select`
-    border: none;
-    border-radius: 20px;
-    width: 340px;
-    height: 45px;
-    padding-left: 20px;
-    appearance: none;
-    margin-bottom: 10px;
-    background-color: white;
-`;
+import DefaultLayout from '../layouts/DefaultLayout';
+import Select from '../atomics/Select';
+import CenterContainer from '../utils/ContainerUtils/CenterContainer';
+import Login from '../components/Login';
+import { useProfile } from '../hooks/useProfile';
 
 const BodyStyle = styled.div`
     margin-top: 50px;
@@ -60,9 +53,20 @@ const IconStyle = styled(FontAwesomeIcon)`
 `;
 
 const Subject: React.FC<RouteComponentProps> = ({ history }) => {
+    const profile = useProfile();
     const [subject, setSubject] = useState('');
     const [grade, setGrade] = useState('');
     const [times, setTimes] = useState('');
+
+    if (profile !== undefined && !profile.success) {
+        return (
+            <DefaultLayout>
+                <CenterContainer>
+                    <Login />
+                </CenterContainer>
+            </DefaultLayout>
+        );
+    }
 
     const onStartButtonClick = () => {
         if (subject === '' || grade === '' || times === '') {
@@ -74,29 +78,29 @@ const Subject: React.FC<RouteComponentProps> = ({ history }) => {
     };
 
     return (
-        <CbtLayout>
+        <DefaultLayout>
             <Container>
                 <FontedTitle>문제풀이 시작하기</FontedTitle>
                 <FontedMiddleText>※ 자격증은 학년, 학기를 기타 카테고리로 선택하여 풀 수 있습니다.</FontedMiddleText>
 
                 <BodyStyle>
                     <LabelText>학년</LabelText>
-                    <SelectStyle value={grade} onChange={(e) => setGrade(e.target.value)}>
+                    <Select value={grade} onChange={(e) => setGrade(e.target.value)}>
                         <option value="">학년을 선택해주세요.</option>
                         <GradeOption />
-                    </SelectStyle>
+                    </Select>
 
                     <LabelText>과목</LabelText>
-                    <SelectStyle value={subject} onChange={(e) => setSubject(e.target.value)}>
+                    <Select value={subject} onChange={(e) => setSubject(e.target.value)}>
                         <option value="">과목을 선택해주세요.</option>
                         <SubjectOption />
-                    </SelectStyle>
+                    </Select>
 
                     <LabelText>학기</LabelText>
-                    <SelectStyle value={times} onChange={(e) => setTimes(e.target.value)}>
+                    <Select value={times} onChange={(e) => setTimes(e.target.value)}>
                         <option value="">학기를 선택해주세요.</option>
                         <TimesOption />
-                    </SelectStyle>
+                    </Select>
 
                     <div>
                         <ButtonStyle onClick={onStartButtonClick}>
@@ -107,7 +111,7 @@ const Subject: React.FC<RouteComponentProps> = ({ history }) => {
 
                 <IconStyle icon={faChalkboard} />
             </Container>
-        </CbtLayout>
+        </DefaultLayout>
     );
 };
 

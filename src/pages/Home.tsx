@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import MainLayout from '../layouts/MainLayout';
+import DefaultLayout from '../layouts/DefaultLayout';
 import { useProfile } from '../hooks/useProfile';
 import Login from '../components/Login';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
@@ -42,18 +42,18 @@ const Home: React.FC = () => {
 
     if (profile !== undefined && !profile.success) {
         return (
-            <MainLayout>
+            <DefaultLayout>
                 <CenterContainer>
                     <Login />
                 </CenterContainer>
-            </MainLayout>
+            </DefaultLayout>
         );
     }
 
     const name = profile ? profile.name : '불러오는중';
 
     return (
-        <MainLayout>
+        <DefaultLayout>
             <Container>
                 <WrapperStyle>
                     <HeaderTextStyle>
@@ -69,7 +69,7 @@ const Home: React.FC = () => {
                     <CardList />
                 </WrapperStyle>
             </Container>
-        </MainLayout>
+        </DefaultLayout>
     );
 };
 

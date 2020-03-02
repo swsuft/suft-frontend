@@ -4,25 +4,7 @@ import CardTitle from '../../atomics/Typography/CardTitle';
 import { useMeal } from '../../hooks/useMeal';
 import DayTag from '../../atomics/DayTag';
 import useDay from '../../hooks/useDay';
-
-const MealCardStyle = styled.div`
-    width: calc(100% - 3rem);
-    height: 14rem;
-    background-color: white;
-    padding: 1rem;
-    margin-bottom: 1rem;
-
-    transition: all 0.1s ease-in-out;
-
-    &:hover {
-        box-shadow: 5px 5px 1px var(--color-yellow);
-    }
-
-    @media screen and (max-width: 1000px) {
-        width: 18rem;
-        height: 26rem;
-    }
-`;
+import Card from '../Card';
 
 const MealWrapperStyle = styled.div`
     display: flex;
@@ -36,7 +18,7 @@ const MealWrapperStyle = styled.div`
 const MealBodyStyle = styled.div`
     width: 50%;
     margin-bottom: 1rem;
-    
+
     @media screen and (max-width: 1000px) {
         width: 100%;
     }
@@ -51,7 +33,7 @@ const MealCard: React.FC = () => {
     const [today, tomorrow] = useDay();
 
     return (
-        <MealCardStyle>
+        <Card pcWidth="calc(100% - 3rem)" pcHeight="14rem" mobileWidth="18rem" mobileHeight="26rem">
             <MealWrapperStyle>
                 <MealBodyStyle>
                     <CardTitle>
@@ -69,7 +51,7 @@ const MealCard: React.FC = () => {
                     <MealTextStyle>{meal[1]}</MealTextStyle>
                 </MealBodyStyle>
             </MealWrapperStyle>
-        </MealCardStyle>
+        </Card>
     );
 };
 

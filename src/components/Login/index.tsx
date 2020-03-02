@@ -1,24 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import config from '../../config';
-import LoginButton from './LoginButton';
 import LoginHeaderText from './LoginHeaderText';
 import LoginFooterText from './LoginFooterText';
 import LabelText from '../../atomics/Typography/LabelText';
+import Input from '../../atomics/Input';
+import SquareButton from '../../atomics/SquareButton';
 
 const MenuLoginWrapStyle = styled.div`
     margin: 32px auto;
-`;
-
-const InputStyle = styled.input`
-    border: none;
-    border-radius: 20px;
-    width: 95%;
-    height: 46px;
-    padding-left: 20px;
-    margin-bottom: 10px;
-    background-color: white;
 `;
 
 const Login: React.FC = () => {
@@ -63,31 +56,21 @@ const Login: React.FC = () => {
 
     return (
         <div>
-            <LoginHeaderText/>
+            <LoginHeaderText />
 
             <MenuLoginWrapStyle>
                 <LabelText>이메일</LabelText>
-                <InputStyle
-                  value={email}
-                  type="email"
-                  placeholder="이메일을 입력해주세요."
-                  onChange={onEmailInputChange}
-                  onKeyPress={onEnterKeyPress}
-                />
+                <Input value={email} type="email" placeholder="이메일을 입력해주세요." onChange={onEmailInputChange} onKeyPress={onEnterKeyPress} />
 
                 <LabelText>비밀번호</LabelText>
-                <InputStyle
-                  value={password}
-                  type="password"
-                  placeholder="비밀번호를 입력해주세요."
-                  onChange={onPasswordInputChange}
-                  onKeyPress={onEnterKeyPress}
-                />
+                <Input value={password} type="password" placeholder="비밀번호를 입력해주세요." onChange={onPasswordInputChange} onKeyPress={onEnterKeyPress} />
             </MenuLoginWrapStyle>
 
-            <LoginButton onClick={runLogin}/>
+            <SquareButton onClick={runLogin}>
+                <FontAwesomeIcon icon={faDoorOpen} /> 로그인
+            </SquareButton>
 
-            <LoginFooterText/>
+            <LoginFooterText />
         </div>
     );
 };

@@ -103,7 +103,7 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
         const deletePromise = Object.keys(selected).map((key: string) => {
             return new Promise((resolve, reject) => {
                 axios
-                    .delete(`${config.ENDPOINT}/problem/delete/${key}`, {
+                    .delete(`${config.ENDPOINT}/problem/${key}`, {
                         headers: {
                             Authorization: `JWT ${localStorage.getItem('token')}`
                         }
@@ -147,6 +147,7 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
                                   checked={check.selectAll === 1}
                                   ref={(input) => {
                                         if (input) {
+                                            // eslint-disable-next-line
                                             input.indeterminate = check.selectAll === 2;
                                         }
                                     }}

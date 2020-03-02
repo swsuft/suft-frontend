@@ -74,7 +74,7 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
 
     useEffect(() => {
         axios
-            .get(`${config.ENDPOINT}/problem/get/${id}`, {
+            .get(`${config.ENDPOINT}/problem/${id}`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
@@ -83,6 +83,7 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
                 if (!res.data.success) {
                     alert(res.data.message);
                 } else {
+                    // eslint-disable-next-line
                     const { author, contents, answer, subject, grade, times } = res.data.problem;
 
                     const blocksFromHtml = htmlToDraft(contents);
@@ -113,7 +114,7 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
 
         axios
             .put(
-                `${config.ENDPOINT}/problem/update/${id}`,
+                `${config.ENDPOINT}/problem/${id}`,
                 {
                     author: author !== '' ? author : '익명',
                     contents: html,

@@ -23,7 +23,7 @@ const subjectToString = (id: string): string => {
     if (id === '8') {
         return '컴퓨터구조';
     }
-    if (id === '9') {
+    if (id === '999') {
         return '자격증';
     }
 

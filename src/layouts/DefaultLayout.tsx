@@ -12,7 +12,7 @@ const BodyStyle = styled.div`
     flex: 1;
 `;
 
-const MainLayout: React.FC = ({ children }) => {
+const DefaultLayout: React.FC = ({ children }) => {
     return (
         <WrapperStyle>
             <BodyStyle>{children}</BodyStyle>
@@ -22,4 +22,4 @@ const MainLayout: React.FC = ({ children }) => {
     );
 };
 
-export default MainLayout;
+export default DefaultLayout;

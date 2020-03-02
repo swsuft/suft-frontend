@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import config from '../config';
 
 const useToken = () => {
@@ -10,7 +10,7 @@ const useToken = () => {
 
         axios
             .post(`${config.ENDPOINT}/token`, {}, { withCredentials: true })
-            .then((data) => {
+            .then((data: AxiosResponse) => {
                 if (!data.data.success) {
                     if (data.data.message === '재발급 토큰이 만료되었습니다.') {
                         return;

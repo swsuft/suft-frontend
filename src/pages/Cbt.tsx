@@ -1,67 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
-import { RouteComponentProps, withRouter } from 'react-router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import axios, { AxiosResponse } from 'axios';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import config from '../config';
-import CbtLayout from '../layouts/CbtLayout';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
 import useToken from '../hooks/useToken';
+import DefaultLayout from '../layouts/DefaultLayout';
+import CbtNumberButton from '../atomics/CbtNumberButton';
+import CbtAnswer from '../components/CbtAnswer';
 
-const InputStyle = styled.input`
-    border: none;
-    border-radius: 10px 0px 0px 10px;
-    vertical-align: middle;
-    width: 300px;
-    height: 30px;
-    padding-left: 10px;
-
-    @media screen and (max-width: 420px) {
-        border-radius: 10px;
-    }
-`;
-
-const ButtonStyle = styled.button`
-    vertical-align: middle;
-    border: none;
-    border-radius: 0px 10px 10px 0px;
-    width: 100px;
-    height: 30px;
-    color: #000;
-    background-color: var(--color-yellow);
-    cursor: pointer;
-
-    @media screen and (max-width: 420px) {
-        border-radius: 10px;
-    }
-`;
-
-const NumberButtonWrapperStyle = styled.div`
+const NumberButtonContainer = styled.div`
     margin: 1rem auto;
-`;
-
-const NumberButtonStyle = styled.button`
-    vertical-align: middle;
-    border: none;
-    border-radius: 10px;
-    width: 36px;
-    height: 36px;
-    color: #000;
-    background-color: var(--color-yellow);
-    cursor: pointer;
-    margin-right: 10px;
-`;
-
-const EtcTextStyle = styled.p`
-    font-size: 12px;
-    color: var(--color-text);
-`;
-
-const AnswerWrapStyle = styled.div`
-    margin-top: 1rem;
 `;
 
 const ProblemBoxStyle = styled.div`
@@ -94,36 +45,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
     const [data, setData] = useState<any[]>([]);
     const [userAnswer, setUserAnswer] = useState('');
     const [count, setCount] = useState(0);
-
-    useEffect(() => {
-        const { subject, grade, times } = match.params;
-
-        axios
-            .get(`${config.ENDPOINT}/problem/get/${subject}/${grade}/${times}`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('token')}`
-                }
-            })
-            .then((res) => {
-                if (!res.data.success) {
-                    if (res.data.message === '토큰이 만료되었습니다.') {
-                        refreshToken();
-                        return;
-                    }
-
-                    alert(res.data.message);
-                    return;
-                }
-
-                setCount(res.data.problems.length);
-                setData(res.data.problems);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-
-        setBeLoading(true);
-    }, [match.params, refreshToken]);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const pickRandomNumber = () => {
         if (overlapRandom.length === count) {
@@ -163,6 +85,36 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
         checkAnswerUsingValue(userAnswer);
     };
 
+    useEffect(() => {
+        const { subject, grade, times } = match.params;
+
+        axios
+            .get(`${config.ENDPOINT}/problem/${subject}/${grade}/${times}`, {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('token')}`
+                }
+            })
+            .then((res: AxiosResponse) => {
+                if (!res.data.success) {
+                    if (res.data.message === '토큰이 만료되었습니다.') {
+                        refreshToken();
+                        return;
+                    }
+
+                    alert(res.data.message);
+                    return;
+                }
+
+                setCount(res.data.problems.length);
+                setData(res.data.problems);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+        setBeLoading(true);
+    }, [match.params, refreshToken]);
+
     let exp = '불러오는 중입니다...';
     const expOfAuthor = isLoading && data[random] !== undefined ? data[random].author : '불러오는 중';
 
@@ -173,7 +125,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
     }
 
     return (
-        <CbtLayout>
+        <DefaultLayout>
             <Container>
                 <TitleStyle>
                     <FontedTitle>{isLoading ? random + 1 : '0'}번 문제</FontedTitle>
@@ -186,41 +138,25 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
 
                 <hr />
 
-                <NumberButtonWrapperStyle>
-                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingValue(1)}>
-                        1번
-                    </NumberButtonStyle>
-                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingValue(2)}>
-                        2번
-                    </NumberButtonStyle>
-                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingValue(3)}>
-                        3번
-                    </NumberButtonStyle>
-                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingValue(4)}>
-                        4번
-                    </NumberButtonStyle>
-                    <NumberButtonStyle type="button" onClick={() => checkAnswerUsingValue(5)}>
-                        5번
-                    </NumberButtonStyle>
-                </NumberButtonWrapperStyle>
+                <NumberButtonContainer>
+                    <CbtNumberButton onClick={() => checkAnswerUsingValue(1)}>1번</CbtNumberButton>
+                    <CbtNumberButton onClick={() => checkAnswerUsingValue(2)}>2번</CbtNumberButton>
+                    <CbtNumberButton onClick={() => checkAnswerUsingValue(3)}>3번</CbtNumberButton>
+                    <CbtNumberButton onClick={() => checkAnswerUsingValue(4)}>4번</CbtNumberButton>
+                    <CbtNumberButton onClick={() => checkAnswerUsingValue(5)}>5번</CbtNumberButton>
+                </NumberButtonContainer>
 
-                <AnswerWrapStyle>
-                    <InputStyle
-                      value={userAnswer}
-                      autoFocus
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(e.target.value)}
-                      placeholder="정답을 입력해주세요."
-                      onKeyPress={(e: React.KeyboardEvent) => {
-                            if (e.key === 'Enter') checkAnswer();
-                        }}
-                    />
-                    <ButtonStyle type="button" onClick={checkAnswer}>
-                        <FontAwesomeIcon icon={faPaperPlane} /> 제출
-                    </ButtonStyle>
-                    <EtcTextStyle>* 숫자 버튼을 이용하거나 입력칸을 이용하여 정답을 제출 할 수 있습니다.</EtcTextStyle>
-                </AnswerWrapStyle>
+                <CbtAnswer
+                  inputRef={inputRef}
+                  answerValue={userAnswer}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(e.target.value)}
+                  onKeyPress={(e: React.KeyboardEvent) => {
+                        if (e.key === 'Enter') checkAnswer();
+                    }}
+                  onButtonClick={checkAnswer}
+                />
             </Container>
-        </CbtLayout>
+        </DefaultLayout>
     );
 };
 
