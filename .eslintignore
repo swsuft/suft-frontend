@@ -1,7 +1,5 @@
-**/node_modules/
+**/src/assets/icons/*.svg
 
-src/assets/**
+**/src/css/*.css
 
-src/css/*.css
-
-src/react-app-env.d.ts
+**/src/react-app-env.d.ts
