@@ -9,8 +9,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - name: move
-      run: cd ..
+    - name: checkout
+      uses: actions/checkout@master
     - name: npm install
       run: npm install
     - name: npm run lint
