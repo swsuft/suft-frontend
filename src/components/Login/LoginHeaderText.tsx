@@ -22,7 +22,7 @@ const MainTextStyle = styled.p`
 
 const LoginHeaderText: React.FC = () => (
     <>
-        <SubTextStyle>시험 대비 CBT 문제풀이 서비스</SubTextStyle>
+        <SubTextStyle>시험 대비 문제풀이 서비스</SubTextStyle>
         <MainTextStyle>수프트</MainTextStyle>
     </>
 );
