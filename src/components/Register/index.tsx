@@ -56,7 +56,8 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
                     }
                 })
                 .catch((err) => {
-                    alert(err);
+                    alert('회원가입 중 서버 오류가 발생하였습니다.');
+                    console.log(err);
                 });
         }
     };
