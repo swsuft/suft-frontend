@@ -33,6 +33,7 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
 
         setEmail(profile!.email);
         setName(profile!.name);
+        setGrade(profile!.grade);
     }, [profile]);
 
     if (profile !== undefined && !profile.success) {
@@ -77,6 +78,7 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
                     } else {
                         alert('내 정보가 수정되었습니다!');
                         history.push('/');
+                        window.location.reload();
                     }
                 })
                 .catch((err) => {
