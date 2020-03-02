@@ -216,11 +216,16 @@ const UserTable: React.FC = () => {
                     }
                 },
                 {
-                    Header: '최고 관리자 여부',
-                    accessor: 'root',
-                    Cell: ({ original }: any) => {
-                        return original.root ? 'YES' : 'NO';
-                    }
+                    Header: '가입 수락일',
+                    accessor: 'createdAt'
+                },
+                {
+                    Header: '회원 정보 변경일',
+                    accessor: 'updatedAt'
+                },
+                {
+                    Header: '가입 요청일',
+                    accessor: 'registeredAt'
                 }
             ]
         }
