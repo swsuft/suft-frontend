@@ -5,6 +5,8 @@ import axios from 'axios';
 import config from '../../../config';
 import { useProfile } from '../../../hooks/useProfile';
 import useSelect from '../../../hooks/useSelect';
+import Error from '../../../error/Error';
+import serverErrorHandler from '../../../utils/ServerErrorHandler';
 
 const TableWrap = styled.div`
     .ReactTable {
@@ -53,14 +55,17 @@ const UserTable: React.FC = () => {
                 }
             })
             .then((res) => {
-                if (!res.data.success) {
-                    alert(res.data.message);
-                } else {
-                    setData(res.data.users);
-                }
+                setData(res.data.data);
             })
             .catch((err) => {
-                console.log(err);
+                const { code, message } = err.response.data;
+
+                if (code === Error.SERVER_ERROR) {
+                    serverErrorHandler(err);
+                    return;
+                }
+
+                alert(message);
             });
     };
 
@@ -80,10 +85,13 @@ const UserTable: React.FC = () => {
 
         if (!isReal) return;
 
+        let failedFlag = false;
+
         Object.keys(selected).forEach((key: string) => {
             if (!selected[key]) return;
             if (key === profile.data!.email) {
                 alert('자기 자신은 차단 할 수 없습니다.');
+                failedFlag = true;
                 return;
             }
 
@@ -97,21 +105,24 @@ const UserTable: React.FC = () => {
                         }
                     }
                 )
-                .then((res) => {
-                    if (!res.data.success) {
-                        alert(res.data.message);
-                    } else {
-                        refreshUser();
+                .then(() => {
+                    refreshUser();
 
-                        rowManager.uncheckAllRow();
-                    }
+                    rowManager.uncheckAllRow();
                 })
                 .catch((err) => {
-                    console.log(err);
+                    const { code, message } = err.response.data;
+
+                    if (code === Error.SERVER_ERROR) {
+                        serverErrorHandler(err);
+                        return;
+                    }
+
+                    alert(message);
                 });
         });
 
-        alert(`${Object.keys(selected).length}명 차단 완료`);
+        if (!failedFlag) alert(`${Object.keys(selected).length}명 차단 완료`);
     };
 
     const unBlockUsers = () => {
@@ -138,17 +149,20 @@ const UserTable: React.FC = () => {
                         }
                     }
                 )
-                .then((res) => {
-                    if (!res.data.success) {
-                        alert(res.data.message);
-                    } else {
-                        refreshUser();
+                .then(() => {
+                    refreshUser();
 
-                        rowManager.uncheckAllRow();
-                    }
+                    rowManager.uncheckAllRow();
                 })
                 .catch((err) => {
-                    console.log(err);
+                    const { code, message } = err.response.data;
+
+                    if (code === Error.SERVER_ERROR) {
+                        serverErrorHandler(err);
+                        return;
+                    }
+
+                    alert(message);
                 });
         });
 

@@ -11,6 +11,8 @@ import LabelText from '../../atomics/Typography/LabelText';
 import Input from '../../atomics/Input';
 import Select from '../../atomics/Select';
 import SquareButton from '../../atomics/SquareButton';
+import Error from '../../error/Error';
+import serverErrorHandler from '../../utils/ServerErrorHandler';
 
 const RegisterWrapperStyle = styled.div`
     margin: 32px auto;
@@ -47,17 +49,19 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
                     name,
                     grade
                 })
-                .then((data) => {
-                    if (!data.data.success) {
-                        alert(data.data.message);
-                    } else {
-                        alert('회원가입 신청이 완료되었습니다. 가입 수락 후 이용 가능합니다.\n메인 페이지로 이동합니다.');
-                        history.push('/');
-                    }
+                .then(() => {
+                    alert('회원가입 신청이 완료되었습니다. 가입 수락 후 이용 가능합니다.\n메인 페이지로 이동합니다.');
+                    history.push('/');
                 })
                 .catch((err) => {
-                    alert('회원가입 중 서버 오류가 발생하였습니다.');
-                    console.log(err);
+                    const errorCode = err.response.data.code;
+
+                    if (errorCode === Error.SERVER_ERROR) {
+                        serverErrorHandler(err);
+                        return;
+                    }
+
+                    alert(err.response.data.message);
                 });
         }
     };

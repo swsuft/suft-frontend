@@ -6,6 +6,8 @@ import axios from 'axios';
 import config from '../../../config';
 import SubjectToString from '../../../utils/SubjectToString';
 import useSelect from '../../../hooks/useSelect';
+import Error from '../../../error/Error';
+import serverErrorHandler from '../../../utils/ServerErrorHandler';
 
 const TableWrapper = styled.div`
     .ReactTable {
@@ -53,14 +55,17 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
                 }
             })
             .then((res) => {
-                if (!res.data.success) {
-                    alert(res.data.message);
-                } else {
-                    setData(res.data.problems);
-                }
+                setData(res.data.data);
             })
             .catch((err) => {
-                console.log(err);
+                const { code, message } = err.response.data;
+
+                if (code === Error.SERVER_ERROR) {
+                    serverErrorHandler(err);
+                    return;
+                }
+
+                alert(message);
             });
     };
 
@@ -108,12 +113,8 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
                             Authorization: `JWT ${localStorage.getItem('token')}`
                         }
                     })
-                    .then((res) => {
-                        if (!res.data.success) {
-                            reject(res.data.message);
-                        } else {
-                            resolve();
-                        }
+                    .then(() => {
+                        resolve();
                     })
                     .catch((err) => {
                         reject(err);
@@ -129,7 +130,14 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
                 alert(`${Object.keys(selected).length}개 문제 삭제 완료`);
             })
             .catch((err) => {
-                alert(err);
+                const { code, message } = err.response.data;
+
+                if (code === Error.SERVER_ERROR) {
+                    serverErrorHandler(err);
+                    return;
+                }
+
+                alert(message);
             });
     };
 

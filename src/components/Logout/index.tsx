@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import config from '../../config';
+import Error from '../../error/Error';
+import serverErrorHandler from '../../utils/ServerErrorHandler';
 
 const LogoutTextStyle = styled.button`
     font-size: 16px;
@@ -35,17 +37,20 @@ const Logout: React.FC<RouteComponentProps & LogoutProps> = ({ history, styling,
         if (check) {
             axios
                 .post(`${config.ENDPOINT}/logout`, {}, { withCredentials: true })
-                .then((data) => {
-                    if (!data.data.success) {
-                        alert(data.data.message);
-                    } else {
-                        localStorage.removeItem('token');
-                        history.push('/');
-                        window.location.reload();
-                    }
+                .then(() => {
+                    localStorage.removeItem('token');
+                    history.push('/');
+                    window.location.reload();
                 })
                 .catch((err) => {
-                    alert(err);
+                    const errorCode = err.response.data.code;
+
+                    if (errorCode === Error.SERVER_ERROR) {
+                        serverErrorHandler(err);
+                        return;
+                    }
+
+                    alert(err.response.data.message);
                 });
         }
     };

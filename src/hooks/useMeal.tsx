@@ -22,9 +22,17 @@ export const MealProvider: React.FC = ({ children }) => {
             })
             .catch((err) => {
                 const errorCode = err.response.data.code;
+
+                if (errorCode === Error.JWT_INVALID) {
+                    return;
+                }
+
                 if (errorCode === Error.SERVER_ERROR) {
                     serverErrorHandler(err);
+                    return;
                 }
+
+                alert(err.response.data.message);
             });
     }, []);
 

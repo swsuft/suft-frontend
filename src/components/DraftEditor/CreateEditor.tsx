@@ -14,6 +14,8 @@ import TimesOption from '../../atomics/SelectOptions/TimesOption';
 import uploadImageCallback from '../../utils/UploadImage';
 import ProblemPreview from './ProblemPreview';
 import useToken from '../../hooks/useToken';
+import Error from '../../error/Error';
+import serverErrorHandler from '../../utils/ServerErrorHandler';
 
 const EditorStyle = styled.div`
     background: #ffffff;
@@ -92,15 +94,18 @@ const CreateEditor: React.FC = () => {
                     }
                 }
             )
-            .then((res) => {
-                if (!res.data.success) {
-                    alert(res.data.message);
-                } else {
-                    alert('문제 등록 완료!');
-                }
+            .then(() => {
+                alert('문제 등록 완료!');
             })
             .catch((err) => {
-                alert(err);
+                const { code, message } = err.response.data;
+
+                if (code === Error.SERVER_ERROR) {
+                    serverErrorHandler(err);
+                    return;
+                }
+
+                alert(message);
             });
 
         setEditor(EditorState.createEmpty());

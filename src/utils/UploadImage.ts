@@ -11,10 +11,11 @@ const uploadImageCallback = (file: any): Promise<object> => {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
             })
-            .then((res: any) => {
-                resolve(res.data);
+            .then((res) => {
+                const url = res.data;
+                resolve({ url });
             })
-            .catch((err: any) => {
+            .catch((err) => {
                 reject(err);
             });
     });

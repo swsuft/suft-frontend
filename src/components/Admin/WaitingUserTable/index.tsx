@@ -4,6 +4,8 @@ import ReactTable from 'react-table';
 import axios from 'axios';
 import config from '../../../config';
 import useSelect from '../../../hooks/useSelect';
+import Error from '../../../error/Error';
+import serverErrorHandler from '../../../utils/ServerErrorHandler';
 
 const TableWrap = styled.div`
     .ReactTable {
@@ -45,20 +47,23 @@ const WaitingUserTable: React.FC = () => {
 
     const refreshWaitingUserList = () => {
         axios
-            .get(`${config.ENDPOINT}/waiting/users`, {
+            .get(`${config.ENDPOINT}/waiting/all`, {
                 headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
             })
             .then((res) => {
-                if (!res.data.success) {
-                    alert(res.data.message);
-                } else {
-                    setData(res.data.data);
-                }
+                setData(res.data.data);
             })
             .catch((err) => {
-                console.log(err);
+                const { code, message } = err.response.data;
+
+                if (code === Error.SERVER_ERROR) {
+                    serverErrorHandler(err);
+                    return;
+                }
+
+                alert(message);
             });
     };
 
@@ -91,17 +96,20 @@ const WaitingUserTable: React.FC = () => {
                         }
                     }
                 )
-                .then((res) => {
-                    if (!res.data.success) {
-                        alert(res.data.message);
-                    } else {
-                        refreshWaitingUserList();
+                .then(() => {
+                    refreshWaitingUserList();
 
-                        rowManager.uncheckAllRow();
-                    }
+                    rowManager.uncheckAllRow();
                 })
                 .catch((err) => {
-                    console.log(err);
+                    const { code, message } = err.response.data;
+
+                    if (code === Error.SERVER_ERROR) {
+                        serverErrorHandler(err);
+                        return;
+                    }
+
+                    alert(message);
                 });
         });
 
@@ -132,17 +140,20 @@ const WaitingUserTable: React.FC = () => {
                         }
                     }
                 )
-                .then((res) => {
-                    if (!res.data.success) {
-                        alert(res.data.message);
-                    } else {
-                        refreshWaitingUserList();
+                .then(() => {
+                    refreshWaitingUserList();
 
-                        rowManager.uncheckAllRow();
-                    }
+                    rowManager.uncheckAllRow();
                 })
                 .catch((err) => {
-                    console.log(err);
+                    const { code, message } = err.response.data;
+
+                    if (code === Error.SERVER_ERROR) {
+                        serverErrorHandler(err);
+                        return;
+                    }
+
+                    alert(message);
                 });
         });
 

@@ -9,6 +9,8 @@ import LoginFooterText from './LoginFooterText';
 import LabelText from '../../atomics/Typography/LabelText';
 import Input from '../../atomics/Input';
 import SquareButton from '../../atomics/SquareButton';
+import Error from '../../error/Error';
+import serverErrorHandler from '../../utils/ServerErrorHandler';
 
 const MenuLoginWrapStyle = styled.div`
     margin: 32px auto;
@@ -32,15 +34,18 @@ const Login: React.FC = () => {
                     { withCredentials: true }
                 )
                 .then((data) => {
-                    if (!data.data.success) {
-                        alert(data.data.message);
-                    } else {
-                        localStorage.setItem('token', data.data.token);
-                        window.location.reload();
-                    }
+                    localStorage.setItem('token', data.data.token);
+                    window.location.reload();
                 })
                 .catch((err) => {
-                    alert(err);
+                    const errorCode = err.response.data.code;
+
+                    if (errorCode === Error.SERVER_ERROR) {
+                        serverErrorHandler(err);
+                        return;
+                    }
+
+                    alert(err.response.data.message);
                 });
         }
     };

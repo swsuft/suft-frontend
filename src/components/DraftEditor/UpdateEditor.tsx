@@ -16,6 +16,8 @@ import TimesOption from '../../atomics/SelectOptions/TimesOption';
 import uploadImageCallback from '../../utils/UploadImage';
 import ProblemPreview from './ProblemPreview';
 import useToken from '../../hooks/useToken';
+import Error from '../../error/Error';
+import serverErrorHandler from '../../utils/ServerErrorHandler';
 
 const EditorStyle = styled.div`
     background: #ffffff;
@@ -80,27 +82,30 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
                 }
             })
             .then((res) => {
-                if (!res.data.success) {
-                    alert(res.data.message);
-                } else {
-                    // eslint-disable-next-line
-                    const { author, contents, answer, subject, grade, times } = res.data.problem;
+                // eslint-disable-next-line
+                const { author, contents, answer, subject, grade, times } = res.data.data;
 
-                    const blocksFromHtml = htmlToDraft(contents);
-                    const { contentBlocks, entityMap } = blocksFromHtml;
-                    const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
-                    const editorState = EditorState.createWithContent(contentState);
+                const blocksFromHtml = htmlToDraft(contents);
+                const { contentBlocks, entityMap } = blocksFromHtml;
+                const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+                const editorState = EditorState.createWithContent(contentState);
 
-                    setAuthor(author);
-                    setEditor(editorState);
-                    setAnswer(answer);
-                    setSubject(subject);
-                    setGrade(grade);
-                    setTimes(times);
-                }
+                setAuthor(author);
+                setEditor(editorState);
+                setAnswer(answer);
+                setSubject(subject);
+                setGrade(grade);
+                setTimes(times);
             })
             .catch((err) => {
-                console.log(err);
+                const { code, message } = err.response.data;
+
+                if (code === Error.SERVER_ERROR) {
+                    serverErrorHandler(err);
+                    return;
+                }
+
+                alert(message);
             });
     }, [id]);
 
@@ -147,13 +152,13 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
         <>
             <EditorStyle>
                 <Editor
-                  editorState={editor}
-                  toolbarClassName="draft-toolbar"
-                  wrapperClassName="draft-wrapper"
-                  editorClassName="draft-editor"
-                  onEditorStateChange={(editorState: any) => setEditor(editorState)}
-                  localization={{ locale: 'ko' }}
-                  toolbar={{
+                    editorState={editor}
+                    toolbarClassName="draft-toolbar"
+                    wrapperClassName="draft-wrapper"
+                    editorClassName="draft-editor"
+                    onEditorStateChange={(editorState: any) => setEditor(editorState)}
+                    localization={{ locale: 'ko' }}
+                    toolbar={{
                         image: {
                             uploadCallback: uploadImageCallback,
                             alt: { present: true }

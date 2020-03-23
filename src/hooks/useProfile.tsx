@@ -47,9 +47,18 @@ export const ProfileProvider: React.FC = ({ children }) => {
                     return;
                 }
 
+                if (errorCode === Error.JWT_INVALID) {
+                    return;
+                }
+
                 if (errorCode === Error.SERVER_ERROR) {
                     serverErrorHandler(error);
+                    return;
                 }
+
+                console.log('test', error.response.data.code, error.response.data.message);
+
+                alert(error.response.data.message);
             });
     }, [refreshToken]);
 

@@ -15,6 +15,7 @@ import { useProfile } from '../hooks/useProfile';
 import Login from '../components/Login';
 import config from '../config';
 import serverErrorHandler from '../utils/ServerErrorHandler';
+import Error from '../error/Error';
 
 const BodyStyle = styled.div`
     margin: 32px auto;
@@ -73,17 +74,24 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
                         }
                     }
                 )
-                .then((data) => {
-                    if (!data.data.success) {
-                        alert(data.data.message);
-                    } else {
-                        alert('내 정보가 수정되었습니다!');
-                        history.push('/');
-                        window.location.reload();
-                    }
+                .then(() => {
+                    alert('내 정보가 수정되었습니다!');
+                    history.push('/');
+                    window.location.reload();
                 })
                 .catch((err) => {
-                    serverErrorHandler(err);
+                    const errorCode = err.response.data.code;
+                    if (errorCode === Error.PW_NOT_MATCH) {
+                        alert('비밀번호가 올바르지 않습니다.');
+                        return;
+                    }
+
+                    if (errorCode === Error.SERVER_ERROR) {
+                        serverErrorHandler(err);
+                        return;
+                    }
+
+                    alert(err.response.data.message);
                 });
         }
     };

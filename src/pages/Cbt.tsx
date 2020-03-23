@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import config from '../config';
 import Container from '../utils/ContainerUtils/Container';
@@ -10,6 +10,8 @@ import useToken from '../hooks/useToken';
 import DefaultLayout from '../layouts/DefaultLayout';
 import CbtNumberButton from '../atomics/CbtNumberButton';
 import CbtAnswer from '../components/CbtAnswer';
+import Error from '../error/Error';
+import serverErrorHandler from '../utils/ServerErrorHandler';
 
 const NumberButtonContainer = styled.div`
     margin: 1rem auto;
@@ -94,22 +96,24 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
             })
-            .then((res: AxiosResponse) => {
-                if (!res.data.success) {
-                    if (res.data.message === '토큰이 만료되었습니다.') {
-                        refreshToken();
-                        return;
-                    }
+            .then((res) => {
+                setCount(res.data.data.length);
+                setData(res.data.data);
+            })
+            .catch((err) => {
+                const errorCode = err.response.data.code;
 
-                    alert(res.data.message);
+                if (errorCode === Error.JWT_EXPIRED) {
+                    refreshToken();
                     return;
                 }
 
-                setCount(res.data.problems.length);
-                setData(res.data.problems);
-            })
-            .catch((err) => {
-                console.log(err);
+                if (errorCode === Error.SERVER_ERROR) {
+                    serverErrorHandler(err);
+                    return;
+                }
+
+                alert(err.response.data.message);
             });
 
         setBeLoading(true);
