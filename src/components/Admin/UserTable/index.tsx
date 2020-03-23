@@ -82,7 +82,7 @@ const UserTable: React.FC = () => {
 
         Object.keys(selected).forEach((key: string) => {
             if (!selected[key]) return;
-            if (key === profile.email) {
+            if (key === profile.data!.email) {
                 alert('자기 자신은 차단 할 수 없습니다.');
                 return;
             }

@@ -29,14 +29,14 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
     const [grade, setGrade] = useState('1');
 
     useEffect(() => {
-        if (profile === undefined) return;
+        if (profile.data === undefined) return;
 
-        setEmail(profile!.email);
-        setName(profile!.name);
-        setGrade(profile!.grade);
+        setEmail(profile.data.email);
+        setName(profile.data.name);
+        setGrade(profile.data.grade);
     }, [profile]);
 
-    if (profile !== undefined && !profile.success) {
+    if (profile.data === undefined || !profile.success) {
         return (
             <DefaultLayout>
                 <CenterContainer>
@@ -60,7 +60,7 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
         } else {
             axios
                 .put(
-                    `${config.ENDPOINT}/user/${profile.email}`,
+                    `${config.ENDPOINT}/user/${profile.data!.email}`,
                     {
                         nowPassword: password,
                         newPassword: newPassword === '' ? undefined : newPassword,

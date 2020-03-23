@@ -40,7 +40,7 @@ const MiddleBodyStyle = styled.div`
 const Home: React.FC = () => {
     const profile = useProfile();
 
-    if (profile !== undefined && !profile.success) {
+    if (profile.data === undefined || !profile.success) {
         return (
             <DefaultLayout>
                 <CenterContainer>
@@ -50,7 +50,7 @@ const Home: React.FC = () => {
         );
     }
 
-    const name = profile ? profile.name : '불러오는중';
+    const name = profile ? profile.data.name : '불러오는중';
 
     return (
         <DefaultLayout>

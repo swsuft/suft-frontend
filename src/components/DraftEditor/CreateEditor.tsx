@@ -62,7 +62,7 @@ const CreateEditor: React.FC = () => {
     const refreshToken = useToken();
     const [editor, setEditor] = useState(EditorState.createEmpty());
     const [answer, setAnswer] = useState('');
-    const [author, setAuthor] = useState(profile.name);
+    const [author, setAuthor] = useState(profile.data!.name);
     const [subject, setSubject] = useState('');
     const [grade, setGrade] = useState('');
     const [times, setTimes] = useState('');
