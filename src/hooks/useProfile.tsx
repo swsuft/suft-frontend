@@ -32,13 +32,6 @@ export const ProfileProvider: React.FC = ({ children }) => {
                 }
             })
             .then((res) => {
-                if (!res.data.success) {
-                    const msg = res.data.message;
-                    if (msg === 'jwt expired') {
-                        refreshToken();
-                    }
-                }
-
                 setProfile(res.data);
             })
             .catch((error) => {
@@ -47,6 +40,11 @@ export const ProfileProvider: React.FC = ({ children }) => {
                     success: false,
                     data: undefined
                 });
+
+                if (errorCode === Error.JWT_EXPIRED) {
+                    refreshToken();
+                    return;
+                }
 
                 if (errorCode === Error.SERVER_ERROR) {
                     alert('서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.\n문제가 지속될 경우 관리자에게 알려주세요.');
