@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import config from '../config';
 import Error from '../error/Error';
+import serverErrorHandler from '../utils/ServerErrorHandler';
 
 const context = createContext<string[]>([]);
 
@@ -15,15 +16,14 @@ export const MealProvider: React.FC = ({ children }) => {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                 }
             })
-            .then((res: any) => {
+            .then((res) => {
                 const { today, tomorrow } = res.data.data;
                 setMeal([today, tomorrow]);
             })
-            .catch((err: any) => {
+            .catch((err) => {
                 const errorCode = err.response.data.code;
                 if (errorCode === Error.SERVER_ERROR) {
-                    alert('서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.\n문제가 지속될 경우 관리자에게 알려주세요.');
-                    console.log(`급식 정보 오류: ${err}`);
+                    serverErrorHandler(err);
                 }
             });
     }, []);

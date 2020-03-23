@@ -14,6 +14,7 @@ import SquareButton from '../atomics/SquareButton';
 import { useProfile } from '../hooks/useProfile';
 import Login from '../components/Login';
 import config from '../config';
+import serverErrorHandler from '../utils/ServerErrorHandler';
 
 const BodyStyle = styled.div`
     margin: 32px auto;
@@ -82,8 +83,7 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
                     }
                 })
                 .catch((err) => {
-                    alert('내 정보 수정 중 서버 오류가 발생하였습니다.');
-                    console.log(err);
+                    serverErrorHandler(err);
                 });
         }
     };

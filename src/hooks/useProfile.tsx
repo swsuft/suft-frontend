@@ -3,6 +3,7 @@ import axios from 'axios';
 import config from '../config';
 import useToken from './useToken';
 import Error from '../error/Error';
+import serverErrorHandler from '../utils/ServerErrorHandler';
 
 interface Profile {
     readonly email: string;
@@ -47,8 +48,7 @@ export const ProfileProvider: React.FC = ({ children }) => {
                 }
 
                 if (errorCode === Error.SERVER_ERROR) {
-                    alert('서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.\n문제가 지속될 경우 관리자에게 알려주세요.');
-                    console.log(`유저 정보 오류: ${error}`);
+                    serverErrorHandler(error);
                 }
             });
     }, [refreshToken]);
