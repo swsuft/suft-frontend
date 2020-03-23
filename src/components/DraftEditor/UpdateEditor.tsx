@@ -152,13 +152,13 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
         <>
             <EditorStyle>
                 <Editor
-                    editorState={editor}
-                    toolbarClassName="draft-toolbar"
-                    wrapperClassName="draft-wrapper"
-                    editorClassName="draft-editor"
-                    onEditorStateChange={(editorState: any) => setEditor(editorState)}
-                    localization={{ locale: 'ko' }}
-                    toolbar={{
+                  editorState={editor}
+                  toolbarClassName="draft-toolbar"
+                  wrapperClassName="draft-wrapper"
+                  editorClassName="draft-editor"
+                  onEditorStateChange={(editorState: any) => setEditor(editorState)}
+                  localization={{ locale: 'ko' }}
+                  toolbar={{
                         image: {
                             uploadCallback: uploadImageCallback,
                             alt: { present: true }
