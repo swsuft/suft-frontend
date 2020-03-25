@@ -58,6 +58,11 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
                 .catch((err) => {
                     const errorCode = err.response.data.code;
 
+                    if (errorCode === Error.BLOCK_EMAIL) {
+                        alert('가입 불가능한 이메일입니다. 다른 이메일을 사용해주세요.');
+                        return;
+                    }
+
                     if (errorCode === Error.SERVER_ERROR) {
                         serverErrorHandler(err);
                         return;
