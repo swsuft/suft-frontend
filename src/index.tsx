@@ -8,7 +8,7 @@ import { ProfileProvider } from './hooks/useProfile';
 import { MealProvider } from './hooks/useMeal';
 import Home from './pages/Home';
 import Cbt from './pages/Cbt';
-import RegisterPage from './pages/RegisterPage';
+import Register from './pages/Register';
 import Admin from './pages/Admin';
 import AdminEdit from './pages/Admin/AdminEdit';
 import Privacy from './pages/Privacy';
@@ -26,7 +26,7 @@ const index = (
                 <Route exact path="/subject" component={Subject} />
                 <Route exact path="/admin" component={Admin} />
                 <Route exact path="/admin/edit/:id" component={AdminEdit} />
-                <Route exact path="/register" component={RegisterPage} />
+                <Route exact path="/register" component={Register} />
                 <Route exact path="/privacy" component={Privacy} />
                 <Route exact path="/myinfo" component={MyInfo} />
             </ProfileProvider>
