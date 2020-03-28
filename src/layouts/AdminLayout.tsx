@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import Footer from '../components/Footer';
 import AdminSideBar from '../components/Admin/SideBar';
 import { AdminMenuStatusType } from '../constants/AdminMenuStatus';
-import useAdmin from '../hooks/useAdmin';
-import NoPermissionError from '../components/Error/NoPermissionError';
 
 const AdminContainer = styled.div`
     display: flex;
@@ -30,24 +28,13 @@ interface AdminLayoutProps {
 }
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children, setNowMenu }) => {
-    const isAdmin = useAdmin();
-
-    if (isAdmin) {
-        return (
-            <AdminContainer>
-                <AdminBodyStyle>
-                    <AdminSideBar setNowMenu={setNowMenu} />
-                    <AdminContentStyle>{children}</AdminContentStyle>
-                </AdminBodyStyle>
-
-                <Footer />
-            </AdminContainer>
-        );
-    }
-
     return (
         <AdminContainer>
-            <NoPermissionError />
+            <AdminBodyStyle>
+                <AdminSideBar setNowMenu={setNowMenu} />
+                <AdminContentStyle>{children}</AdminContentStyle>
+            </AdminBodyStyle>
+
             <Footer />
         </AdminContainer>
     );

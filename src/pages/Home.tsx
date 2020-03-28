@@ -4,9 +4,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DefaultLayout from '../layouts/DefaultLayout';
 import { useProfile } from '../hooks/useProfile';
-import Login from '../components/Login';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
-import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import Container from '../utils/ContainerUtils/Container';
 import CardList from '../components/CardList';
 import Logout from '../components/Logout';
@@ -40,17 +38,7 @@ const MiddleBodyStyle = styled.div`
 const Home: React.FC = () => {
     const profile = useProfile();
 
-    if (profile.data === undefined || !profile.success) {
-        return (
-            <DefaultLayout>
-                <CenterContainer>
-                    <Login />
-                </CenterContainer>
-            </DefaultLayout>
-        );
-    }
-
-    const name = profile ? profile.data.name : '불러오는중';
+    const name = profile.data ? profile!.data.name : '불러오는중';
 
     return (
         <DefaultLayout>

@@ -12,9 +12,6 @@ import TimesOption from '../atomics/SelectOptions/TimesOption';
 import LabelText from '../atomics/Typography/LabelText';
 import DefaultLayout from '../layouts/DefaultLayout';
 import Select from '../atomics/Select';
-import CenterContainer from '../utils/ContainerUtils/CenterContainer';
-import Login from '../components/Login';
-import { useProfile } from '../hooks/useProfile';
 
 const BodyStyle = styled.div`
     margin-top: 50px;
@@ -53,20 +50,9 @@ const IconStyle = styled(FontAwesomeIcon)`
 `;
 
 const Subject: React.FC<RouteComponentProps> = ({ history }) => {
-    const profile = useProfile();
     const [subject, setSubject] = useState('');
     const [grade, setGrade] = useState('');
     const [times, setTimes] = useState('');
-
-    if (profile !== undefined && !profile.success) {
-        return (
-            <DefaultLayout>
-                <CenterContainer>
-                    <Login />
-                </CenterContainer>
-            </DefaultLayout>
-        );
-    }
 
     const onStartButtonClick = () => {
         if (subject === '' || grade === '' || times === '') {

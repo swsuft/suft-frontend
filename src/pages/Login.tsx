@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
-import config from '../../config';
-import LoginHeaderText from './LoginHeaderText';
-import LoginFooterText from './LoginFooterText';
-import LabelText from '../../atomics/Typography/LabelText';
-import Input from '../../atomics/Input';
-import SquareButton from '../../atomics/SquareButton';
-import Error from '../../error/Error';
-import serverErrorHandler from '../../utils/ServerErrorHandler';
+import config from '../config';
+import Error from '../error/Error';
+import serverErrorHandler from '../utils/ServerErrorHandler';
+import LoginHeaderText from '../components/Login/LoginHeaderText';
+import LabelText from '../atomics/Typography/LabelText';
+import Input from '../atomics/Input';
+import SquareButton from '../atomics/SquareButton';
+import LoginFooterText from '../components/Login/LoginFooterText';
+import DefaultLayout from '../layouts/DefaultLayout';
+import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 
 const MenuLoginWrapStyle = styled.div`
     margin: 32px auto;
@@ -60,23 +62,27 @@ const Login: React.FC = () => {
     const onPasswordInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
 
     return (
-        <div>
-            <LoginHeaderText />
+        <DefaultLayout>
+            <CenterContainer>
+                <div>
+                    <LoginHeaderText />
 
-            <MenuLoginWrapStyle>
-                <LabelText>이메일</LabelText>
-                <Input value={email} type="email" placeholder="이메일을 입력해주세요." onChange={onEmailInputChange} onKeyPress={onEnterKeyPress} />
+                    <MenuLoginWrapStyle>
+                        <LabelText>이메일</LabelText>
+                        <Input value={email} type="email" placeholder="이메일을 입력해주세요." onChange={onEmailInputChange} onKeyPress={onEnterKeyPress} />
 
-                <LabelText>비밀번호</LabelText>
-                <Input value={password} type="password" placeholder="비밀번호를 입력해주세요." onChange={onPasswordInputChange} onKeyPress={onEnterKeyPress} />
-            </MenuLoginWrapStyle>
+                        <LabelText>비밀번호</LabelText>
+                        <Input value={password} type="password" placeholder="비밀번호를 입력해주세요." onChange={onPasswordInputChange} onKeyPress={onEnterKeyPress} />
+                    </MenuLoginWrapStyle>
 
-            <SquareButton onClick={runLogin}>
-                <FontAwesomeIcon icon={faDoorOpen} /> 로그인
-            </SquareButton>
+                    <SquareButton onClick={runLogin}>
+                        <FontAwesomeIcon icon={faDoorOpen} /> 로그인
+                    </SquareButton>
 
-            <LoginFooterText />
-        </div>
+                    <LoginFooterText />
+                </div>
+            </CenterContainer>
+        </DefaultLayout>
     );
 };
 

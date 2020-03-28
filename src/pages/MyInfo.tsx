@@ -12,7 +12,6 @@ import Select from '../atomics/Select';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import SquareButton from '../atomics/SquareButton';
 import { useProfile } from '../hooks/useProfile';
-import Login from '../components/Login';
 import config from '../config';
 import serverErrorHandler from '../utils/ServerErrorHandler';
 import Error from '../error/Error';
@@ -33,20 +32,10 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
     useEffect(() => {
         if (profile.data === undefined) return;
 
-        setEmail(profile.data.email);
-        setName(profile.data.name);
-        setGrade(profile.data.grade);
+        setEmail(profile!.data.email);
+        setName(profile!.data.name);
+        setGrade(profile!.data.grade);
     }, [profile]);
-
-    if (profile.data === undefined || !profile.success) {
-        return (
-            <DefaultLayout>
-                <CenterContainer>
-                    <Login />
-                </CenterContainer>
-            </DefaultLayout>
-        );
-    }
 
     const updateMyInfo = () => {
         const pwRegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/;

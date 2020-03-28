@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './css/color.css';
 import './css/modal.css';
 import 'react-table/react-table.css';
@@ -14,24 +14,33 @@ import AdminEdit from './pages/Admin/AdminEdit';
 import Privacy from './pages/Privacy';
 import Subject from './pages/Subject';
 import MyInfo from './pages/MyInfo';
+import UserPermissionRoute from './utils/Route/UserPermissionRoute';
+import Login from './pages/Login';
+import AdminPermissionRoute from './utils/Route/AdminPermissionRoute';
+import NotFoundError from './components/Error/NotFoundError';
+import NoPermissionError from './components/Error/NoPermissionError';
+
+const LoginRedirect = () => <Redirect to="/login" />;
 
 const index = (
-    <BrowserRouter>
-        <Switch>
-            <ProfileProvider>
-                <MealProvider>
-                    <Route exact path="/" component={Home} />
-                </MealProvider>
-                <Route exact path="/cbt/:subject/:grade/:times" component={Cbt} />
-                <Route exact path="/subject" component={Subject} />
-                <Route exact path="/admin" component={Admin} />
-                <Route exact path="/admin/edit/:id" component={AdminEdit} />
-                <Route exact path="/register" component={Register} />
-                <Route exact path="/privacy" component={Privacy} />
-                <Route exact path="/myinfo" component={MyInfo} />
-            </ProfileProvider>
-        </Switch>
-    </BrowserRouter>
+    <ProfileProvider>
+        <MealProvider>
+            <BrowserRouter>
+                <Switch>
+                    <UserPermissionRoute exact path="/" success={Home} failure={LoginRedirect} />
+                    <UserPermissionRoute exact path="/cbt/:subject/:grade/:times" success={Cbt} failure={LoginRedirect} />
+                    <UserPermissionRoute exact path="/subject" success={Subject} failure={LoginRedirect} />
+                    <UserPermissionRoute exact path="/login" success={Home} failure={Login} />
+                    <UserPermissionRoute exact path="/register" success={Home} failure={Register} />
+                    <UserPermissionRoute exact path="/myinfo" success={MyInfo} failure={LoginRedirect} />
+                    <AdminPermissionRoute exact path="/admin" success={Admin} failure={NoPermissionError} />
+                    <AdminPermissionRoute exact path="/admin/edit/:id" success={AdminEdit} failure={NoPermissionError} />
+                    <Route exact path="/privacy" component={Privacy} />
+                    <Route exact component={NotFoundError} />
+                </Switch>
+            </BrowserRouter>
+        </MealProvider>
+    </ProfileProvider>
 );
 
 ReactDOM.render(index, document.getElementById('root'));
