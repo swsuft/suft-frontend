@@ -1,5 +1,5 @@
 import React from 'react';
-import { useProfile } from '../../hooks/useProfile';
+import useLogin from '../../hooks/useLogin';
 
 interface UserPermissionRoute {
     path: string | string[];
@@ -9,8 +9,8 @@ interface UserPermissionRoute {
 }
 
 const UserPermissionRoute: React.FC<UserPermissionRoute> = ({ success: Success, failure: Failure }) => {
-    const profile = useProfile();
-    return profile.data === undefined || !profile.success ? <Failure /> : <Success />;
+    const isLogin = useLogin();
+    return isLogin ? <Success /> : <Failure />;
 };
 
 export default UserPermissionRoute;
