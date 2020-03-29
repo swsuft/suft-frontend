@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Route } from 'react-router-dom';
 import useLogin from '../../hooks/useLogin';
 
 interface UserPermissionRoute {
@@ -8,9 +9,11 @@ interface UserPermissionRoute {
     failure: React.ComponentType<any>;
 }
 
-const UserPermissionRoute: React.FC<UserPermissionRoute> = ({ success: Success, failure: Failure }) => {
+const UserPermissionRoute: React.FC<UserPermissionRoute> = ({ path, exact, success: Success, failure: Failure }) => {
     const isLogin = useLogin();
-    return isLogin ? <Success /> : <Failure />;
+    const SuccessRoute = () => <Route exact={exact} path={path} component={Success} />;
+    const FailureRoute = () => <Route exact={exact} path={path} component={Failure} />;
+    return isLogin ? <SuccessRoute /> : <FailureRoute />;
 };
 
 export default UserPermissionRoute;

@@ -1,5 +1,6 @@
 import React from 'react';
 import useAdmin from '../../hooks/useAdmin';
+import { Route } from 'react-router-dom';
 
 interface AdminPermissionRouteProps {
     path: string | string[];
@@ -8,9 +9,11 @@ interface AdminPermissionRouteProps {
     failure: React.ComponentType<any>;
 }
 
-const AdminPermissionRoute: React.FC<AdminPermissionRouteProps> = ({ success: Success, failure: Failure }) => {
+const AdminPermissionRoute: React.FC<AdminPermissionRouteProps> = ({ exact, path, success: Success, failure: Failure }) => {
     const isAdmin = useAdmin();
-    return isAdmin ? <Success /> : <Failure />;
+    const SuccessRoute = () => <Route exact={exact} path={path} component={Success} />;
+    const FailureRoute = () => <Route exact={exact} path={path} component={Failure} />;
+    return isAdmin ? <SuccessRoute /> : <FailureRoute />;
 };
 
 export default AdminPermissionRoute;
