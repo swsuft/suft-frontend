@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ReactTable from 'react-table';
-import axios from 'axios';
-import config from '../../../config';
 import { useProfile } from '../../../hooks/useProfile';
 import useSelect from '../../../hooks/useSelect';
-import Error from '../../../error/Error';
-import serverErrorHandler from '../../../utils/ServerErrorHandler';
+import UserApi from '../../../api/User';
 
 const TableWrap = styled.div`
     .ReactTable {
@@ -48,25 +45,9 @@ const UserTable: React.FC = () => {
     const profile = useProfile();
 
     const refreshUser = () => {
-        axios
-            .get(`${config.ENDPOINT}/user/all`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('token')}`
-                }
-            })
-            .then((res) => {
-                setData(res.data.data);
-            })
-            .catch((err) => {
-                const { code, message } = err.response.data;
-
-                if (code === Error.SERVER_ERROR) {
-                    serverErrorHandler(err);
-                    return;
-                }
-
-                alert(message);
-            });
+        UserApi.all().then((res) => {
+            setData(res.data.data);
+        });
     };
 
     useEffect(() => {
@@ -95,31 +76,10 @@ const UserTable: React.FC = () => {
                 return;
             }
 
-            axios
-                .put(
-                    `${config.ENDPOINT}/user/block/${key}`,
-                    {},
-                    {
-                        headers: {
-                            Authorization: `JWT ${localStorage.getItem('token')}`
-                        }
-                    }
-                )
-                .then(() => {
-                    refreshUser();
-
-                    rowManager.uncheckAllRow();
-                })
-                .catch((err) => {
-                    const { code, message } = err.response.data;
-
-                    if (code === Error.SERVER_ERROR) {
-                        serverErrorHandler(err);
-                        return;
-                    }
-
-                    alert(message);
-                });
+            UserApi.block(key).then(() => {
+                refreshUser();
+                rowManager.uncheckAllRow();
+            });
         });
 
         if (!failedFlag) alert(`${Object.keys(selected).length}명 차단 완료`);
@@ -139,31 +99,11 @@ const UserTable: React.FC = () => {
 
         Object.keys(selected).forEach((key: string) => {
             if (!selected[key]) return;
-            axios
-                .put(
-                    `${config.ENDPOINT}/user/unblock/${key}`,
-                    {},
-                    {
-                        headers: {
-                            Authorization: `JWT ${localStorage.getItem('token')}`
-                        }
-                    }
-                )
-                .then(() => {
-                    refreshUser();
 
-                    rowManager.uncheckAllRow();
-                })
-                .catch((err) => {
-                    const { code, message } = err.response.data;
-
-                    if (code === Error.SERVER_ERROR) {
-                        serverErrorHandler(err);
-                        return;
-                    }
-
-                    alert(message);
-                });
+            UserApi.unblock(key).then(() => {
+                refreshUser();
+                rowManager.uncheckAllRow();
+            });
         });
 
         alert(`${Object.keys(selected).length}명 차단 해제 완료`);

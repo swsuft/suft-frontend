@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
 import { RouteComponentProps, withRouter } from 'react-router';
 import DefaultLayout from '../layouts/DefaultLayout';
 import FontedTitle from '../atomics/Typography/FontedTitle';
@@ -12,9 +11,8 @@ import Select from '../atomics/Select';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import SquareButton from '../atomics/SquareButton';
 import { useProfile } from '../hooks/useProfile';
-import config from '../config';
-import serverErrorHandler from '../utils/ServerErrorHandler';
 import Error from '../error/Error';
+import UserApi from '../api/User';
 
 const BodyStyle = styled.div`
     margin: 32px auto;
@@ -49,38 +47,17 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
         } else if (newPassword !== '' && !pwRegExp.test(newPassword)) {
             alert('비밀번호는 영문자, 특수문자, 숫자가 포함되어야 하며 최소 6글자이여야합니다.');
         } else {
-            axios
-                .put(
-                    `${config.ENDPOINT}/user/${profile.data!.email}`,
-                    {
-                        nowPassword: password,
-                        newPassword: newPassword === '' ? undefined : newPassword,
-                        grade
-                    },
-                    {
-                        headers: {
-                            Authorization: `JWT ${localStorage.getItem('token')}`
-                        }
-                    }
-                )
+            UserApi.update(profile.data!.email, password, newPassword === '' ? undefined : newPassword, grade)
                 .then(() => {
                     alert('내 정보가 수정되었습니다!');
                     history.push('/');
                     window.location.reload();
                 })
                 .catch((err) => {
-                    const errorCode = err.response.data.code;
-                    if (errorCode === Error.PW_NOT_MATCH) {
+                    const { code } = err.response.data;
+                    if (code === Error.PW_NOT_MATCH) {
                         alert('비밀번호가 올바르지 않습니다.');
-                        return;
                     }
-
-                    if (errorCode === Error.SERVER_ERROR) {
-                        serverErrorHandler(err);
-                        return;
-                    }
-
-                    alert(err.response.data.message);
                 });
         }
     };
