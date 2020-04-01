@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import Api from '../index';
-import { AuthErrorHandler } from '../errorHandler';
+import { DefaultErrorHandler } from '../errorHandler';
 
 type Response = Promise<AxiosResponse>;
 
@@ -25,7 +25,7 @@ const AuthApi: AuthApi = {
                     return resolve(res);
                 })
                 .catch((e) => {
-                    AuthErrorHandler(e);
+                    DefaultErrorHandler(e);
                     return reject(e);
                 });
         });
@@ -40,7 +40,7 @@ const AuthApi: AuthApi = {
                     return resolve(res);
                 })
                 .catch((e) => {
-                    AuthErrorHandler(e);
+                    DefaultErrorHandler(e);
                     return reject(e);
                 });
         });
@@ -52,7 +52,7 @@ const AuthApi: AuthApi = {
                     return resolve(res);
                 })
                 .catch((e) => {
-                    AuthErrorHandler(e);
+                    DefaultErrorHandler(e);
                     return reject(e);
                 });
         });
@@ -64,7 +64,7 @@ const AuthApi: AuthApi = {
                     return resolve(res);
                 })
                 .catch((e) => {
-                    AuthErrorHandler(e);
+                    DefaultErrorHandler(e);
                     return reject(e);
                 });
         });
@@ -76,7 +76,7 @@ const AuthApi: AuthApi = {
                     return resolve(res);
                 })
                 .catch((e) => {
-                    AuthErrorHandler(e);
+                    DefaultErrorHandler(e);
                     return reject(e);
                 });
         });
