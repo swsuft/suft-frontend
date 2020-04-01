@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
-import config from '../config';
-import Error from '../error/Error';
-import serverErrorHandler from '../utils/ServerErrorHandler';
 import LoginHeaderText from '../components/Login/LoginHeaderText';
 import LabelText from '../atomics/Typography/LabelText';
 import Input from '../atomics/Input';
@@ -13,6 +9,8 @@ import SquareButton from '../atomics/SquareButton';
 import LoginFooterText from '../components/Login/LoginFooterText';
 import DefaultLayout from '../layouts/DefaultLayout';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
+import AuthApi from '../api/Auth';
+import Token from '../api/Token';
 
 const MenuLoginWrapStyle = styled.div`
     margin: 32px auto;
@@ -26,29 +24,10 @@ const Login: React.FC = () => {
         if (email === '' || password === '') {
             alert('빈 칸이 존재합니다.');
         } else {
-            axios
-                .post(
-                    `${config.ENDPOINT}/login`,
-                    {
-                        email,
-                        password
-                    },
-                    { withCredentials: true }
-                )
-                .then((data) => {
-                    localStorage.setItem('token', data.data.token);
-                    window.location.reload();
-                })
-                .catch((err) => {
-                    const errorCode = err.response.data.code;
-
-                    if (errorCode === Error.SERVER_ERROR) {
-                        serverErrorHandler(err);
-                        return;
-                    }
-
-                    alert(err.response.data.message);
-                });
+            AuthApi.login(email, password).then((res) => {
+                Token.set(res.data.token);
+                window.location.reload();
+            });
         }
     };
 

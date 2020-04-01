@@ -2,8 +2,14 @@ import { AxiosResponse } from 'axios';
 import Api from '../index';
 import { AuthErrorHandler } from '../errorHandler';
 
+type Response = Promise<AxiosResponse>;
+
 interface AuthApi {
-    register: (email: string, password: string, name: string, grade: string) => Promise<AxiosResponse>;
+    readonly register: (email: string, password: string, name: string, grade: string) => Response;
+    readonly login: (email: string, password: string) => Response;
+    readonly logout: () => Response;
+    readonly profile: () => Response;
+    readonly token: () => Response;
 }
 
 const AuthApi: AuthApi = {
@@ -15,6 +21,57 @@ const AuthApi: AuthApi = {
                 name,
                 grade
             })
+                .then((res) => {
+                    return resolve(res);
+                })
+                .catch((e) => {
+                    AuthErrorHandler(e);
+                    return reject(e);
+                });
+        });
+    },
+    login(email: string, password: string) {
+        return new Promise((resolve, reject) => {
+            Api.post('/login', {
+                email,
+                password
+            })
+                .then((res) => {
+                    return resolve(res);
+                })
+                .catch((e) => {
+                    AuthErrorHandler(e);
+                    return reject(e);
+                });
+        });
+    },
+    logout() {
+        return new Promise((resolve, reject) => {
+            Api.post('/logout')
+                .then((res) => {
+                    return resolve(res);
+                })
+                .catch((e) => {
+                    AuthErrorHandler(e);
+                    return reject(e);
+                });
+        });
+    },
+    profile() {
+        return new Promise((resolve, reject) => {
+            Api.get('/profile')
+                .then((res) => {
+                    return resolve(res);
+                })
+                .catch((e) => {
+                    AuthErrorHandler(e);
+                    return reject(e);
+                });
+        });
+    },
+    token() {
+        return new Promise((resolve, reject) => {
+            Api.post('/token')
                 .then((res) => {
                     return resolve(res);
                 })
