@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ReactTable from 'react-table';
-import axios from 'axios';
-import config from '../../../config';
 import useSelect from '../../../hooks/useSelect';
-import Error from '../../../error/Error';
-import serverErrorHandler from '../../../utils/ServerErrorHandler';
+import WaitingApi from '../../../api/Waiting';
 
 const TableWrap = styled.div`
     .ReactTable {
@@ -46,25 +43,9 @@ const WaitingUserTable: React.FC = () => {
     const [check, rowManager] = useSelect();
 
     const refreshWaitingUserList = () => {
-        axios
-            .get(`${config.ENDPOINT}/waiting/all`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('token')}`
-                }
-            })
-            .then((res) => {
-                setData(res.data.data);
-            })
-            .catch((err) => {
-                const { code, message } = err.response.data;
-
-                if (code === Error.SERVER_ERROR) {
-                    serverErrorHandler(err);
-                    return;
-                }
-
-                alert(message);
-            });
+        WaitingApi.all().then((res) => {
+            setData(res.data.data);
+        });
     };
 
     useEffect(() => {
@@ -86,31 +67,10 @@ const WaitingUserTable: React.FC = () => {
         Object.keys(selected).forEach((key: string) => {
             if (!selected[key]) return;
 
-            axios
-                .put(
-                    `${config.ENDPOINT}/waiting/allow/${key}`,
-                    {},
-                    {
-                        headers: {
-                            Authorization: `JWT ${localStorage.getItem('token')}`
-                        }
-                    }
-                )
-                .then(() => {
-                    refreshWaitingUserList();
-
-                    rowManager.uncheckAllRow();
-                })
-                .catch((err) => {
-                    const { code, message } = err.response.data;
-
-                    if (code === Error.SERVER_ERROR) {
-                        serverErrorHandler(err);
-                        return;
-                    }
-
-                    alert(message);
-                });
+            WaitingApi.allow(key).then(() => {
+                refreshWaitingUserList();
+                rowManager.uncheckAllRow();
+            });
         });
 
         alert(`${Object.keys(selected).length}명 가입 수락 완료`);
@@ -130,31 +90,11 @@ const WaitingUserTable: React.FC = () => {
 
         Object.keys(selected).forEach((key: string) => {
             if (!selected[key]) return;
-            axios
-                .put(
-                    `${config.ENDPOINT}/waiting/deny/${key}`,
-                    {},
-                    {
-                        headers: {
-                            Authorization: `JWT ${localStorage.getItem('token')}`
-                        }
-                    }
-                )
-                .then(() => {
-                    refreshWaitingUserList();
 
-                    rowManager.uncheckAllRow();
-                })
-                .catch((err) => {
-                    const { code, message } = err.response.data;
-
-                    if (code === Error.SERVER_ERROR) {
-                        serverErrorHandler(err);
-                        return;
-                    }
-
-                    alert(message);
-                });
+            WaitingApi.deny(key).then(() => {
+                refreshWaitingUserList();
+                rowManager.uncheckAllRow();
+            });
         });
 
         alert(`${Object.keys(selected).length}명 가입 거절 완료`);
