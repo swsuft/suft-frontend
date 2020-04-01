@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import config from '../config';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
@@ -10,8 +8,8 @@ import useToken from '../hooks/useToken';
 import DefaultLayout from '../layouts/DefaultLayout';
 import CbtNumberButton from '../atomics/CbtNumberButton';
 import CbtAnswer from '../components/CbtAnswer';
-import Error from '../error/Error';
-import serverErrorHandler from '../utils/ServerErrorHandler';
+import ErrorCode from '../error/ErrorCode';
+import ProblemApi from '../api/Problem';
 
 const NumberButtonContainer = styled.div`
     margin: 1rem auto;
@@ -90,30 +88,17 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
     useEffect(() => {
         const { subject, grade, times } = match.params;
 
-        axios
-            .get(`${config.ENDPOINT}/problem/${subject}/${grade}/${times}`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('token')}`
-                }
-            })
+        ProblemApi.filter(subject, grade, times)
             .then((res) => {
                 setCount(res.data.data.length);
                 setData(res.data.data);
             })
             .catch((err) => {
-                const errorCode = err.response.data.code;
+                const { code } = err.response.data;
 
-                if (errorCode === Error.JWT_EXPIRED) {
+                if (code === ErrorCode.JWT_EXPIRED) {
                     refreshToken();
-                    return;
                 }
-
-                if (errorCode === Error.SERVER_ERROR) {
-                    serverErrorHandler(err);
-                    return;
-                }
-
-                alert(err.response.data.message);
             });
 
         setBeLoading(true);

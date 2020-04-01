@@ -13,7 +13,6 @@ const ProblemPreview: React.FC<ProblemPreviewProps> = ({ html }) => (
     <PreviewStyle>
         <h2>미리보기</h2>
         <hr />
-        {/* eslint-disable-next-line */}
         <div dangerouslySetInnerHTML={{ __html: html }} />
     </PreviewStyle>
 );

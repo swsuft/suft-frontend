@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import DefaultLayout from '../layouts/DefaultLayout';
@@ -12,9 +11,8 @@ import Input from '../atomics/Input';
 import Select from '../atomics/Select';
 import SquareButton from '../atomics/SquareButton';
 import RegisterFooterText from '../components/Register/RegisterFooterText';
-import config from '../config';
-import Error from '../error/Error';
-import serverErrorHandler from '../utils/ServerErrorHandler';
+import ErrorCode from '../error/ErrorCode';
+import AuthApi from '../api/Auth';
 
 const RegisterWrapperStyle = styled.div`
     margin: 32px auto;
@@ -44,31 +42,17 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
         } else if (!pwRegExp.test(password)) {
             alert('비밀번호는 영문자, 특수문자, 숫자가 포함되어야 하며 최소 6글자이여야합니다.');
         } else {
-            axios
-                .post(`${config.ENDPOINT}/register`, {
-                    email,
-                    password,
-                    name,
-                    grade
-                })
+            AuthApi.register(email, password, name, grade)
                 .then(() => {
                     alert('회원가입 신청이 완료되었습니다. 가입 수락 후 이용 가능합니다.\n메인 페이지로 이동합니다.');
                     history.push('/');
                 })
                 .catch((err) => {
-                    const errorCode = err.response.data.code;
+                    const { code } = err.response.data;
 
-                    if (errorCode === Error.BLOCK_EMAIL) {
+                    if (code === ErrorCode.BLOCK_EMAIL) {
                         alert('가입 불가능한 이메일입니다. 다른 이메일을 사용해주세요.');
-                        return;
                     }
-
-                    if (errorCode === Error.SERVER_ERROR) {
-                        serverErrorHandler(err);
-                        return;
-                    }
-
-                    alert(err.response.data.message);
                 });
         }
     };

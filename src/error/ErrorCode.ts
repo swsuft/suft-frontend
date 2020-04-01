@@ -1,4 +1,4 @@
-enum Error {
+enum ErrorCode {
     SERVER_ERROR = 1,
     REQ_INVALID = 100,
     REQ_SHORT = 101,
@@ -16,4 +16,4 @@ enum Error {
     NO_PERMISSION = 407
 }
 
-export default Error;
+export default ErrorCode;

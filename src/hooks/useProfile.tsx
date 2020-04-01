@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import config from '../config';
 import useToken from './useToken';
-import Error from '../error/Error';
-import serverErrorHandler from '../utils/ServerErrorHandler';
+import ErrorCode from '../error/ErrorCode';
+import AuthApi from '../api/Auth';
 
 interface Profile {
     readonly email: string;
@@ -26,39 +24,21 @@ export const ProfileProvider: React.FC = ({ children }) => {
     const refreshToken = useToken();
 
     useEffect(() => {
-        axios
-            .get(`${config.ENDPOINT}/profile`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('token')}`
-                }
-            })
+        AuthApi.profile()
             .then((res) => {
                 setProfile(res.data);
             })
             .catch((error) => {
-                const errorCode = error.response.data.code;
+                const { code } = error.response.data;
+
                 setProfile({
                     success: false,
                     data: undefined
                 });
 
-                if (errorCode === Error.JWT_EXPIRED) {
+                if (code === ErrorCode.JWT_EXPIRED) {
                     refreshToken();
-                    return;
                 }
-
-                if (errorCode === Error.JWT_INVALID) {
-                    return;
-                }
-
-                if (errorCode === Error.SERVER_ERROR) {
-                    serverErrorHandler(error);
-                    return;
-                }
-
-                console.log('test', error.response.data.code, error.response.data.message);
-
-                alert(error.response.data.message);
             });
     }, [refreshToken]);
 

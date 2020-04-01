@@ -1,3 +1,3 @@
 export default {
-    ENDPOINT: 'https://suft.kr:2010'
+    API_URL: 'https://suft.kr:2010'
 };

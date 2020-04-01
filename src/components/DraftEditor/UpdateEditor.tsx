@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import styled from 'styled-components';
-import axios from 'axios';
 import { Editor } from 'react-draft-wysiwyg';
 import { ContentState, convertToRaw, EditorState } from 'draft-js';
 // @ts-ignore
@@ -9,15 +8,13 @@ import draftToHtml from 'draftjs-to-html';
 // @ts-ignore
 import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import config from '../../config';
 import SubjectOption from '../../atomics/SelectOptions/SubjectOption/SubjectOption';
 import GradeOption from '../../atomics/SelectOptions/GradeOption';
 import TimesOption from '../../atomics/SelectOptions/TimesOption';
 import uploadImageCallback from '../../utils/UploadImage';
 import ProblemPreview from './ProblemPreview';
 import useToken from '../../hooks/useToken';
-import Error from '../../error/Error';
-import serverErrorHandler from '../../utils/ServerErrorHandler';
+import ProblemApi from '../../api/Problem';
 
 const EditorStyle = styled.div`
     background: #ffffff;
@@ -75,38 +72,22 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
     const [times, setTimes] = useState('');
 
     useEffect(() => {
-        axios
-            .get(`${config.ENDPOINT}/problem/${id}`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('token')}`
-                }
-            })
-            .then((res) => {
-                // eslint-disable-next-line
-                const { author, contents, answer, subject, grade, times } = res.data.data;
+        ProblemApi.get(id).then((res) => {
+            // eslint-disable-next-line no-shadow
+            const { author, contents, answer, subject, grade, times } = res.data.data;
 
-                const blocksFromHtml = htmlToDraft(contents);
-                const { contentBlocks, entityMap } = blocksFromHtml;
-                const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
-                const editorState = EditorState.createWithContent(contentState);
+            const blocksFromHtml = htmlToDraft(contents);
+            const { contentBlocks, entityMap } = blocksFromHtml;
+            const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+            const editorState = EditorState.createWithContent(contentState);
 
-                setAuthor(author);
-                setEditor(editorState);
-                setAnswer(answer);
-                setSubject(subject);
-                setGrade(grade);
-                setTimes(times);
-            })
-            .catch((err) => {
-                const { code, message } = err.response.data;
-
-                if (code === Error.SERVER_ERROR) {
-                    serverErrorHandler(err);
-                    return;
-                }
-
-                alert(message);
-            });
+            setAuthor(author);
+            setEditor(editorState);
+            setAnswer(answer);
+            setSubject(subject);
+            setGrade(grade);
+            setTimes(times);
+        });
     }, [id]);
 
     const updateProblem = () => {
@@ -116,36 +97,20 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
         }
 
         const html = draftToHtml(convertToRaw(editor.getCurrentContent()));
+        const problemData = {
+            author: author !== '' ? author : '익명',
+            contents: html,
+            answer,
+            subject,
+            grade,
+            times
+        };
 
-        axios
-            .put(
-                `${config.ENDPOINT}/problem/${id}`,
-                {
-                    author: author !== '' ? author : '익명',
-                    contents: html,
-                    answer,
-                    subject,
-                    grade,
-                    times
-                },
-                {
-                    headers: {
-                        Authorization: `JWT ${localStorage.getItem('token')}`
-                    }
-                }
-            )
-            .then((res) => {
-                if (!res.data.success) {
-                    alert(res.data.message);
-                } else {
-                    alert('문제 수정 완료!');
-                    history.push('/admin');
-                    refreshToken();
-                }
-            })
-            .catch((err) => {
-                alert(err);
-            });
+        ProblemApi.update(id, problemData).then(() => {
+            alert('문제 수정 완료!');
+            history.push('/admin');
+            refreshToken();
+        });
     };
 
     return (

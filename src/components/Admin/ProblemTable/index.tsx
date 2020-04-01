@@ -2,12 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import ReactTable from 'react-table';
-import axios from 'axios';
-import config from '../../../config';
 import SubjectToString from '../../../utils/SubjectToString';
 import useSelect from '../../../hooks/useSelect';
-import Error from '../../../error/Error';
-import serverErrorHandler from '../../../utils/ServerErrorHandler';
+import ProblemApi from '../../../api/Problem';
 
 const TableWrapper = styled.div`
     .ReactTable {
@@ -48,25 +45,9 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
     const [check, rowManager] = useSelect();
 
     const refreshProblem = () => {
-        axios
-            .get(`${config.ENDPOINT}/problem/all`, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('token')}`
-                }
-            })
-            .then((res) => {
-                setData(res.data.data);
-            })
-            .catch((err) => {
-                const { code, message } = err.response.data;
-
-                if (code === Error.SERVER_ERROR) {
-                    serverErrorHandler(err);
-                    return;
-                }
-
-                alert(message);
-            });
+        ProblemApi.all().then((res) => {
+            setData(res.data.data);
+        });
     };
 
     useEffect(() => {
@@ -107,12 +88,7 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
 
         const deletePromise = Object.keys(selected).map((key: string) => {
             return new Promise((resolve, reject) => {
-                axios
-                    .delete(`${config.ENDPOINT}/problem/${key}`, {
-                        headers: {
-                            Authorization: `JWT ${localStorage.getItem('token')}`
-                        }
-                    })
+                ProblemApi.delete(key)
                     .then(() => {
                         resolve();
                     })
@@ -122,23 +98,12 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
             });
         });
 
-        Promise.all(deletePromise)
-            .then(() => {
-                rowManager.uncheckAllRow();
-                refreshProblem();
+        Promise.all(deletePromise).then(() => {
+            rowManager.uncheckAllRow();
+            refreshProblem();
 
-                alert(`${Object.keys(selected).length}개 문제 삭제 완료`);
-            })
-            .catch((err) => {
-                const { code, message } = err.response.data;
-
-                if (code === Error.SERVER_ERROR) {
-                    serverErrorHandler(err);
-                    return;
-                }
-
-                alert(message);
-            });
+            alert(`${Object.keys(selected).length}개 문제 삭제 완료`);
+        });
     };
 
     const columns = [
