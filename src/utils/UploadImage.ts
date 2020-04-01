@@ -1,16 +1,10 @@
-import axios from 'axios';
-import config from '../config';
+import Api from '../api';
 
 const uploadImageCallback = (file: any): Promise<object> => {
     return new Promise((resolve, reject) => {
         const data = new FormData();
         data.append('image', file);
-        axios
-            .post(`${config.ENDPOINT}/image`, data, {
-                headers: {
-                    Authorization: `JWT ${localStorage.getItem('token')}`
-                }
-            })
+        Api.post('/image', data)
             .then((res) => {
                 const url = res.data;
                 resolve({ url });

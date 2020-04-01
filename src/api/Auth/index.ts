@@ -13,7 +13,7 @@ interface AuthApi {
 }
 
 const AuthApi: AuthApi = {
-    register(email, password, name, grade) {
+    register(email: string, password: string, name: string, grade: string) {
         return new Promise((resolve, reject) => {
             Api.post('/register', {
                 email,
