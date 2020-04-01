@@ -3,13 +3,16 @@ import config from '../config';
 import TokenUtil from './TokenUtil';
 
 const getAxiosInstance = (): AxiosInstance => {
-    return axios.create({
+    const instance = axios.create({
         baseURL: config.API_URL,
-        headers: {
-            Authorization: `Bearer ${TokenUtil.get()}`
-        },
         withCredentials: true
     });
+
+    if (!TokenUtil.isEmpty) {
+        instance.defaults.headers.common.Authorization = `Bearer ${TokenUtil.get()}`;
+    }
+
+    return instance;
 };
 
 const Api = getAxiosInstance();
