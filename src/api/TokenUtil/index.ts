@@ -7,7 +7,7 @@ interface TokenManager {
     readonly remove: () => void;
 }
 
-const Token: TokenManager = {
+const TokenUtil: TokenManager = {
     isEmpty: (): boolean => {
         return localStorage.getItem(LOCALSTORAGE_KEY) === null;
     },
@@ -22,4 +22,4 @@ const Token: TokenManager = {
     }
 };
 
-export default Token;
+export default TokenUtil;

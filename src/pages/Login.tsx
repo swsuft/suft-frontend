@@ -10,7 +10,7 @@ import LoginFooterText from '../components/Login/LoginFooterText';
 import DefaultLayout from '../layouts/DefaultLayout';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import AuthApi from '../api/Auth';
-import Token from '../api/Token';
+import TokenUtil from '../api/TokenUtil';
 
 const MenuLoginWrapStyle = styled.div`
     margin: 32px auto;
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
             alert('빈 칸이 존재합니다.');
         } else {
             AuthApi.login(email, password).then((res) => {
-                Token.set(res.data.token);
+                TokenUtil.set(res.data.token);
                 window.location.reload();
             });
         }

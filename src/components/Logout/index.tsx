@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import AuthApi from '../../api/Auth';
-import Token from '../../api/Token';
+import TokenUtil from '../../api/TokenUtil';
 
 const LogoutTextStyle = styled.button`
     font-size: 16px;
@@ -34,7 +34,7 @@ const Logout: React.FC<RouteComponentProps & LogoutProps> = ({ history, styling,
 
         if (check) {
             AuthApi.logout().then(() => {
-                Token.remove();
+                TokenUtil.remove();
                 history.push('/');
                 window.location.reload();
             });

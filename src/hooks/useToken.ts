@@ -1,15 +1,15 @@
 import { useCallback } from 'react';
-import Token from '../api/Token';
+import TokenUtil from '../api/TokenUtil';
 import AuthApi from '../api/Auth';
 
 const useToken = () => {
     const refreshToken = useCallback(() => {
-        if (Token.isEmpty()) {
+        if (TokenUtil.isEmpty()) {
             return;
         }
 
         AuthApi.token().then((res) => {
-            Token.set(res.data.token);
+            TokenUtil.set(res.data.token);
             window.location.reload();
             console.log('AccessToken 재발급 완료');
         });
