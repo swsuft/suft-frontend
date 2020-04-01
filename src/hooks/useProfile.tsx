@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import useToken from './useToken';
-import Error from '../error/Error';
+import ErrorCode from '../error/ErrorCode';
 import AuthApi from '../api/Auth';
 
 interface Profile {
@@ -36,7 +36,7 @@ export const ProfileProvider: React.FC = ({ children }) => {
                     data: undefined
                 });
 
-                if (code === Error.JWT_EXPIRED) {
+                if (code === ErrorCode.JWT_EXPIRED) {
                     refreshToken();
                 }
             });

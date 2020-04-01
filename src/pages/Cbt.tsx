@@ -8,7 +8,7 @@ import useToken from '../hooks/useToken';
 import DefaultLayout from '../layouts/DefaultLayout';
 import CbtNumberButton from '../atomics/CbtNumberButton';
 import CbtAnswer from '../components/CbtAnswer';
-import Error from '../error/Error';
+import ErrorCode from '../error/ErrorCode';
 import ProblemApi from '../api/Problem';
 
 const NumberButtonContainer = styled.div`
@@ -96,7 +96,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
             .catch((err) => {
                 const { code } = err.response.data;
 
-                if (code === Error.JWT_EXPIRED) {
+                if (code === ErrorCode.JWT_EXPIRED) {
                     refreshToken();
                 }
             });

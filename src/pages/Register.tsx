@@ -11,7 +11,7 @@ import Input from '../atomics/Input';
 import Select from '../atomics/Select';
 import SquareButton from '../atomics/SquareButton';
 import RegisterFooterText from '../components/Register/RegisterFooterText';
-import Error from '../error/Error';
+import ErrorCode from '../error/ErrorCode';
 import AuthApi from '../api/Auth';
 
 const RegisterWrapperStyle = styled.div`
@@ -50,7 +50,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
                 .catch((err) => {
                     const { code } = err.response.data;
 
-                    if (code === Error.BLOCK_EMAIL) {
+                    if (code === ErrorCode.BLOCK_EMAIL) {
                         alert('가입 불가능한 이메일입니다. 다른 이메일을 사용해주세요.');
                     }
                 });

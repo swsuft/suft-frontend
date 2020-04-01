@@ -11,7 +11,7 @@ import Select from '../atomics/Select';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import SquareButton from '../atomics/SquareButton';
 import { useProfile } from '../hooks/useProfile';
-import Error from '../error/Error';
+import ErrorCode from '../error/ErrorCode';
 import UserApi from '../api/User';
 
 const BodyStyle = styled.div`
@@ -55,7 +55,7 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
                 })
                 .catch((err) => {
                     const { code } = err.response.data;
-                    if (code === Error.PW_NOT_MATCH) {
+                    if (code === ErrorCode.PW_NOT_MATCH) {
                         alert('비밀번호가 올바르지 않습니다.');
                     }
                 });
