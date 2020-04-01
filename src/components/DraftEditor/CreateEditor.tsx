@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import { Editor } from 'react-draft-wysiwyg';
 import { convertToRaw, EditorState } from 'draft-js';
 // @ts-ignore
 import draftToHtml from 'draftjs-to-html';
 import { useProfile } from '../../hooks/useProfile';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import config from '../../config';
 import SubjectOption from '../../atomics/SelectOptions/SubjectOption/SubjectOption';
 import GradeOption from '../../atomics/SelectOptions/GradeOption';
 import TimesOption from '../../atomics/SelectOptions/TimesOption';
 import uploadImageCallback from '../../utils/UploadImage';
 import ProblemPreview from './ProblemPreview';
 import useToken from '../../hooks/useToken';
-import Error from '../../error/Error';
-import serverErrorHandler from '../../utils/ServerErrorHandler';
+import ProblemApi from '../../api/Problem';
 
 const EditorStyle = styled.div`
     background: #ffffff;
@@ -77,36 +74,18 @@ const CreateEditor: React.FC = () => {
 
         const html = draftToHtml(convertToRaw(editor.getCurrentContent()));
 
-        axios
-            .post(
-                `${config.ENDPOINT}/problem`,
-                {
-                    author: author !== '' ? author : '익명',
-                    contents: html,
-                    answer,
-                    subject,
-                    grade,
-                    times
-                },
-                {
-                    headers: {
-                        Authorization: `JWT ${localStorage.getItem('token')}`
-                    }
-                }
-            )
-            .then(() => {
-                alert('문제 등록 완료!');
-            })
-            .catch((err) => {
-                const { code, message } = err.response.data;
+        const problemData = {
+            author: author !== '' ? author : '익명',
+            contents: html,
+            answer,
+            subject,
+            grade,
+            times
+        };
 
-                if (code === Error.SERVER_ERROR) {
-                    serverErrorHandler(err);
-                    return;
-                }
-
-                alert(message);
-            });
+        ProblemApi.create(problemData).then(() => {
+            alert('문제 등록 완료!');
+        });
 
         setEditor(EditorState.createEmpty());
         setAnswer('');

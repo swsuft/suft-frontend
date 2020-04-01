@@ -1,6 +1,6 @@
 import React from 'react';
-import useAdmin from '../../hooks/useAdmin';
 import { Route } from 'react-router-dom';
+import useAdmin from '../../hooks/useAdmin';
 
 interface AdminPermissionRouteProps {
     path: string | string[];
