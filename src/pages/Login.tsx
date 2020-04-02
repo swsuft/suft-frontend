@@ -11,6 +11,7 @@ import DefaultLayout from '../layouts/DefaultLayout';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import AuthApi from '../api/Auth';
 import TokenUtil from '../api/TokenUtil';
+import ErrorCode from '../error/ErrorCode';
 
 const MenuLoginWrapStyle = styled.div`
     margin: 32px auto;
@@ -24,10 +25,38 @@ const Login: React.FC = () => {
         if (email === '' || password === '') {
             alert('빈 칸이 존재합니다.');
         } else {
-            AuthApi.login(email, password).then((res) => {
-                TokenUtil.set(res.data.token);
-                window.location.reload();
-            });
+            AuthApi.login(email, password)
+                .then((res) => {
+                    TokenUtil.set(res.data.token);
+                    window.location.reload();
+                })
+                .catch((err) => {
+                    const { code, message } = err.response.data;
+
+                    if (code === ErrorCode.USER_NOT_FOUND) {
+                        alert(message);
+                        return;
+                    }
+
+                    if (code === ErrorCode.PW_NOT_MATCH) {
+                        alert(message);
+                        return;
+                    }
+
+                    if (code === ErrorCode.USER_WAITING) {
+                        alert(message);
+                        return;
+                    }
+
+                    if (code === ErrorCode.USER_DENY) {
+                        alert('가입이 거절된 계정입니다.');
+                        return;
+                    }
+
+                    if (code === ErrorCode.USER_BLOCK) {
+                        alert('서비스 이용이 차된되어 로그인이 불가능합니다.');
+                    }
+                });
         }
     };
 
