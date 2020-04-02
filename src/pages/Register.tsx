@@ -48,7 +48,27 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
                     history.push('/');
                 })
                 .catch((err) => {
-                    const { code } = err.response.data;
+                    const { code, message } = err.response.data;
+
+                    if (code === ErrorCode.USER_ALREADY_EXISTS) {
+                        alert('이미 존재하는 계정입니다.');
+                        return;
+                    }
+
+                    if (code === ErrorCode.USER_ALREADY_EXISTS) {
+                        alert('이미 존재하는 계정입니다.');
+                        return;
+                    }
+
+                    if (code === ErrorCode.USER_WAITING) {
+                        alert(message);
+                        return;
+                    }
+
+                    if (code === ErrorCode.USER_DENY) {
+                        alert('가입이 거절된 계정입니다.');
+                        return;
+                    }
 
                     if (code === ErrorCode.BLOCK_EMAIL) {
                         alert('가입 불가능한 이메일입니다. 다른 이메일을 사용해주세요.');
