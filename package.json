@@ -23,6 +23,7 @@
     "@toast-ui/editor-plugin-color-syntax": "^1.0.0",
     "@toast-ui/react-editor": "^2.0.1",
     "axios": "^0.19.2",
+    "cogo-toast": "^4.2.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-modal": "^3.11.1",
