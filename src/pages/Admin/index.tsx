@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Container from '../../utils/ContainerUtils/Container';
 import AdminLayout from '../../layouts/AdminLayout';
 import AdminMenuStatus, { AdminMenuStatusType } from '../../constants/AdminMenuStatus';
-import CreateEditor from '../../components/DraftEditor/CreateEditor';
+import CreateEditor from '../../components/AdminEditor/CreateEditor';
 import ProblemTable from '../../components/Admin/ProblemTable';
 import UserTable from '../../components/Admin/UserTable';
 import WaitingUserTable from '../../components/Admin/WaitingUserTable';

@@ -1,28 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { Editor } from 'react-draft-wysiwyg';
-import { ContentState, convertToRaw, EditorState } from 'draft-js';
-// @ts-ignore
-import draftToHtml from 'draftjs-to-html';
-// @ts-ignore
-import htmlToDraft from 'html-to-draftjs';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { Editor } from '@toast-ui/react-editor';
+import { useProfile } from '../../hooks/useProfile';
 import SubjectOption from '../../atomics/SelectOptions/SubjectOption/SubjectOption';
 import GradeOption from '../../atomics/SelectOptions/GradeOption';
 import TimesOption from '../../atomics/SelectOptions/TimesOption';
-import uploadImageCallback from '../../utils/UploadImage';
-import ProblemPreview from './ProblemPreview';
 import useToken from '../../hooks/useToken';
+import ProblemEditor from '../ProblemEditor';
 import ProblemApi from '../../api/Problem';
-
-const EditorStyle = styled.div`
-    background: #ffffff;
-
-    .draft-editor {
-        min-height: 200px;
-    }
-`;
 
 const InputStyle = styled.input`
     border: none;
@@ -58,45 +43,27 @@ const ButtonStyle = styled.button`
     cursor: pointer;
 `;
 
-interface UpdateEditorProps {
-    readonly id: string;
-}
-
-const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, history }) => {
+const CreateEditor: React.FC = () => {
+    const profile = useProfile();
     const refreshToken = useToken();
-    const [editor, setEditor] = useState(EditorState.createEmpty());
+
+    const editorRef = useRef<Editor>();
+
     const [answer, setAnswer] = useState('');
-    const [author, setAuthor] = useState('');
+    const [author, setAuthor] = useState(profile.data!.name);
     const [subject, setSubject] = useState('');
     const [grade, setGrade] = useState('');
     const [times, setTimes] = useState('');
 
-    useEffect(() => {
-        ProblemApi.get(id).then((res) => {
-            // eslint-disable-next-line no-shadow
-            const { author, contents, answer, subject, grade, times } = res.data.data;
-
-            const blocksFromHtml = htmlToDraft(contents);
-            const { contentBlocks, entityMap } = blocksFromHtml;
-            const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
-            const editorState = EditorState.createWithContent(contentState);
-
-            setAuthor(author);
-            setEditor(editorState);
-            setAnswer(answer);
-            setSubject(subject);
-            setGrade(grade);
-            setTimes(times);
-        });
-    }, [id]);
-
-    const updateProblem = () => {
+    const addProblem = () => {
+        if (editorRef.current === undefined) return;
         if (answer === '' || subject === '' || grade === '' || times === '') {
             alert('빈 칸이 있습니다.');
             return;
         }
 
-        const html = draftToHtml(convertToRaw(editor.getCurrentContent()));
+        const html = editorRef.current.getInstance().getHtml();
+
         const problemData = {
             author: author !== '' ? author : '익명',
             contents: html,
@@ -106,31 +73,26 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
             times
         };
 
-        ProblemApi.update(id, problemData).then(() => {
-            alert('문제 수정 완료!');
-            history.push('/admin');
-            refreshToken();
+        ProblemApi.create(problemData).then(() => {
+            alert('문제 등록 완료!');
         });
+
+        setAnswer('');
+
+        refreshToken();
     };
+
+    /*
+        editorRef.current.getInstance().getHtml()를 통해 HTML를 받아오고
+        DB에는 원래 쓰던데로 저장
+        불러올 때는 Viewer를 통해서 초기값에 HTML 값을 넣어주면 됨.
+
+        TODO: 컬러 스키마, 코드 하이라이팅 익스텐션 추가하기
+     */
 
     return (
         <>
-            <EditorStyle>
-                <Editor
-                  editorState={editor}
-                  toolbarClassName="draft-toolbar"
-                  wrapperClassName="draft-wrapper"
-                  editorClassName="draft-editor"
-                  onEditorStateChange={(editorState: any) => setEditor(editorState)}
-                  localization={{ locale: 'ko' }}
-                  toolbar={{
-                        image: {
-                            uploadCallback: uploadImageCallback,
-                            alt: { present: true }
-                        }
-                    }}
-                />
-            </EditorStyle>
+            <ProblemEditor editorRef={editorRef} />
 
             <div>
                 <InputStyle id="answer" value={answer} onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setAnswer(evt.target.value)} placeholder="문제 정답" />
@@ -155,11 +117,9 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
                 </SelectStyle>
             </div>
 
-            <ButtonStyle onClick={updateProblem}>수정 완료</ButtonStyle>
-
-            <ProblemPreview html={draftToHtml(convertToRaw(editor.getCurrentContent()))} />
+            <ButtonStyle onClick={addProblem}>등록</ButtonStyle>
         </>
     );
 };
 
-export default withRouter(UpdateEditor);
+export default CreateEditor;
