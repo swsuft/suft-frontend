@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import cogoToast from 'cogo-toast';
 import DefaultLayout from '../layouts/DefaultLayout';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import RegisterHeaderText from '../components/Register/RegisterHeaderText';
@@ -34,44 +35,44 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
         const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
         if (email === '' || password === '' || rePassword === '' || name === '' || grade === '') {
-            alert('빈 칸이 존재합니다.');
+            cogoToast.error('빈 칸이 존재합니다.');
         } else if (password !== rePassword) {
-            alert('비밀번호가 일치 하지 않습니다.');
+            cogoToast.warn('비밀번호가 일치 하지 않습니다.');
         } else if (!emailRegExp.test(email)) {
-            alert('올바른 이메일이 아닙니다.');
+            cogoToast.warn('올바른 이메일이 아닙니다.');
         } else if (!pwRegExp.test(password)) {
-            alert('비밀번호는 영문자, 특수문자, 숫자가 포함되어야 하며 최소 6글자이여야합니다.');
+            cogoToast.warn('비밀번호는 영문자, 특수문자, 숫자가 포함되어야 하며 최소 6글자이여야합니다.');
         } else {
             AuthApi.register(email, password, name, grade)
                 .then(() => {
-                    alert('회원가입 신청이 완료되었습니다. 가입 수락 후 이용 가능합니다.\n메인 페이지로 이동합니다.');
+                    cogoToast.success('회원가입 신청이 완료되었습니다. 가입 수락 후 이용 가능합니다.\n메인 페이지로 이동합니다.');
                     history.push('/');
                 })
                 .catch((err) => {
                     const { code, message } = err.response.data;
 
                     if (code === ErrorCode.USER_ALREADY_EXISTS) {
-                        alert('이미 존재하는 계정입니다.');
+                        cogoToast.error('이미 존재하는 계정입니다.');
                         return;
                     }
 
                     if (code === ErrorCode.USER_ALREADY_EXISTS) {
-                        alert('이미 존재하는 계정입니다.');
+                        cogoToast.error('이미 존재하는 계정입니다.');
                         return;
                     }
 
                     if (code === ErrorCode.USER_WAITING) {
-                        alert(message);
+                        cogoToast.error(message);
                         return;
                     }
 
                     if (code === ErrorCode.USER_DENY) {
-                        alert('가입이 거절된 계정입니다.');
+                        cogoToast.error('가입이 거절된 계정입니다.');
                         return;
                     }
 
                     if (code === ErrorCode.BLOCK_EMAIL) {
-                        alert('가입 불가능한 이메일입니다. 다른 이메일을 사용해주세요.');
+                        cogoToast.error('가입 불가능한 이메일입니다. 다른 이메일을 사용해주세요.');
                     }
                 });
         }

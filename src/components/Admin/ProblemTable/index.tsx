@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import ReactTable from 'react-table';
+import cogoToast from 'cogo-toast';
 import SubjectToString from '../../../utils/SubjectToString';
 import useSelect from '../../../hooks/useSelect';
 import ProblemApi from '../../../api/Problem';
@@ -58,12 +59,12 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
         const { selected } = check;
 
         if (Object.keys(selected).length === 0) {
-            alert('수정할 문제를 선택해주세요.');
+            cogoToast.warn('수정할 문제를 선택해주세요.');
             return;
         }
 
         if (Object.keys(selected).length !== 1) {
-            alert('수정할 문제가 2개 이상입니다. 1개만 선택해주세요.');
+            cogoToast.warn('수정할 문제가 2개 이상입니다. 1개만 선택해주세요.');
             return;
         }
 
@@ -76,7 +77,7 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
     const deleteProblem = () => {
         const { selected } = check;
         if (Object.keys(selected).length === 0) {
-            alert('삭제할 문제를 선택해주세요.');
+            cogoToast.warn('삭제할 문제를 선택해주세요.');
             return;
         }
 
@@ -102,7 +103,7 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
             rowManager.uncheckAllRow();
             refreshProblem();
 
-            alert(`${Object.keys(selected).length}개 문제 삭제 완료`);
+            cogoToast.success(`${Object.keys(selected).length}개 문제 삭제 완료`);
         });
     };
 

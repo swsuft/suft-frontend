@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChalkboard, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import cogoToast from 'cogo-toast';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
@@ -56,7 +57,7 @@ const Subject: React.FC<RouteComponentProps> = ({ history }) => {
 
     const onStartButtonClick = () => {
         if (subject === '' || grade === '' || times === '') {
-            alert('설정 되지 않는 항목이 있습니다.');
+            cogoToast.warn('설정 되지 않는 항목이 있습니다.');
             return;
         }
 
@@ -73,29 +74,29 @@ const Subject: React.FC<RouteComponentProps> = ({ history }) => {
                     <LabelText>학년</LabelText>
                     <Select value={grade} onChange={(e) => setGrade(e.target.value)}>
                         <option value="">학년을 선택해주세요.</option>
-                        <GradeOption />
+                        <GradeOption/>
                     </Select>
 
                     <LabelText>과목</LabelText>
                     <Select value={subject} onChange={(e) => setSubject(e.target.value)}>
                         <option value="">과목을 선택해주세요.</option>
-                        <SubjectOption />
+                        <SubjectOption/>
                     </Select>
 
                     <LabelText>학기</LabelText>
                     <Select value={times} onChange={(e) => setTimes(e.target.value)}>
                         <option value="">학기를 선택해주세요.</option>
-                        <TimesOption />
+                        <TimesOption/>
                     </Select>
 
                     <div>
                         <ButtonStyle onClick={onStartButtonClick}>
-                            <FontAwesomeIcon icon={faPlayCircle} /> 시작하기
+                            <FontAwesomeIcon icon={faPlayCircle}/> 시작하기
                         </ButtonStyle>
                     </div>
                 </BodyStyle>
 
-                <IconStyle icon={faChalkboard} />
+                <IconStyle icon={faChalkboard}/>
             </Container>
         </DefaultLayout>
     );

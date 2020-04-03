@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import cogoToast from 'cogo-toast';
 import Card from '../Card';
 import CardTitle from '../../atomics/Typography/CardTitle';
 import BookIcon from '../../atomics/icons/BookIcon';
@@ -38,7 +39,7 @@ const DisableTextStyle = styled.div`
 
 const CardList: React.FC = () => {
     const onClickParkingCard = () => {
-        alert('해당 서비스는 준비중입니다.');
+        cogoToast.info('해당 서비스는 준비중입니다.');
     };
 
     return (

@@ -1,26 +1,14 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { Editor } from 'react-draft-wysiwyg';
-import { convertToRaw, EditorState } from 'draft-js';
-// @ts-ignore
-import draftToHtml from 'draftjs-to-html';
+import { Editor } from '@toast-ui/react-editor';
+import cogoToast from 'cogo-toast';
 import { useProfile } from '../../hooks/useProfile';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import SubjectOption from '../../atomics/SelectOptions/SubjectOption/SubjectOption';
 import GradeOption from '../../atomics/SelectOptions/GradeOption';
 import TimesOption from '../../atomics/SelectOptions/TimesOption';
-import uploadImageCallback from '../../utils/UploadImage';
-import ProblemPreview from './ProblemPreview';
 import useToken from '../../hooks/useToken';
+import ProblemEditor from '../ProblemEditor';
 import ProblemApi from '../../api/Problem';
-
-const EditorStyle = styled.div`
-    background: #ffffff;
-
-    .draft-editor {
-        min-height: 200px;
-    }
-`;
 
 const InputStyle = styled.input`
     border: none;
@@ -59,7 +47,9 @@ const ButtonStyle = styled.button`
 const CreateEditor: React.FC = () => {
     const profile = useProfile();
     const refreshToken = useToken();
-    const [editor, setEditor] = useState(EditorState.createEmpty());
+
+    const editorRef = useRef<Editor>();
+
     const [answer, setAnswer] = useState('');
     const [author, setAuthor] = useState(profile.data!.name);
     const [subject, setSubject] = useState('');
@@ -67,12 +57,13 @@ const CreateEditor: React.FC = () => {
     const [times, setTimes] = useState('');
 
     const addProblem = () => {
+        if (editorRef.current === undefined) return;
         if (answer === '' || subject === '' || grade === '' || times === '') {
-            alert('빈 칸이 있습니다.');
+            cogoToast.warn('빈 칸이 있습니다.');
             return;
         }
 
-        const html = draftToHtml(convertToRaw(editor.getCurrentContent()));
+        const html = editorRef.current.getInstance().getHtml();
 
         const problemData = {
             author: author !== '' ? author : '익명',
@@ -84,10 +75,9 @@ const CreateEditor: React.FC = () => {
         };
 
         ProblemApi.create(problemData).then(() => {
-            alert('문제 등록 완료!');
+            cogoToast.success('문제 등록 완료!');
         });
 
-        setEditor(EditorState.createEmpty());
         setAnswer('');
 
         refreshToken();
@@ -95,22 +85,7 @@ const CreateEditor: React.FC = () => {
 
     return (
         <>
-            <EditorStyle>
-                <Editor
-                  editorState={editor}
-                  toolbarClassName="draft-toolbar"
-                  wrapperClassName="draft-wrapper"
-                  editorClassName="draft-editor"
-                  onEditorStateChange={(editorState: any) => setEditor(editorState)}
-                  localization={{ locale: 'ko' }}
-                  toolbar={{
-                        image: {
-                            uploadCallback: uploadImageCallback,
-                            alt: { present: true }
-                        }
-                    }}
-                />
-            </EditorStyle>
+            <ProblemEditor editorRef={editorRef} />
 
             <div>
                 <InputStyle id="answer" value={answer} onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setAnswer(evt.target.value)} placeholder="문제 정답" />
@@ -136,8 +111,6 @@ const CreateEditor: React.FC = () => {
             </div>
 
             <ButtonStyle onClick={addProblem}>등록</ButtonStyle>
-
-            <ProblemPreview html={draftToHtml(convertToRaw(editor.getCurrentContent()))} />
         </>
     );
 };

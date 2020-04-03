@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Container from '../../utils/ContainerUtils/Container';
-import UpdateEditor from '../../components/DraftEditor/UpdateEditor';
+import UpdateEditor from '../../components/AdminEditor/UpdateEditor';
 import AdminEditLayout from '../../layouts/AdminEditLayout';
 
 const TitleStyle = styled.h1`

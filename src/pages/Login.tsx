@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
+import cogoToast from 'cogo-toast';
 import LoginHeaderText from '../components/Login/LoginHeaderText';
 import LabelText from '../atomics/Typography/LabelText';
 import Input from '../atomics/Input';
@@ -23,7 +24,7 @@ const Login: React.FC = () => {
 
     const runLogin = () => {
         if (email === '' || password === '') {
-            alert('빈 칸이 존재합니다.');
+            cogoToast.warn('빈 칸이 존재합니다.');
         } else {
             AuthApi.login(email, password)
                 .then((res) => {
@@ -34,27 +35,27 @@ const Login: React.FC = () => {
                     const { code, message } = err.response.data;
 
                     if (code === ErrorCode.USER_NOT_FOUND) {
-                        alert(message);
+                        cogoToast.error(message);
                         return;
                     }
 
                     if (code === ErrorCode.PW_NOT_MATCH) {
-                        alert(message);
+                        cogoToast.error(message);
                         return;
                     }
 
                     if (code === ErrorCode.USER_WAITING) {
-                        alert(message);
+                        cogoToast.error(message);
                         return;
                     }
 
                     if (code === ErrorCode.USER_DENY) {
-                        alert('가입이 거절된 계정입니다.');
+                        cogoToast.error('가입이 거절된 계정입니다.');
                         return;
                     }
 
                     if (code === ErrorCode.USER_BLOCK) {
-                        alert('서비스 이용이 차된되어 로그인이 불가능합니다.');
+                        cogoToast.error('서비스 이용이 차된되어 로그인이 불가능합니다.');
                     }
                 });
         }

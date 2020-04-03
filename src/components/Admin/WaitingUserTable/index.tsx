@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ReactTable from 'react-table';
+import cogoToast from 'cogo-toast';
 import useSelect from '../../../hooks/useSelect';
 import WaitingApi from '../../../api/Waiting';
 
@@ -56,7 +57,7 @@ const WaitingUserTable: React.FC = () => {
         const { selected } = check;
 
         if (Object.keys(selected).length === 0) {
-            alert('가입 수락 할 유저를 선택해주세요.');
+            cogoToast.warn('가입 수락 할 유저를 선택해주세요.');
             return;
         }
 
@@ -73,14 +74,14 @@ const WaitingUserTable: React.FC = () => {
             });
         });
 
-        alert(`${Object.keys(selected).length}명 가입 수락 완료`);
+        cogoToast.success(`${Object.keys(selected).length}명 가입 수락 완료`);
     };
 
     const denyUsers = () => {
         const { selected } = check;
 
         if (Object.keys(selected).length === 0) {
-            alert('가입 거절 할 유저를 선택해주세요.');
+            cogoToast.warn('가입 거절 할 유저를 선택해주세요.');
             return;
         }
 
@@ -97,7 +98,7 @@ const WaitingUserTable: React.FC = () => {
             });
         });
 
-        alert(`${Object.keys(selected).length}명 가입 거절 완료`);
+        cogoToast.success(`${Object.keys(selected).length}명 가입 거절 완료`);
     };
 
     const columns = [

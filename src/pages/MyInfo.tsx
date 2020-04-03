@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import cogoToast from 'cogo-toast';
 import DefaultLayout from '../layouts/DefaultLayout';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import Input from '../atomics/Input';
@@ -39,24 +40,24 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
         const pwRegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/;
 
         if (password === '') {
-            alert('현재 비밀번호를 입력하지 않았습니다.');
+            cogoToast.warn('현재 비밀번호를 입력하지 않았습니다.');
         } else if (newPassword !== '' && newPassword !== rePassword) {
-            alert('변경하려는 비밀번호가 일치 하지 않습니다.');
+            cogoToast.warn('변경하려는 비밀번호가 일치 하지 않습니다.');
         } else if (newPassword !== '' && password === newPassword) {
-            alert('변경하려는 비밀번호가 기존과 동일합니다.');
+            cogoToast.warn('변경하려는 비밀번호가 기존과 동일합니다.');
         } else if (newPassword !== '' && !pwRegExp.test(newPassword)) {
-            alert('비밀번호는 영문자, 특수문자, 숫자가 포함되어야 하며 최소 6글자이여야합니다.');
+            cogoToast.warn('비밀번호는 영문자, 특수문자, 숫자가 포함되어야 하며 최소 6글자이여야합니다.');
         } else {
             UserApi.update(profile.data!.email, password, newPassword === '' ? undefined : newPassword, grade)
                 .then(() => {
-                    alert('내 정보가 수정되었습니다!');
+                    cogoToast.success('내 정보가 수정되었습니다!');
                     history.push('/');
                     window.location.reload();
                 })
                 .catch((err) => {
                     const { code } = err.response.data;
                     if (code === ErrorCode.PW_NOT_MATCH) {
-                        alert('비밀번호가 올바르지 않습니다.');
+                        cogoToast.error('비밀번호가 올바르지 않습니다.');
                     }
                 });
         }
