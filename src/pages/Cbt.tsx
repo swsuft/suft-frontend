@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Viewer } from '@toast-ui/react-editor';
+import cogoToast from 'cogo-toast';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
@@ -53,7 +54,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
 
     const pickRandomNumber = () => {
         if (overlapRandom.length === problems.length) {
-            alert('모든 문제를 풀었습니다. 새로고침하여 새로 시작할 수 있습니다.');
+            cogoToast.info('모든 문제를 풀었습니다. 새로고침하여 새로 시작할 수 있습니다.');
             return;
         }
 
@@ -75,15 +76,15 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
         const answer = isLoading && problems[random] !== undefined ? problems[random].answer : '';
 
         if (input === '') {
-            alert('정답을 입력해주세요.');
+            cogoToast.warn('정답을 입력해주세요.');
             return;
         }
 
         if (input === answer) {
-            alert('정답입니다!');
+            cogoToast.success('정답입니다!');
             pickRandomNumber();
         } else {
-            alert('오답입니다. 다시 한번 시도해보세요.');
+            cogoToast.error('오답입니다. 다시 한번 시도해보세요.');
         }
 
         setUserAnswer('');

@@ -4,6 +4,7 @@ import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import codeSyntaxHightlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import hljs from 'highlight.js';
+import cogoToast from 'cogo-toast';
 import Api from '../../api';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'highlight.js/styles/github.css';
@@ -32,7 +33,7 @@ const ProblemEditor: React.FC<ProblemEditorProps> = ({ editorRef, initialValue }
                     callback(url);
                 })
                 .catch((err) => {
-                    alert('이미지 업로드 중 오류가 발생하였습니다.');
+                    cogoToast.error('이미지 업로드 중 오류가 발생하였습니다.');
                     console.log('ERROR', err);
                 });
         });

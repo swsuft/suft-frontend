@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ReactTable from 'react-table';
+import cogoToast from 'cogo-toast';
 import { useProfile } from '../../../hooks/useProfile';
 import useSelect from '../../../hooks/useSelect';
 import UserApi from '../../../api/User';
@@ -58,7 +59,7 @@ const UserTable: React.FC = () => {
         const { selected } = check;
 
         if (Object.keys(selected).length === 0) {
-            alert('차단 할 유저를 선택해주세요.');
+            cogoToast.warn('차단 할 유저를 선택해주세요.');
             return;
         }
 
@@ -71,7 +72,7 @@ const UserTable: React.FC = () => {
         Object.keys(selected).forEach((key: string) => {
             if (!selected[key]) return;
             if (key === profile.data!.email) {
-                alert('자기 자신은 차단 할 수 없습니다.');
+                cogoToast.error('자기 자신은 차단 할 수 없습니다.');
                 failedFlag = true;
                 return;
             }
@@ -82,14 +83,14 @@ const UserTable: React.FC = () => {
             });
         });
 
-        if (!failedFlag) alert(`${Object.keys(selected).length}명 차단 완료`);
+        if (!failedFlag) cogoToast.success(`${Object.keys(selected).length}명 차단 완료`);
     };
 
     const unBlockUsers = () => {
         const { selected } = check;
 
         if (Object.keys(selected).length === 0) {
-            alert('차단 해제 할 유저를 선택해주세요.');
+            cogoToast.warn('차단 해제 할 유저를 선택해주세요.');
             return;
         }
 
@@ -106,7 +107,7 @@ const UserTable: React.FC = () => {
             });
         });
 
-        alert(`${Object.keys(selected).length}명 차단 해제 완료`);
+        cogoToast.success(`${Object.keys(selected).length}명 차단 해제 완료`);
     };
 
     const columns = [

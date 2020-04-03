@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
+import cogoToast from 'cogo-toast';
 import { useProfile } from '../../hooks/useProfile';
 import SubjectOption from '../../atomics/SelectOptions/SubjectOption/SubjectOption';
 import GradeOption from '../../atomics/SelectOptions/GradeOption';
@@ -58,7 +59,7 @@ const CreateEditor: React.FC = () => {
     const addProblem = () => {
         if (editorRef.current === undefined) return;
         if (answer === '' || subject === '' || grade === '' || times === '') {
-            alert('빈 칸이 있습니다.');
+            cogoToast.warn('빈 칸이 있습니다.');
             return;
         }
 
@@ -74,21 +75,13 @@ const CreateEditor: React.FC = () => {
         };
 
         ProblemApi.create(problemData).then(() => {
-            alert('문제 등록 완료!');
+            cogoToast.success('문제 등록 완료!');
         });
 
         setAnswer('');
 
         refreshToken();
     };
-
-    /*
-        editorRef.current.getInstance().getHtml()를 통해 HTML를 받아오고
-        DB에는 원래 쓰던데로 저장
-        불러올 때는 Viewer를 통해서 초기값에 HTML 값을 넣어주면 됨.
-
-        TODO: 컬러 스키마, 코드 하이라이팅 익스텐션 추가하기
-     */
 
     return (
         <>

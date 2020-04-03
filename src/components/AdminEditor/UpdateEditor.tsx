@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
+import cogoToast from 'cogo-toast';
 import SubjectOption from '../../atomics/SelectOptions/SubjectOption/SubjectOption';
 import GradeOption from '../../atomics/SelectOptions/GradeOption';
 import TimesOption from '../../atomics/SelectOptions/TimesOption';
@@ -78,7 +79,7 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
     const updateProblem = () => {
         if (editorRef.current === undefined) return;
         if (answer === '' || subject === '' || grade === '' || times === '') {
-            alert('빈 칸이 있습니다.');
+            cogoToast.warn('빈 칸이 있습니다.');
             return;
         }
 
@@ -93,7 +94,7 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
         };
 
         ProblemApi.update(id, problemData).then(() => {
-            alert('문제 수정 완료!');
+            cogoToast.success('문제 수정 완료!');
             history.push('/admin');
             refreshToken();
         });
