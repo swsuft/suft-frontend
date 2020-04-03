@@ -10,6 +10,11 @@ const serverErrorHandler = (code: ErrorCode, message: string) => {
 export const DefaultErrorHandler = (err: AxiosError) => {
     const { code, message } = err.response!.data;
 
+    if (err.response === undefined || err.response!.data === undefined) {
+        console.log(`ERROR ${code} ${message}`);
+        return;
+    }
+
     if (code === ErrorCode.JWT_EXPIRED) {
         return;
     }
