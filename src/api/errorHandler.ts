@@ -8,12 +8,12 @@ const serverErrorHandler = (code: ErrorCode, message: string) => {
 
 // eslint-disable-next-line import/prefer-default-export
 export const DefaultErrorHandler = (err: AxiosError) => {
-    const { code, message } = err.response!.data;
-
     if (err.response === undefined || err.response!.data === undefined) {
-        console.log(`ERROR ${code} ${message}`);
+        console.log(`ERROR ${err}`);
         return;
     }
+
+    const { code, message } = err.response!.data;
 
     if (code === ErrorCode.JWT_EXPIRED) {
         return;
