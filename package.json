@@ -7,7 +7,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "lint": "eslint src/**"
+    "lint": "eslint src/**",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "repository": {
     "type": "git",
@@ -32,6 +34,11 @@
     "styled-components": "^4.2.0"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-links": "^5.3.18",
+    "@storybook/addons": "^5.3.18",
+    "@storybook/preset-create-react-app": "^2.1.1",
+    "@storybook/react": "^5.3.18",
     "@types/highlightjs": "^9.12.0",
     "@types/jest": "24.0.13",
     "@types/node": "12.0.2",
