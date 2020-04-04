@@ -13,8 +13,8 @@ export const CardStory = () => {
     const pcHeight = text('pcHeight', '10rem');
     const mobileWidth = text('mobileWidth', '18rem');
     const mobileHeight = text('mobileHeight', '8rem');
-    const isClick = boolean('isClick', false, 'options');
-    const inline = boolean('inline', false, 'options');
+    const isClick = boolean('isClick', false);
+    const inline = boolean('inline', false);
 
     return (
         <Card pcWidth={pcWidth} pcHeight={pcHeight} mobileWidth={mobileWidth} mobileHeight={mobileHeight} isClick={isClick} inline={inline}>
