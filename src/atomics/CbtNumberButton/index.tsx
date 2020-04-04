@@ -18,7 +18,7 @@ const ButtonStyle = styled.button`
 `;
 
 interface CbtNumberButtonProps {
-    readonly onClick: React.MouseEventHandler;
+    readonly onClick?: React.MouseEventHandler;
 }
 
 const CbtNumberButton: React.FC<CbtNumberButtonProps> = ({ onClick, children }) => {
