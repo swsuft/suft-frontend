@@ -163,17 +163,6 @@ const Home: React.FC = () => {
                         </NoStyleLink>
                     </Card>
                 </BodyStyle>
-
-                <br />
-                <br />
-
-                <ins
-                  className="kakao_ad_area"
-                  style={{ display: 'none' }}
-                  data-ad-unit="DAN-skk0cp1yrjhi"
-                  data-ad-width="320"
-                  data-ad-height="100"
-                />
             </Container>
         </DefaultLayout>
     );
