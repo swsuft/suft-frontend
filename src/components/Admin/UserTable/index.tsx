@@ -136,7 +136,11 @@ const UserTable: React.FC = () => {
                     Cell: ({ original }: any) => {
                         return (
                             <CheckboxWrapStyle>
-                                <input type="checkbox" checked={check.selected[original.email]} onChange={() => rowManager.toggleRow(original.email)} />
+                                <input
+                                  type="checkbox"
+                                  checked={check.selected[original.email]}
+                                  onChange={() => rowManager.toggleRow(original.email)}
+                                />
                             </CheckboxWrapStyle>
                         );
                     },

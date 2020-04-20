@@ -24,7 +24,18 @@ interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({ value, type, placeholder, width, height, disabled, onChange, onKeyPress }) => {
-    return <InputStyle value={value} type={type} placeholder={placeholder} width={width} height={height} onChange={onChange} onKeyPress={onKeyPress} disabled={disabled} />;
+    return (
+        <InputStyle
+          value={value}
+          type={type}
+          placeholder={placeholder}
+          width={width}
+          height={height}
+          onChange={onChange}
+          onKeyPress={onKeyPress}
+          disabled={disabled}
+        />
+    );
 };
 
 export default Input;

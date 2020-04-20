@@ -105,23 +105,45 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
             <ProblemEditor editorRef={editorRef} />
 
             <div>
-                <InputStyle id="answer" value={answer} onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setAnswer(evt.target.value)} placeholder="문제 정답" />
+                <InputStyle
+                  id="answer"
+                  value={answer}
+                  onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setAnswer(evt.target.value)}
+                  placeholder="문제 정답"
+                />
                 &nbsp;
-                <InputStyle id="author" value={author} onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setAuthor(evt.target.value)} placeholder="출제자 (미입력 시 익명으로 등록)" />
+                <InputStyle
+                  id="author"
+                  value={author}
+                  onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setAuthor(evt.target.value)}
+                  placeholder="출제자 (미입력 시 익명으로 등록)"
+                />
             </div>
 
             <div>
-                <SelectStyle id="subject" value={subject} onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setSubject(evt.target.value)}>
+                <SelectStyle
+                  id="subject"
+                  value={subject}
+                  onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setSubject(evt.target.value)}
+                >
                     <option value="">과목</option>
                     <SubjectOption />
                 </SelectStyle>
                 &nbsp;
-                <SelectStyle id="grade" value={grade} onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setGrade(evt.target.value)}>
+                <SelectStyle
+                  id="grade"
+                  value={grade}
+                  onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setGrade(evt.target.value)}
+                >
                     <option value="">학년</option>
                     <GradeOption />
                 </SelectStyle>
                 &nbsp;
-                <SelectStyle id="times" value={times} onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setTimes(evt.target.value)}>
+                <SelectStyle
+                  id="times"
+                  value={times}
+                  onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setTimes(evt.target.value)}
+                >
                     <option value="">학기</option>
                     <TimesOption />
                 </SelectStyle>

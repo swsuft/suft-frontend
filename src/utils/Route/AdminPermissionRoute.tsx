@@ -9,7 +9,12 @@ interface AdminPermissionRouteProps {
     failure: React.ComponentType<any>;
 }
 
-const AdminPermissionRoute: React.FC<AdminPermissionRouteProps> = ({ exact, path, success: Success, failure: Failure }) => {
+const AdminPermissionRoute: React.FC<AdminPermissionRouteProps> = ({
+    exact,
+    path,
+    success: Success,
+    failure: Failure
+}) => {
     const isAdmin = useAdmin();
     const SuccessRoute = () => <Route exact={exact} path={path} component={Success} />;
     const FailureRoute = () => <Route exact={exact} path={path} component={Failure} />;

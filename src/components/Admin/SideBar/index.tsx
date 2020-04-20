@@ -24,7 +24,7 @@ const MenuTitleStyle = styled.p`
     font-size: 20px;
     color: #ffffff;
     margin: 10px 0 0 10px;
-    
+
     @media screen and (max-width: 420px) {
         margin: 0 0 0 10px;
     }

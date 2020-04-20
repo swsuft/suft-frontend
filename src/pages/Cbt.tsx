@@ -127,7 +127,9 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
                     </FontedTitle>
                 </TitleStyle>
                 <SubTitleStyle>
-                    <FontedMiddleText>작성자: {isLoading && problems[random] !== undefined ? problems[random].author : '알수없음'}</FontedMiddleText>
+                    <FontedMiddleText>
+                        작성자: {isLoading && problems[random] !== undefined ? problems[random].author : '알수없음'}
+                    </FontedMiddleText>
                 </SubTitleStyle>
 
                 <ProblemViewer viewerRef={viewerRef} />

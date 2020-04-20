@@ -37,7 +37,7 @@ const LicenseModal: React.FC<LicenseModalProps> = ({ state }) => {
             }}
         >
             <BackContainer>
-                <BackIcon onClick={onCloseModal}/>
+                <BackIcon onClick={onCloseModal} />
             </BackContainer>
 
             <FontedMiddleText>라이센스</FontedMiddleText>

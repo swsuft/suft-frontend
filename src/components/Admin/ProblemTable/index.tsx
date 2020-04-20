@@ -133,7 +133,11 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
                     Cell: ({ original }: any) => {
                         return (
                             <CheckBoxWrapper>
-                                <input type="checkbox" checked={check.selected[original.id]} onChange={() => rowManager.toggleRow(original.id)} />
+                                <input
+                                  type="checkbox"
+                                  checked={check.selected[original.id]}
+                                  onChange={() => rowManager.toggleRow(original.id)}
+                                />
                             </CheckBoxWrapper>
                         );
                     },

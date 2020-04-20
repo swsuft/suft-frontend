@@ -33,9 +33,26 @@ interface CardProps {
     readonly onClick?: React.MouseEventHandler;
 }
 
-const Card: React.FC<CardProps> = ({ pcWidth, pcHeight, mobileWidth, mobileHeight, inline, isClick, onClick, children }) => {
+const Card: React.FC<CardProps> = ({
+    pcWidth,
+    pcHeight,
+    mobileWidth,
+    mobileHeight,
+    inline,
+    isClick,
+    onClick,
+    children
+}) => {
     return (
-        <CardStyle pcWidth={pcWidth} pcHeight={pcHeight} mobileWidth={mobileWidth} mobileHeight={mobileHeight} inline={inline} isClick={isClick} onClick={onClick}>
+        <CardStyle
+          pcWidth={pcWidth}
+          pcHeight={pcHeight}
+          mobileWidth={mobileWidth}
+          mobileHeight={mobileHeight}
+          inline={inline}
+          isClick={isClick}
+          onClick={onClick}
+        >
             {children}
         </CardStyle>
     );

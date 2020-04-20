@@ -45,7 +45,9 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
         } else {
             AuthApi.register(email, password, name, grade)
                 .then(() => {
-                    cogoToast.success('회원가입 신청이 완료되었습니다. 가입 수락 후 이용 가능합니다.\n메인 페이지로 이동합니다.');
+                    cogoToast.success(
+                        '회원가입 신청이 완료되었습니다. 가입 수락 후 이용 가능합니다.\n메인 페이지로 이동합니다.'
+                    );
                     history.push('/');
                 })
                 .catch((err) => {
@@ -86,14 +88,34 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
 
                     <RegisterWrapperStyle>
                         <LabelText>이메일</LabelText>
-                        <Input value={email} type="email" placeholder="사용할 이메일을 입력해주세요." onChange={(evt) => setEmail(evt.target.value)} />
+                        <Input
+                          value={email}
+                          type="email"
+                          placeholder="사용할 이메일을 입력해주세요."
+                          onChange={(evt) => setEmail(evt.target.value)}
+                        />
 
                         <LabelText>비밀번호 (최소 6글자 이상, 영문자, 숫자, 특수문자 포함)</LabelText>
-                        <Input value={password} type="password" placeholder="조건에 맞는 비밀번호를 입력해주세요." onChange={(evt) => setPassword(evt.target.value)} />
-                        <Input value={rePassword} type="password" placeholder="확인을 위해 한 번 더 비밀번호를 입력해주세요." onChange={(evt) => setRePassword(evt.target.value)} />
+                        <Input
+                          value={password}
+                          type="password"
+                          placeholder="조건에 맞는 비밀번호를 입력해주세요."
+                          onChange={(evt) => setPassword(evt.target.value)}
+                        />
+                        <Input
+                          value={rePassword}
+                          type="password"
+                          placeholder="확인을 위해 한 번 더 비밀번호를 입력해주세요."
+                          onChange={(evt) => setRePassword(evt.target.value)}
+                        />
 
                         <LabelText>이름</LabelText>
-                        <Input value={name} type="text" placeholder="자신의 실명을 입력해주세요." onChange={(evt) => setName(evt.target.value)} />
+                        <Input
+                          value={name}
+                          type="text"
+                          placeholder="자신의 실명을 입력해주세요."
+                          onChange={(evt) => setName(evt.target.value)}
+                        />
 
                         <LabelText>학년</LabelText>
                         <Select value={grade} onChange={onSelectChange} width="100%">

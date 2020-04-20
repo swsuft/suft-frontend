@@ -32,7 +32,12 @@ const index = (
                     <UserPermissionRoute exact path="/register" success={Home} failure={Register} />
                     <UserPermissionRoute exact path="/myinfo" success={MyInfo} failure={Login} />
                     <AdminPermissionRoute exact path="/admin" success={Admin} failure={NoPermissionError} />
-                    <AdminPermissionRoute exact path="/admin/edit/:id" success={AdminEdit} failure={NoPermissionError} />
+                    <AdminPermissionRoute
+                      exact
+                      path="/admin/edit/:id"
+                      success={AdminEdit}
+                      failure={NoPermissionError}
+                    />
                     <Route exact path="/privacy" component={Privacy} />
                     <Route exact component={NotFoundError} />
                 </Switch>

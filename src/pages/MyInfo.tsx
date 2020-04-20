@@ -77,11 +77,26 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
                         <Input value={name} disabled />
 
                         <LabelText>현재 비밀번호</LabelText>
-                        <Input value={password} type="password" placeholder="내 정보 변경 시 현재 비밀번호를 입력해주세요." onChange={(e) => setPassword(e.target.value)} />
+                        <Input
+                          value={password}
+                          type="password"
+                          placeholder="내 정보 변경 시 현재 비밀번호를 입력해주세요."
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
 
                         <LabelText>비밀번호 변경</LabelText>
-                        <Input value={newPassword} type="password" placeholder="비밀번호 변경 시 입력해주세요." onChange={(e) => setNewPassword(e.target.value)} />
-                        <Input value={rePassword} type="password" placeholder="확인을 위해 한 번 더 비밀번호를 입력해주세요." onChange={(e) => setRePassword(e.target.value)} />
+                        <Input
+                          value={newPassword}
+                          type="password"
+                          placeholder="비밀번호 변경 시 입력해주세요."
+                          onChange={(e) => setNewPassword(e.target.value)}
+                        />
+                        <Input
+                          value={rePassword}
+                          type="password"
+                          placeholder="확인을 위해 한 번 더 비밀번호를 입력해주세요."
+                          onChange={(e) => setRePassword(e.target.value)}
+                        />
 
                         <LabelText>학년</LabelText>
                         <Select value={grade} onChange={(e) => setGrade(e.target.value)} width="100%">
