@@ -18,6 +18,8 @@ interface SquareButtonProps {
     readonly onClick?: React.MouseEventHandler;
 }
 
-const SquareButton: React.FC<SquareButtonProps> = ({ onClick, children }) => <ButtonStyle onClick={onClick}>{children}</ButtonStyle>;
+const SquareButton: React.FC<SquareButtonProps> = ({ onClick, children }) => (
+    <ButtonStyle onClick={onClick}>{children}</ButtonStyle>
+);
 
 export default SquareButton;

@@ -61,7 +61,9 @@ const WaitingUserTable: React.FC = () => {
             return;
         }
 
-        const isReal = window.confirm(`${Object.keys(selected).length}명을 가입 수락 하시겠습니까?\n가입 수락은 되돌릴 수 없습니다.`);
+        const isReal = window.confirm(
+            `${Object.keys(selected).length}명을 가입 수락 하시겠습니까?\n가입 수락은 되돌릴 수 없습니다.`
+        );
 
         if (!isReal) return;
 
@@ -127,7 +129,11 @@ const WaitingUserTable: React.FC = () => {
                     Cell: ({ original }: any) => {
                         return (
                             <CheckboxWrapStyle>
-                                <input type="checkbox" checked={check.selected[original.email]} onChange={() => rowManager.toggleRow(original.email)} />
+                                <input
+                                  type="checkbox"
+                                  checked={check.selected[original.email]}
+                                  onChange={() => rowManager.toggleRow(original.email)}
+                                />
                             </CheckboxWrapStyle>
                         );
                     },

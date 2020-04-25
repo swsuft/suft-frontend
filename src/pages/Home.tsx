@@ -93,7 +93,14 @@ const Home: React.FC = () => {
                 <BodyStyle>
                     <MealCard />
 
-                    <Card pcWidth="calc(50% - 3rem)" pcHeight="10rem" mobileWidth="18rem" mobileHeight="8rem" inline isClick>
+                    <Card
+                      pcWidth="calc(50% - 3rem)"
+                      pcHeight="10rem"
+                      mobileWidth="18rem"
+                      mobileHeight="8rem"
+                      inline
+                      isClick
+                    >
                         <NoStyleLink to="/subject">
                             <CardTitle>문제풀이 시작하기</CardTitle>
                             <p>국어, 수학 같은 일반과목 또는 전공과목 문제를 풉니다.</p>
@@ -103,7 +110,15 @@ const Home: React.FC = () => {
                         </NoStyleLink>
                     </Card>
 
-                    <Card pcWidth="calc(50% - 3rem)" pcHeight="10rem" mobileWidth="18rem" mobileHeight="8rem" inline isClick onClick={onClickParkingCard}>
+                    <Card
+                      pcWidth="calc(50% - 3rem)"
+                      pcHeight="10rem"
+                      mobileWidth="18rem"
+                      mobileHeight="8rem"
+                      inline
+                      isClick
+                      onClick={onClickParkingCard}
+                    >
                         <DisableTextStyle>
                             <CardTitle>기여도</CardTitle>
                             <p>문제 출제에 기여한 순위를 봅니다.</p>
@@ -113,7 +128,15 @@ const Home: React.FC = () => {
                         </DisableTextStyle>
                     </Card>
 
-                    <Card pcWidth="calc(50% - 3rem)" pcHeight="10rem" mobileWidth="18rem" mobileHeight="8rem" inline isClick onClick={onClickParkingCard}>
+                    <Card
+                      pcWidth="calc(50% - 3rem)"
+                      pcHeight="10rem"
+                      mobileWidth="18rem"
+                      mobileHeight="8rem"
+                      inline
+                      isClick
+                      onClick={onClickParkingCard}
+                    >
                         <DisableTextStyle>
                             <CardTitle>내 문제</CardTitle>
                             <p>새로운 문제를 출제하거나 기존 문제를 관리합니다.</p>
@@ -123,7 +146,14 @@ const Home: React.FC = () => {
                         </DisableTextStyle>
                     </Card>
 
-                    <Card pcWidth="calc(50% - 3rem)" pcHeight="10rem" mobileWidth="18rem" mobileHeight="8rem" inline isClick>
+                    <Card
+                      pcWidth="calc(50% - 3rem)"
+                      pcHeight="10rem"
+                      mobileWidth="18rem"
+                      mobileHeight="8rem"
+                      inline
+                      isClick
+                    >
                         <NoStyleLink to="/myinfo">
                             <CardTitle>내 정보</CardTitle>
                             <p>계정에 관련된 내용을 보거나 설정합니다.</p>
@@ -133,11 +163,6 @@ const Home: React.FC = () => {
                         </NoStyleLink>
                     </Card>
                 </BodyStyle>
-
-                <br />
-                <br />
-
-                <ins className="kakao_ad_area" style={{ display: 'none' }} data-ad-unit="DAN-skk0cp1yrjhi" data-ad-width="320" data-ad-height="100" />
             </Container>
         </DefaultLayout>
     );

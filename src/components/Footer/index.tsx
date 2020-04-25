@@ -68,7 +68,11 @@ const Footer: React.FC = () => {
                             <TextRightStyle>문의</TextRightStyle>
                         </NoStyleA>
                         <TextRightStyle onClick={() => setLicenseModalOpen(true)}>라이센스</TextRightStyle>
-                        <NoStyleA href="https://github.com/swsuft/suft-frontend" target="_blank" rel="noopener noreferrer">
+                        <NoStyleA
+                          href="https://github.com/swsuft/suft-frontend"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                             <TextRightStyle>
                                 <FontAwesomeIcon icon={faGithub} />
                             </TextRightStyle>

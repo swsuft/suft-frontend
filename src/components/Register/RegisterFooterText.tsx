@@ -39,15 +39,17 @@ const MobileTextStyle = styled.p`
 const RegisterFooterText: React.FC = () => {
     return (
         <>
-            <EtcTextStyle>로그인 및 회원가입 시 수프트 <ExternalComponentLink to="/privacy">개인정보처리방침</ExternalComponentLink>에 동의하는 것으로
+            <EtcTextStyle>
+                로그인 및 회원가입 시 수프트{' '}
+                <ExternalComponentLink to="/privacy">개인정보처리방침</ExternalComponentLink>에 동의하는 것으로
                 간주합니다.
             </EtcTextStyle>
-            <MobileTextStyle>회원가입 시 <ExternalComponentLink to="/privacy">개인정보처리방침</ExternalComponentLink>에
-                동의합니다.
+            <MobileTextStyle>
+                회원가입 시 <ExternalComponentLink to="/privacy">개인정보처리방침</ExternalComponentLink>에 동의합니다.
             </MobileTextStyle>
             <p>
                 <BackPageTextStyle to="/">
-                    <FontAwesomeIcon icon={faArrowRight}/> 로그인 창으로 돌아가기
+                    <FontAwesomeIcon icon={faArrowRight} /> 로그인 창으로 돌아가기
                 </BackPageTextStyle>
             </p>
         </>

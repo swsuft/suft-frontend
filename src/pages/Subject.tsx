@@ -74,29 +74,29 @@ const Subject: React.FC<RouteComponentProps> = ({ history }) => {
                     <LabelText>학년</LabelText>
                     <Select value={grade} onChange={(e) => setGrade(e.target.value)}>
                         <option value="">학년을 선택해주세요.</option>
-                        <GradeOption/>
+                        <GradeOption />
                     </Select>
 
                     <LabelText>과목</LabelText>
                     <Select value={subject} onChange={(e) => setSubject(e.target.value)}>
                         <option value="">과목을 선택해주세요.</option>
-                        <SubjectOption/>
+                        <SubjectOption />
                     </Select>
 
                     <LabelText>학기</LabelText>
                     <Select value={times} onChange={(e) => setTimes(e.target.value)}>
                         <option value="">학기를 선택해주세요.</option>
-                        <TimesOption/>
+                        <TimesOption />
                     </Select>
 
                     <div>
                         <ButtonStyle onClick={onStartButtonClick}>
-                            <FontAwesomeIcon icon={faPlayCircle}/> 시작하기
+                            <FontAwesomeIcon icon={faPlayCircle} /> 시작하기
                         </ButtonStyle>
                     </div>
                 </BodyStyle>
 
-                <IconStyle icon={faChalkboard}/>
+                <IconStyle icon={faChalkboard} />
             </Container>
         </DefaultLayout>
     );

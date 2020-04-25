@@ -40,7 +40,16 @@ const ProblemEditor: React.FC<ProblemEditorProps> = ({ editorRef, initialValue }
     }, [editorRef]);
 
     // @ts-ignore `ref` prop을 인식하지 못하는 오류 해결용
-    return <Editor previewStyle="vertical" height="600px" initialEditType="wysiwyg" initialValue={initialValue} plugins={[colorSyntax, [codeSyntaxHightlight, { hljs }]]} ref={editorRef} />;
+    return (
+        <Editor
+          previewStyle="vertical"
+          height="600px"
+          initialEditType="wysiwyg"
+          initialValue={initialValue}
+          plugins={[colorSyntax, [codeSyntaxHightlight, { hljs }]]}
+          ref={editorRef}
+        />
+    );
 };
 
 export default ProblemEditor;

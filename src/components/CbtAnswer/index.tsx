@@ -5,6 +5,10 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 const AnswerContainer = styled.div`
     margin-top: 1rem;
+
+    @media screen and (max-width: 420px) {
+        margin-bottom: 1rem;
+    }
 `;
 
 const InputStyle = styled.input`
@@ -55,7 +59,14 @@ interface CbtAnswerProps {
 const CbtAnswer: React.FC<CbtAnswerProps> = ({ answerValue, onChange, onKeyPress, onButtonClick, inputRef }) => {
     return (
         <AnswerContainer>
-            <InputStyle ref={inputRef} value={answerValue} autoFocus placeholder="정답을 입력해주세요." onChange={onChange} onKeyPress={onKeyPress} />
+            <InputStyle
+              ref={inputRef}
+              value={answerValue}
+              autoFocus
+              placeholder="정답을 입력해주세요."
+              onChange={onChange}
+              onKeyPress={onKeyPress}
+            />
             <ButtonStyle type="button" onClick={onButtonClick}>
                 <FontAwesomeIcon icon={faPaperPlane} /> 제출
             </ButtonStyle>

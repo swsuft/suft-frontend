@@ -78,10 +78,22 @@ const Login: React.FC = () => {
 
                     <MenuLoginWrapStyle>
                         <LabelText>이메일</LabelText>
-                        <Input value={email} type="email" placeholder="이메일을 입력해주세요." onChange={onEmailInputChange} onKeyPress={onEnterKeyPress} />
+                        <Input
+                          value={email}
+                          type="email"
+                          placeholder="이메일을 입력해주세요."
+                          onChange={onEmailInputChange}
+                          onKeyPress={onEnterKeyPress}
+                        />
 
                         <LabelText>비밀번호</LabelText>
-                        <Input value={password} type="password" placeholder="비밀번호를 입력해주세요." onChange={onPasswordInputChange} onKeyPress={onEnterKeyPress} />
+                        <Input
+                          value={password}
+                          type="password"
+                          placeholder="비밀번호를 입력해주세요."
+                          onChange={onPasswordInputChange}
+                          onKeyPress={onEnterKeyPress}
+                        />
                     </MenuLoginWrapStyle>
 
                     <SquareButton onClick={runLogin}>
@@ -89,11 +101,6 @@ const Login: React.FC = () => {
                     </SquareButton>
 
                     <LoginFooterText />
-
-                    <br/>
-                    <br/>
-
-                    <ins className="kakao_ad_area" style={{ display: 'none' }} data-ad-unit="DAN-skk0cp1yrjhi" data-ad-width="320" data-ad-height="100" />
                 </div>
             </CenterContainer>
         </DefaultLayout>

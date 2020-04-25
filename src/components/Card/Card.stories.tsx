@@ -17,7 +17,14 @@ export const CardStory = () => {
     const inline = boolean('inline', false);
 
     return (
-        <Card pcWidth={pcWidth} pcHeight={pcHeight} mobileWidth={mobileWidth} mobileHeight={mobileHeight} isClick={isClick} inline={inline}>
+        <Card
+          pcWidth={pcWidth}
+          pcHeight={pcHeight}
+          mobileWidth={mobileWidth}
+          mobileHeight={mobileHeight}
+          isClick={isClick}
+          inline={inline}
+        >
             <p>내용</p>
         </Card>
     );
