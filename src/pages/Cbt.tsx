@@ -132,9 +132,9 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
                     </FontedMiddleText>
                 </SubTitleStyle>
 
-                <ProblemViewer viewerRef={viewerRef} />
+                <ProblemViewer viewerRef={viewerRef}/>
 
-                <hr />
+                <hr/>
 
                 <NumberButtonContainer>
                     <CbtNumberButton onClick={() => checkAnswer('1')}>1번</CbtNumberButton>
@@ -145,13 +145,13 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
                 </NumberButtonContainer>
 
                 <CbtAnswer
-                  inputRef={inputRef}
-                  answerValue={userAnswer}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(e.target.value)}
-                  onKeyPress={(e: React.KeyboardEvent) => {
+                    inputRef={inputRef}
+                    answerValue={userAnswer}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserAnswer(e.target.value)}
+                    onKeyPress={(e: React.KeyboardEvent) => {
                         if (e.key === 'Enter') checkAnswer();
                     }}
-                  onButtonClick={() => checkAnswer()}
+                    onButtonClick={() => checkAnswer()}
                 />
             </Container>
         </DefaultLayout>
