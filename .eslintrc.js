@@ -3,7 +3,7 @@ module.exports = {
     plugins: ['react-hooks'],
     rules: {
         'arrow-body-style': 'off',
-        'indent': 'off',
+        indent: 'off',
         'jsx-quotes': 'off',
         'comma-dangle': 'off',
         'object-curly-newline': 'off',
@@ -15,10 +15,10 @@ module.exports = {
         'react/jsx-tag-spacing': 'off',
         'react/prop-types': 'off',
         'react/jsx-one-expression-per-line': 'off',
-        'linebreak-style': ['error', 'windows'],
         'import/extensions': 'off',
         'no-alert': 'off',
         'no-console': 'off',
-        'import/no-extraneous-dependencies': 'off'
+        'import/no-extraneous-dependencies': 'off',
+        'linebreak-style': 'off'
     }
 };
