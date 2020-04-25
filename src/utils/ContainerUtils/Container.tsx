@@ -6,9 +6,12 @@ const ContainerStyle = styled.div`
     position: relative;
     width: auto;
 
+    @media screen and (max-width: 420px) {
+        margin: 0 1rem;
+    }
+
     @media screen and (min-width: 0px) {
         max-width: 500px;
-        margin: 0 1rem;
     }
 
     @media screen and (min-width: 1001px) {
