@@ -5,6 +5,10 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 const AnswerContainer = styled.div`
     margin-top: 1rem;
+
+    @media screen and (max-width: 420px) {
+        margin-bottom: 1rem;
+    }
 `;
 
 const InputStyle = styled.input`
