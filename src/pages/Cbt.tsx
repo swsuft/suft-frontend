@@ -116,7 +116,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
         setBeLoading(true);
     }, [match.params, refreshToken]);
 
-    const subjectView = isLoading && problems[random] !== undefined ? subjectToString(problems[random].subject) : '과목';
+    const subjectView = isLoading ? subjectToString(match.params.subject) : '과목';
 
     return (
         <DefaultLayout>
