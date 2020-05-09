@@ -1,4 +1,7 @@
-# suft-frontend ![GitHub top language](https://img.shields.io/github/languages/top/swsuft/suft-frontend?style=flat-square) ![GitHub](https://img.shields.io/github/license/swsuft/suft-frontend?style=flat-square) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) ![GitHub stars](https://img.shields.io/github/stars/swsuft/suft-frontend?style=social)
+# suft-frontend 
+![GitHub top language](https://img.shields.io/github/languages/top/swsuft/suft-frontend?style=flat-square) ![GitHub](https://img.shields.io/github/license/swsuft/suft-frontend?style=flat-square) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) ![GitHub stars](https://img.shields.io/github/stars/swsuft/suft-frontend?style=social)
+
+![check lint](https://github.com/swsuft/suft-frontend/workflows/check%20lint/badge.svg) [![CodeFactor](https://www.codefactor.io/repository/github/swsuft/suft-frontend/badge)](https://www.codefactor.io/repository/github/swsuft/suft-frontend)
 
 ![Suft login page](./loginpage.PNG)
 
@@ -21,9 +24,6 @@
 
 ### 빌드하기
 `npm run build` (으로) production build를 합니다.
-
-## TODO
-- [ ] 문제 출제 권한 공개하기
 
 ## 기여하기
 수프트 프로젝트에 기여하고 싶으신 분은 [이곳(Pull requests)](https://github.com/swsuft/suft-frontend/pulls)에서 하실 수 있습니다.
