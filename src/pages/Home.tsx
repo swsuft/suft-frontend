@@ -135,15 +135,14 @@ const Home: React.FC = () => {
                       mobileHeight="8rem"
                       inline
                       isClick
-                      onClick={onClickParkingCard}
                     >
-                        <DisableTextStyle>
+                        <NoStyleLink to="/myproblem">
                             <CardTitle>내 문제</CardTitle>
                             <p>새로운 문제를 출제하거나 기존 문제를 관리합니다.</p>
                             <IconWrapperStyle pcMargin="0.8" mobileMargin="-2.7">
                                 <TestIcon size="6rem" />
                             </IconWrapperStyle>
-                        </DisableTextStyle>
+                        </NoStyleLink>
                     </Card>
 
                     <Card

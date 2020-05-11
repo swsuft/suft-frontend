@@ -19,6 +19,7 @@ import AdminPermissionRoute from './utils/Route/AdminPermissionRoute';
 import NotFoundError from './components/Error/NotFoundError';
 import NoPermissionError from './components/Error/NoPermissionError';
 import Register from './pages/Register';
+import MyProblem from './pages/MyProblem';
 
 const index = (
     <ProfileProvider>
@@ -31,6 +32,7 @@ const index = (
                     <UserPermissionRoute exact path="/login" success={Home} failure={Login} />
                     <UserPermissionRoute exact path="/register" success={Home} failure={Register} />
                     <UserPermissionRoute exact path="/myinfo" success={MyInfo} failure={Login} />
+                    <UserPermissionRoute exact path="/myproblem" success={MyProblem} failure={Login} />
                     <AdminPermissionRoute exact path="/admin" success={Admin} failure={NoPermissionError} />
                     <AdminPermissionRoute
                       exact
