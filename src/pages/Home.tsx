@@ -46,7 +46,7 @@ const DisableTextStyle = styled.div`
 
 const LogoTextStyle = styled.p`
     font-family: 'Gugi';
-    font-size: 50px;
+    font-size: 2.8rem;
 `;
 
 const HeaderTextStyle = styled.div`
