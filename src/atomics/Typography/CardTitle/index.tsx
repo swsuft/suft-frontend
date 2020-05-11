@@ -1,11 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const TextStyle = styled.p`
+const CardTitle = styled.p`
     font-size: 1.5rem;
     font-family: 'Godo', sans-serif;
 `;
-
-const CardTitle: React.FC = ({ children }) => <TextStyle>{children}</TextStyle>;
 
 export default CardTitle;
