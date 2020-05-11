@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const TextStyle = styled.p`
-    font-size: 26px;
+    font-size: 1.5rem;
     font-family: 'Godo', sans-serif;
 `;
 

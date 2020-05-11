@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const TitleStyle = styled.p`
     font-family: 'Godo', sans-serif;
-    font-size: 36px;
+    font-size: 1.8rem;
     margin: 2rem 0;
 `;
 
