@@ -51,7 +51,7 @@ const FontedTitleStyle = styled(FontedTitle)`
 `;
 
 const BodyStyle = styled.div`
-  width: 100%;
+    width: 100%;
 `;
 
 const MyProblem: React.FC = () => {
