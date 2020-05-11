@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
+import { Editor } from '@toast-ui/react-editor';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import Container from '../utils/ContainerUtils/Container';
 import DefaultLayout from '../layouts/DefaultLayout';
+import ProblemEditor from '../components/ProblemEditor';
 
 const ProblemContainer = styled.div`
     display: flex;
@@ -32,6 +34,7 @@ const SideItemStyle = styled.div`
     color: var(--color-text);
     cursor: pointer;
     padding: 1rem 2rem;
+    white-space: nowrap;
     text-align: center;
 
     &:hover {
@@ -47,9 +50,13 @@ const FontedTitleStyle = styled(FontedTitle)`
     }
 `;
 
-const BodyStyle = styled.div``;
+const BodyStyle = styled.div`
+  width: 100%;
+`;
 
 const MyProblem: React.FC = () => {
+    const editorRef = useRef<Editor>();
+
     return (
         <DefaultLayout>
             <Container>
@@ -67,6 +74,7 @@ const MyProblem: React.FC = () => {
                     </SideContainer>
                     <BodyStyle>
                         <FontedTitle>문제 등록</FontedTitle>
+                        <ProblemEditor editorRef={editorRef} />
                     </BodyStyle>
                 </ProblemContainer>
             </Container>
