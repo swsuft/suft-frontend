@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './css/color.css';
 import './css/modal.css';
 import 'react-table/react-table.css';
@@ -19,7 +19,8 @@ import AdminPermissionRoute from './utils/Route/AdminPermissionRoute';
 import NotFoundError from './components/Error/NotFoundError';
 import NoPermissionError from './components/Error/NoPermissionError';
 import Register from './pages/Register';
-import MyProblem from './pages/MyProblem';
+import MyProblemCreate from './pages/MyProblem/MyProblemCreate';
+import MyProblemView from './pages/MyProblem/MyProblemView';
 
 const index = (
     <ProfileProvider>
@@ -32,7 +33,16 @@ const index = (
                     <UserPermissionRoute exact path="/login" success={Home} failure={Login} />
                     <UserPermissionRoute exact path="/register" success={Home} failure={Register} />
                     <UserPermissionRoute exact path="/myinfo" success={MyInfo} failure={Login} />
-                    <UserPermissionRoute exact path="/myproblem" success={MyProblem} failure={Login} />
+
+                    <UserPermissionRoute
+                      exact
+                      path="/myproblem"
+                      success={() => <Redirect to="/myproblem/create" />}
+                      failure={Login}
+                    />
+                    <UserPermissionRoute exact path="/myproblem/create" success={MyProblemCreate} failure={Login} />
+                    <UserPermissionRoute exact path="/myproblem/view" success={MyProblemView} failure={Login} />
+
                     <AdminPermissionRoute exact path="/admin" success={Admin} failure={NoPermissionError} />
                     <AdminPermissionRoute
                       exact
