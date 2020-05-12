@@ -10,29 +10,8 @@ import useToken from '../../hooks/useToken';
 import ProblemEditor from '../ProblemEditor';
 import ProblemApi from '../../api/Problem';
 import SmallButton from '../../atomics/SmallButton';
-
-const InputStyle = styled.input`
-    border: none;
-    border-radius: 10px;
-
-    width: 250px;
-    height: 30px;
-
-    margin-top: 10px;
-    padding-left: 10px;
-`;
-
-const SelectStyle = styled.select`
-    border: none;
-    border-radius: 10px;
-    appearance: none;
-
-    width: 200px;
-    height: 30px;
-
-    margin-top: 10px;
-    padding-left: 10px;
-`;
+import SmallInput from '../../atomics/SmallInput';
+import SmallSelect from '../../atomics/SmallSelect';
 
 const SmallButtonStyle = styled(SmallButton)`
     margin-top: 10px;
@@ -82,14 +61,14 @@ const CreateEditor: React.FC = () => {
             <ProblemEditor editorRef={editorRef} />
 
             <div>
-                <InputStyle
+                <SmallInput
                   id="answer"
                   value={answer}
                   onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setAnswer(evt.target.value)}
                   placeholder="문제 정답"
                 />
                 &nbsp;
-                <InputStyle
+                <SmallInput
                   id="author"
                   value={author}
                   onChange={(evt: React.ChangeEvent<HTMLInputElement>) => setAuthor(evt.target.value)}
@@ -98,32 +77,32 @@ const CreateEditor: React.FC = () => {
             </div>
 
             <div>
-                <SelectStyle
+                <SmallSelect
                   id="subject"
                   value={subject}
                   onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setSubject(evt.target.value)}
                 >
                     <option value="">과목</option>
                     <SubjectOption />
-                </SelectStyle>
+                </SmallSelect>
                 &nbsp;
-                <SelectStyle
+                <SmallSelect
                   id="grade"
                   value={grade}
                   onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setGrade(evt.target.value)}
                 >
                     <option value="">학년</option>
                     <GradeOption />
-                </SelectStyle>
+                </SmallSelect>
                 &nbsp;
-                <SelectStyle
+                <SmallSelect
                   id="times"
                   value={times}
                   onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setTimes(evt.target.value)}
                 >
                     <option value="">학기</option>
                     <TimesOption />
-                </SelectStyle>
+                </SmallSelect>
             </div>
 
             <SmallButtonStyle background="var(--color-blue)" onClick={addProblem}>
