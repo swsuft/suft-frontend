@@ -9,6 +9,7 @@ import TimesOption from '../../atomics/SelectOptions/TimesOption';
 import useToken from '../../hooks/useToken';
 import ProblemEditor from '../ProblemEditor';
 import ProblemApi from '../../api/Problem';
+import SmallButton from '../../atomics/SmallButton';
 
 const InputStyle = styled.input`
     border: none;
@@ -33,15 +34,8 @@ const SelectStyle = styled.select`
     padding-left: 10px;
 `;
 
-const ButtonStyle = styled.button`
+const SmallButtonStyle = styled(SmallButton)`
     margin-top: 10px;
-    border: none;
-    border-radius: 10px;
-    width: 150px;
-    height: 35px;
-    color: #ffffff;
-    background: var(--color-blue);
-    cursor: pointer;
 `;
 
 const CreateEditor: React.FC = () => {
@@ -132,7 +126,9 @@ const CreateEditor: React.FC = () => {
                 </SelectStyle>
             </div>
 
-            <ButtonStyle onClick={addProblem}>등록</ButtonStyle>
+            <SmallButtonStyle background="var(--color-blue)" onClick={addProblem}>
+                등록
+            </SmallButtonStyle>
         </>
     );
 };
