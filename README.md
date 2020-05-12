@@ -3,9 +3,13 @@
 
 ![check lint](https://github.com/swsuft/suft-frontend/workflows/check%20lint/badge.svg) [![CodeFactor](https://www.codefactor.io/repository/github/swsuft/suft-frontend/badge)](https://www.codefactor.io/repository/github/swsuft/suft-frontend)
 
-![Suft login page](./loginpage.PNG)
+![Suft Login Page](./login.png)
 
-교내 시험대비 CBT 사이트, 프론트엔드 소스 코드
+![Suft Main Page](./main.png)
+
+<br />
+
+> 문제 풀이 서비스, 수프트. 프론트엔드
 
 ## Branches
 - `production`
@@ -16,19 +20,22 @@
     - 개발 중인 코드
 
 ## 시작하기
-### 의존성 설치하기
+### 의존성 설치
 `npm install` (으)로 프로젝트 빌드에 필요한 의존성 패키지를 다운로드합니다.
 
 ### 개발 모드 시작
 `npm run start` (으)로 개발 모드로 프로젝트를 Build & Run 합니다.
 
-### 빌드하기
-`npm run build` (으로) production build를 합니다.
+### 빌드
+`npm run build` (으)로 production build를 합니다.
+
+### ESLint 검사
+`npm run lint` (으)로 ESLint 검사를 진행합니다.
 
 ## 기여하기
 수프트 프로젝트에 기여하고 싶으신 분은 [이곳(Pull requests)](https://github.com/swsuft/suft-frontend/pulls)에서 하실 수 있습니다.
 
-## 버그제보 및 건의
+## 버그 제보 및 건의
 버그를 발견했거나 기타 건의를 하고 싶으신 분은 [이곳(Issues)](https://github.com/swsuft/suft-frontend/issues)에서 하실 수 있습니다.
 
 ## 라이센스
