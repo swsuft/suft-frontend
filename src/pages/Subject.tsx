@@ -7,12 +7,12 @@ import cogoToast from 'cogo-toast';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
-import SubjectOption from '../atomics/SelectOptions/SubjectOption/SubjectOption';
 import GradeOption from '../atomics/SelectOptions/GradeOption';
 import TimesOption from '../atomics/SelectOptions/TimesOption';
 import LabelText from '../atomics/Typography/LabelText';
 import DefaultLayout from '../layouts/DefaultLayout';
 import Select from '../atomics/Select';
+import DynamicSubject from '../utils/DynamicSubject';
 
 const BodyStyle = styled.div`
     margin-top: 50px;
@@ -77,16 +77,15 @@ const Subject: React.FC<RouteComponentProps> = ({ history }) => {
                         <GradeOption />
                     </Select>
 
-                    <LabelText>과목</LabelText>
-                    <Select value={subject} onChange={(e) => setSubject(e.target.value)}>
-                        <option value="">과목을 선택해주세요.</option>
-                        <SubjectOption />
-                    </Select>
-
                     <LabelText>학기</LabelText>
                     <Select value={times} onChange={(e) => setTimes(e.target.value)}>
                         <option value="">학기를 선택해주세요.</option>
                         <TimesOption />
+                    </Select>
+
+                    <LabelText>과목</LabelText>
+                    <Select value={subject} onChange={(e) => setSubject(e.target.value)}>
+                        <DynamicSubject current={grade} />
                     </Select>
 
                     <div>

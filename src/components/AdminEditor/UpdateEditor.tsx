@@ -3,7 +3,6 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
 import cogoToast from 'cogo-toast';
-import SubjectOption from '../../atomics/SelectOptions/SubjectOption/SubjectOption';
 import GradeOption from '../../atomics/SelectOptions/GradeOption';
 import TimesOption from '../../atomics/SelectOptions/TimesOption';
 import useToken from '../../hooks/useToken';
@@ -12,6 +11,7 @@ import ProblemEditor from '../ProblemEditor';
 import SmallButton from '../../atomics/SmallButton';
 import SmallInput from '../../atomics/SmallInput';
 import SmallSelect from '../../atomics/SmallSelect';
+import DynamicSubject from '../../utils/DynamicSubject';
 
 const SmallButtonStyle = styled(SmallButton)`
     margin-top: 10px;
@@ -95,15 +95,6 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
 
             <div>
                 <SmallSelect
-                  id="subject"
-                  value={subject}
-                  onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setSubject(evt.target.value)}
-                >
-                    <option value="">과목</option>
-                    <SubjectOption />
-                </SmallSelect>
-                &nbsp;
-                <SmallSelect
                   id="grade"
                   value={grade}
                   onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setGrade(evt.target.value)}
@@ -119,6 +110,14 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
                 >
                     <option value="">학기</option>
                     <TimesOption />
+                </SmallSelect>
+                &nbsp;
+                <SmallSelect
+                  id="subject"
+                  value={subject}
+                  onChange={(evt: React.ChangeEvent<HTMLSelectElement>) => setSubject(evt.target.value)}
+                >
+                    <DynamicSubject current={grade} />
                 </SmallSelect>
             </div>
 
