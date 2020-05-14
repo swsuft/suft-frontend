@@ -1,3 +1,5 @@
+import React from 'react';
+
 const subjectToString = (id: string): string => {
     switch (id) {
         case '1':
@@ -28,6 +30,12 @@ const subjectToString = (id: string): string => {
             return '컴퓨터 네트워크';
         case '14':
             return '자료 구조';
+        case '15':
+            return '응용프로그래밍 개발';
+        case '16':
+            return '데이터베이스 프로그래밍';
+        case '17':
+            return '시스템 프로그래밍';
         case '999':
             return '자격증';
         default:
