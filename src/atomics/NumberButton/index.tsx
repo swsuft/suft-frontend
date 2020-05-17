@@ -14,6 +14,15 @@ const NumberButton = styled.button`
     &:hover {
         color: white;
     }
+
+    &:disabled {
+        cursor: no-drop;
+        background-color: #ddd;
+      
+        &:hover {
+            color: initial;
+        }
+    }
 `;
 
 export default NumberButton;

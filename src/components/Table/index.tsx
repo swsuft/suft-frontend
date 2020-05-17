@@ -9,7 +9,13 @@ import NumberButton from '../../atomics/NumberButton';
 const PageControlStyle = styled.div`
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 1.5rem;
+`;
+
+const SelectControlStyle = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 4px;
 `;
 
 interface TableProps {
@@ -90,7 +96,7 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
                     <br />
                 </div>
             </PageControlStyle>
-            <PageControlStyle>
+            <SelectControlStyle>
                 <div>
                     <select value={pageSize} onChange={(e) => setPageSize(Number(e.target.value))}>
                         {[10, 20, 50, 100, 200].map((nowSize) => (
@@ -100,7 +106,7 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
                         ))}
                     </select>
                 </div>
-            </PageControlStyle>
+            </SelectControlStyle>
         </>
     );
 };
