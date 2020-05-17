@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const InputStyle = styled.input<{ width?: string, height?: string }>`
+const InputStyle = styled.input<{ width?: string; height?: string }>`
     border: none;
     border-radius: 20px;
     width: ${(props) => props.width || '95%'};
@@ -9,10 +9,10 @@ const InputStyle = styled.input<{ width?: string, height?: string }>`
     padding-left: 20px;
     margin-bottom: 10px;
     background-color: white;
-    
+
     &:disabled {
-      background-color: #dddddd;
-      cursor: no-drop;
+        background-color: #dddddd;
+        cursor: no-drop;
     }
 `;
 
