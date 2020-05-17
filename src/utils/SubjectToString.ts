@@ -1,5 +1,3 @@
-import React from 'react';
-
 const subjectToString = (id: string): string => {
     switch (id) {
         case '1':
