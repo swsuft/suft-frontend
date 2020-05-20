@@ -12,10 +12,10 @@ import MealCard from '../components/MealCard';
 import Card from '../components/Card';
 import NoStyleLink from '../atomics/NoStyleLink';
 import CardTitle from '../atomics/Typography/CardTitle';
-import BookIcon from '../atomics/icons/BookIcon';
-import PodiumIcon from '../atomics/icons/PodiumIcon';
-import TestIcon from '../atomics/icons/TestIcon';
-import SettingsIcon from '../atomics/icons/SettingsIcon';
+import BookIcon from '../atomics/Icons/BookIcon';
+import PodiumIcon from '../atomics/Icons/PodiumIcon';
+import TestIcon from '../atomics/Icons/TestIcon';
+import SettingsIcon from '../atomics/Icons/SettingsIcon';
 
 const BodyStyle = styled.div`
     display: flex;
