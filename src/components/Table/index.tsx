@@ -6,6 +6,11 @@ import TableHeadRow from '../../atomics/Table/TableHeadRow';
 import TableBodyRow from '../../atomics/Table/TableBodyRow';
 import NumberButton from '../../atomics/NumberButton';
 
+const TableContainer = styled.div`
+    width: 100%;
+    overflow: auto;
+`;
+
 const PageControlStyle = styled.div`
     display: flex;
     justify-content: center;
@@ -51,29 +56,31 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
 
     return (
         <>
-            <TableAtomic {...getTableProps()}>
-                <thead>
-                    {headerGroups.map((headerGroup) => (
-                        <TableHeadRow {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map((column) => (
-                                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                            ))}
-                        </TableHeadRow>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                    {page.map((row) => {
-                        prepareRow(row);
-                        return (
-                            <TableBodyRow {...row.getRowProps()}>
-                                {row.cells.map((cell) => {
-                                    return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
-                                })}
-                            </TableBodyRow>
-                        );
-                    })}
-                </tbody>
-            </TableAtomic>
+            <TableContainer>
+                <TableAtomic {...getTableProps()}>
+                    <thead>
+                        {headerGroups.map((headerGroup) => (
+                            <TableHeadRow {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map((column) => (
+                                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                                ))}
+                            </TableHeadRow>
+                        ))}
+                    </thead>
+                    <tbody {...getTableBodyProps()}>
+                        {page.map((row) => {
+                            prepareRow(row);
+                            return (
+                                <TableBodyRow {...row.getRowProps()}>
+                                    {row.cells.map((cell) => {
+                                        return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
+                                    })}
+                                </TableBodyRow>
+                            );
+                        })}
+                    </tbody>
+                </TableAtomic>
+            </TableContainer>
             <PageControlStyle>
                 <div>
                     <NumberButton onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
