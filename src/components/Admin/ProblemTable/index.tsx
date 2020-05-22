@@ -88,15 +88,15 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
                 return (
                     <CheckBoxWrapper>
                         <input
-                            type="checkbox"
-                            checked={check.selectAll === 1}
-                            ref={(input) => {
+                          type="checkbox"
+                          checked={check.selectAll === 1}
+                          ref={(input) => {
                                 if (input) {
                                     // eslint-disable-next-line
                                     input.indeterminate = check.selectAll === 2;
                                 }
                             }}
-                            onChange={() => rowManager.toggleAllRow(data, 'id')}
+                          onChange={() => rowManager.toggleAllRow(data, 'id')}
                         />
                     </CheckBoxWrapper>
                 );
@@ -105,9 +105,9 @@ const ProblemTable: React.FC<RouteComponentProps> = ({ history }) => {
                 return (
                     <CheckBoxWrapper>
                         <input
-                            type="checkbox"
-                            checked={check.selected[row.original.id]}
-                            onChange={() => rowManager.toggleRow(row.original.id)}
+                          type="checkbox"
+                          checked={check.selected[row.original.id]}
+                          onChange={() => rowManager.toggleRow(row.original.id)}
                         />
                     </CheckBoxWrapper>
                 );
