@@ -7,7 +7,7 @@ import { ProfileProvider } from './hooks/useProfile';
 import { MealProvider } from './hooks/useMeal';
 import Home from './pages/Home';
 import Cbt from './pages/Cbt';
-import AdminEdit from './pages/Admin/AdminEdit';
+import MyProblemEdit from './pages/MyProblem/MyProblemEdit';
 import Privacy from './pages/Privacy';
 import Subject from './pages/Subject';
 import MyInfo from './pages/MyInfo';
@@ -20,6 +20,8 @@ import Register from './pages/Register';
 import MyProblemCreate from './pages/MyProblem/MyProblemCreate';
 import MyProblemView from './pages/MyProblem/MyProblemView';
 import AdminProblemView from './pages/Admin/AdminProblemView';
+import AdminUserView from './pages/Admin/AdminUserView';
+import AdminWaitingUser from './pages/Admin/AdminWaitingUser';
 
 const index = (
     <ProfileProvider>
@@ -41,6 +43,12 @@ const index = (
                     />
                     <UserPermissionRoute exact path="/myproblem/create" success={MyProblemCreate} failure={Login} />
                     <UserPermissionRoute exact path="/myproblem/view" success={MyProblemView} failure={Login} />
+                    <UserPermissionRoute
+                      exact
+                      path="/myproblem/edit/:id"
+                      success={MyProblemEdit}
+                      failure={NoPermissionError}
+                    />
 
                     <AdminPermissionRoute
                       exact
@@ -56,8 +64,14 @@ const index = (
                     />
                     <AdminPermissionRoute
                       exact
-                      path="/admin/edit/:id"
-                      success={AdminEdit}
+                      path="/admin/user"
+                      success={AdminUserView}
+                      failure={NoPermissionError}
+                    />
+                    <AdminPermissionRoute
+                      exact
+                      path="/admin/waitinguser"
+                      success={AdminWaitingUser}
                       failure={NoPermissionError}
                     />
                     <Route exact path="/privacy" component={Privacy} />
