@@ -4,7 +4,7 @@ import Container from '../utils/ContainerUtils/Container';
 import DefaultLayout from './DefaultLayout';
 import SideMenu from '../components/SideMenu';
 
-const AdminContainer = styled.div`
+const ProblemContainer = styled.div`
     display: flex;
     flex-direction: row;
 
@@ -19,30 +19,26 @@ const BodyStyle = styled.div`
 
 const items = [
     {
-        to: '/admin/view',
+        to: '/myproblem/create',
+        name: '문제 등록'
+    },
+    {
+        to: '/myproblem/view',
         name: '문제 관리'
-    },
-    {
-        to: '/admin/user',
-        name: '유저 관리'
-    },
-    {
-        to: '/admin/waitinguser',
-        name: '가입 요청'
     }
 ];
 
-const AdminLayout: React.FC = ({ children }) => {
+const MyProblemLayout: React.FC = ({ children }) => {
     return (
         <DefaultLayout>
             <Container>
-                <AdminContainer>
-                    <SideMenu menuTitle="ADMIN" items={items} current={window.location.pathname} />
+                <ProblemContainer>
+                    <SideMenu menuTitle="내 문제" items={items} current={window.location.pathname} />
                     <BodyStyle>{children}</BodyStyle>
-                </AdminContainer>
+                </ProblemContainer>
             </Container>
         </DefaultLayout>
     );
 };
 
-export default AdminLayout;
+export default MyProblemLayout;

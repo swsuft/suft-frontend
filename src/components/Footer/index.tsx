@@ -7,13 +7,13 @@ import NoStyleLink from '../../atomics/NoStyleLink';
 import NoStyleA from '../../atomics/NoStyleA';
 import LicenseModal from '../Modals/LicenseModal';
 
-const FooterWrapStyle = styled.div`
+const FooterContainer = styled.footer`
     display: flex;
     flex: none;
     flex-direction: column;
 `;
 
-const FooterStyle = styled.footer`
+const FooterStyle = styled.div`
     background: var(--color-gray-background);
     height: 100px;
 `;
@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
     const [, setLicenseModalOpen] = licenseModalState;
 
     return (
-        <FooterWrapStyle>
+        <FooterContainer>
             <FooterStyle>
                 <Container>
                     <TextWrapStyle>
@@ -82,7 +82,7 @@ const Footer: React.FC = () => {
             </FooterStyle>
 
             <LicenseModal state={licenseModalState} />
-        </FooterWrapStyle>
+        </FooterContainer>
     );
 };
 

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Container from '../../utils/ContainerUtils/Container';
 import UpdateEditor from '../../components/AdminEditor/UpdateEditor';
-import AdminEditLayout from '../../layouts/AdminEditLayout';
+import DefaultLayout from '../../layouts/DefaultLayout';
 
 const TitleStyle = styled.h1`
     margin: 1rem auto;
@@ -18,13 +18,13 @@ const BackStyle = styled.span`
     float: right;
 `;
 
-const AdminEdit: React.FC<RouteComponentProps<{ id: string }>> = ({ match, history }) => {
+const MyProblemEdit: React.FC<RouteComponentProps<{ id: string }>> = ({ match, history }) => {
     const { id } = match.params;
 
     const onBackClick = () => history.goBack();
 
     return (
-        <AdminEditLayout>
+        <DefaultLayout>
             <Container>
                 <TitleStyle>
                     {id}번 문제 수정{' '}
@@ -36,8 +36,8 @@ const AdminEdit: React.FC<RouteComponentProps<{ id: string }>> = ({ match, histo
                 <UpdateEditor id={id} />
                 <br />
             </Container>
-        </AdminEditLayout>
+        </DefaultLayout>
     );
 };
 
-export default withRouter(AdminEdit);
+export default withRouter(MyProblemEdit);

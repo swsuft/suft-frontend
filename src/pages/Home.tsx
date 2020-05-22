@@ -12,10 +12,10 @@ import MealCard from '../components/MealCard';
 import Card from '../components/Card';
 import NoStyleLink from '../atomics/NoStyleLink';
 import CardTitle from '../atomics/Typography/CardTitle';
-import BookIcon from '../atomics/icons/BookIcon';
-import PodiumIcon from '../atomics/icons/PodiumIcon';
-import TestIcon from '../atomics/icons/TestIcon';
-import SettingsIcon from '../atomics/icons/SettingsIcon';
+import BookIcon from '../atomics/Icons/BookIcon';
+import PodiumIcon from '../atomics/Icons/PodiumIcon';
+import TestIcon from '../atomics/Icons/TestIcon';
+import SettingsIcon from '../atomics/Icons/SettingsIcon';
 
 const BodyStyle = styled.div`
     display: flex;
@@ -46,7 +46,7 @@ const DisableTextStyle = styled.div`
 
 const LogoTextStyle = styled.p`
     font-family: 'Gugi';
-    font-size: 50px;
+    font-size: 2.8rem;
 `;
 
 const HeaderTextStyle = styled.div`
@@ -135,15 +135,14 @@ const Home: React.FC = () => {
                       mobileHeight="8rem"
                       inline
                       isClick
-                      onClick={onClickParkingCard}
                     >
-                        <DisableTextStyle>
+                        <NoStyleLink to="/myproblem">
                             <CardTitle>내 문제</CardTitle>
                             <p>새로운 문제를 출제하거나 기존 문제를 관리합니다.</p>
                             <IconWrapperStyle pcMargin="0.8" mobileMargin="-2.7">
                                 <TestIcon size="6rem" />
                             </IconWrapperStyle>
-                        </DisableTextStyle>
+                        </NoStyleLink>
                     </Card>
 
                     <Card

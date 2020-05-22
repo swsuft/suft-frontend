@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import Modal from 'react-modal';
-import BackIcon from '../../../atomics/icons/BackIcon';
+import BackIcon from '../../../atomics/Icons/BackIcon';
 import FontedMiddleText from '../../../atomics/Typography/FontedMiddleText';
 
 const BackContainer = styled.div`

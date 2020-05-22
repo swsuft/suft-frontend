@@ -1,67 +1,42 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useRef, useState } from 'react';
 import { Editor } from '@toast-ui/react-editor';
+import styled from 'styled-components';
 import cogoToast from 'cogo-toast';
-import GradeOption from '../../atomics/SelectOptions/GradeOption';
-import TimesOption from '../../atomics/SelectOptions/TimesOption';
-import useToken from '../../hooks/useToken';
-import ProblemApi from '../../api/Problem';
-import ProblemEditor from '../ProblemEditor';
-import SmallButton from '../../atomics/SmallButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import FontedTitle from '../../atomics/Typography/FontedTitle';
+import ProblemEditor from '../../components/ProblemEditor';
+import MyProblemLayout from '../../layouts/MyProblemLayout';
 import SmallInput from '../../atomics/SmallInput';
 import SmallSelect from '../../atomics/SmallSelect';
+import GradeOption from '../../atomics/SelectOptions/GradeOption';
+import TimesOption from '../../atomics/SelectOptions/TimesOption';
+import SmallButton from '../../atomics/SmallButton';
 import DynamicSubject from '../../utils/DynamicSubject';
+import ProblemApi from '../../api/Problem';
 import { useProfile } from '../../hooks/useProfile';
+import useToken from '../../hooks/useToken';
 import ErrorCode from '../../error/ErrorCode';
-
-const SmallButtonStyle = styled(SmallButton)`
-    margin-top: 10px;
-`;
 
 const SmallSelectStyle = styled(SmallSelect)`
     width: 100px;
 `;
 
-interface UpdateEditorProps {
-    readonly id: string;
-}
+const SmallButtonStyle = styled(SmallButton)`
+    margin-top: 10px;
+`;
 
-const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, history }) => {
-    const refreshToken = useToken();
+const MyProblemCreate: React.FC = () => {
     const profile = useProfile();
+    const refreshToken = useToken();
 
     const editorRef = useRef<Editor>();
+    const [answer, setAnswer] = useState<string>('');
+    const [grade, setGrade] = useState<string>('');
+    const [times, setTimes] = useState<string>('');
+    const [subject, setSubject] = useState<string>('');
 
-    const [answer, setAnswer] = useState('');
-    const [subject, setSubject] = useState('');
-    const [grade, setGrade] = useState('');
-    const [times, setTimes] = useState('');
-
-    useEffect(() => {
-        ProblemApi.get(id)
-            .then((res) => {
-                if (editorRef.current === undefined) return;
-
-                // eslint-disable-next-line no-shadow
-                const { contents, answer, subject, grade, times } = res.data.data;
-
-                setAnswer(answer);
-                setSubject(subject);
-                setGrade(grade);
-                setTimes(times);
-
-                editorRef.current.getInstance().setHtml(contents);
-            })
-            .catch((err) => {
-                const { code } = err.response.data;
-                if (code === ErrorCode.JWT_EXPIRED) {
-                    refreshToken();
-                }
-            });
-    }, [id, refreshToken]);
-
-    const updateProblem = () => {
+    const createProblem = () => {
         if (!editorRef.current) return;
         if (!profile) return;
 
@@ -71,8 +46,10 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
         }
 
         const html = editorRef.current.getInstance().getHtml();
+
         const problemData = {
-            email: profile!!.data!!.email,
+            email: profile.data!!.email,
+            author: profile.data!!.name,
             contents: html,
             answer,
             subject,
@@ -80,24 +57,24 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
             times
         };
 
-        ProblemApi.update(id, problemData)
+        ProblemApi.create(problemData)
             .then(() => {
-                cogoToast.success('문제 수정 완료!');
-                history.goBack();
+                cogoToast.success('성공적으로 문제를 등록하였습니다.');
             })
             .catch((err) => {
                 const { code } = err.response.data;
-
-                if (code === ErrorCode.USER_NOT_MATCH) {
-                    cogoToast.warn('자신이 출제한 문제만 수정할 수 있습니다.');
+                if (code === ErrorCode.JWT_EXPIRED) {
+                    refreshToken();
                 }
             });
+
+        refreshToken();
     };
 
     return (
-        <>
+        <MyProblemLayout>
+            <FontedTitle>문제 등록</FontedTitle>
             <ProblemEditor editorRef={editorRef} />
-
             <div>
                 <SmallInput
                   placeholder="문제 정답"
@@ -128,13 +105,13 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
                     <DynamicSubject current={grade} />
                 </SmallSelect>
                 <br />
+                <SmallButtonStyle background="var(--color-blue)" onClick={createProblem}>
+                    <FontAwesomeIcon icon={faPencilAlt} /> 등록하기
+                </SmallButtonStyle>
             </div>
-
-            <SmallButtonStyle background="var(--color-blue)" onClick={updateProblem}>
-                수정 완료
-            </SmallButtonStyle>
-        </>
+            <br />
+        </MyProblemLayout>
     );
 };
 
-export default withRouter(UpdateEditor);
+export default MyProblemCreate;

@@ -8,7 +8,7 @@ import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
 import useToken from '../hooks/useToken';
 import DefaultLayout from '../layouts/DefaultLayout';
-import CbtNumberButton from '../atomics/CbtNumberButton';
+import NumberButton from '../atomics/NumberButton';
 import CbtAnswer from '../components/CbtAnswer';
 import ErrorCode from '../error/ErrorCode';
 import ProblemApi from '../api/Problem';
@@ -137,11 +137,11 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
                 <hr />
 
                 <NumberButtonContainer>
-                    <CbtNumberButton onClick={() => checkAnswer('1')}>1번</CbtNumberButton>
-                    <CbtNumberButton onClick={() => checkAnswer('2')}>2번</CbtNumberButton>
-                    <CbtNumberButton onClick={() => checkAnswer('3')}>3번</CbtNumberButton>
-                    <CbtNumberButton onClick={() => checkAnswer('4')}>4번</CbtNumberButton>
-                    <CbtNumberButton onClick={() => checkAnswer('5')}>5번</CbtNumberButton>
+                    <NumberButton onClick={() => checkAnswer('1')}>1번</NumberButton>
+                    <NumberButton onClick={() => checkAnswer('2')}>2번</NumberButton>
+                    <NumberButton onClick={() => checkAnswer('3')}>3번</NumberButton>
+                    <NumberButton onClick={() => checkAnswer('4')}>4번</NumberButton>
+                    <NumberButton onClick={() => checkAnswer('5')}>5번</NumberButton>
                 </NumberButtonContainer>
 
                 <CbtAnswer

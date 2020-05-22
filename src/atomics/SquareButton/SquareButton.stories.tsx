@@ -7,7 +7,7 @@ export default {
 };
 
 export const SquareButtonStory = () => {
-    return <SquareButton />;
+    return <SquareButton>내용</SquareButton>;
 };
 
 SquareButtonStory.story = {

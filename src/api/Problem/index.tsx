@@ -3,8 +3,12 @@ import Api from '../index';
 import { DefaultErrorHandler } from '../errorHandler';
 
 type Response = Promise<AxiosResponse>;
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+type SubPartial<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+type WithOutAuthor = SubPartial<Problem, 'author'>;
 
 interface Problem {
+    readonly email: string;
     readonly contents: string;
     readonly answer: string;
     readonly author: string;
@@ -15,10 +19,11 @@ interface Problem {
 
 interface ProblemApi {
     readonly all: () => Response;
+    readonly getByEmail: (email: string) => Response;
     readonly get: (id: string) => Response;
     readonly filter: (subject: string, grade: string, times: string) => Response;
     readonly create: (problem: Problem) => Response;
-    readonly update: (id: string, problem: Problem) => Response;
+    readonly update: (id: string, problem: WithOutAuthor) => Response;
     readonly delete: (id: string) => Response;
 }
 
@@ -26,6 +31,18 @@ const ProblemApi: ProblemApi = {
     all() {
         return new Promise((resolve, reject) => {
             Api.get('/problem/all')
+                .then((res) => {
+                    return resolve(res);
+                })
+                .catch((e) => {
+                    DefaultErrorHandler(e);
+                    return reject(e);
+                });
+        });
+    },
+    getByEmail(email: string) {
+        return new Promise((resolve, reject) => {
+            Api.get(`/problem/email/${email}`)
                 .then((res) => {
                     return resolve(res);
                 })
@@ -71,7 +88,7 @@ const ProblemApi: ProblemApi = {
                 });
         });
     },
-    update(id: string, problem: Problem) {
+    update(id: string, problem: WithOutAuthor) {
         return new Promise((resolve, reject) => {
             Api.put(`/problem/${id}`, problem)
                 .then((res) => {
