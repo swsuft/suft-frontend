@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import FontedTitle from '../../atomics/Typography/FontedTitle';
 import MyProblemLayout from '../../layouts/MyProblemLayout';
 import Table from '../../components/Table';
@@ -6,8 +7,10 @@ import EditIcon from '../../atomics/Icons/EditIcon';
 import ProblemApi from '../../api/Problem';
 import { useProfile } from '../../hooks/useProfile';
 import SubjectToString from '../../utils/SubjectToString';
+import useToken from '../../hooks/useToken';
+import ErrorCode from '../../error/ErrorCode';
 
-const MyProblemView: React.FC = () => {
+const MyProblemView: React.FC<RouteComponentProps> = ({ history }) => {
     const columns = useMemo(
         () => [
             {
@@ -38,24 +41,32 @@ const MyProblemView: React.FC = () => {
             },
             {
                 Header: '문제 수정',
-                Cell: () => <EditIcon />
+                Cell: ({ row }: any) => <EditIcon onClick={() => history.push(`/myproblem/edit/${row.original.id}`)} />
             }
         ],
-        []
+        [history]
     );
 
     const profile = useProfile();
+    const refreshToken = useToken();
     const [data, setData] = useState<object[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         if (!profile) return;
 
-        ProblemApi.getByEmail(profile!!.data!!.email).then((res) => {
-            setData(res.data.data);
-            setLoading(true);
-        });
-    }, [profile]);
+        ProblemApi.getByEmail(profile!!.data!!.email)
+            .then((res) => {
+                setData(res.data.data);
+                setLoading(true);
+            })
+            .catch((err) => {
+                const { code } = err.response.data;
+                if (code === ErrorCode.JWT_EXPIRED) {
+                    refreshToken();
+                }
+            });
+    }, [profile, refreshToken]);
 
     return (
         <MyProblemLayout>
@@ -65,4 +76,4 @@ const MyProblemView: React.FC = () => {
     );
 };
 
-export default MyProblemView;
+export default withRouter(MyProblemView);
