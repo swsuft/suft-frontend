@@ -16,6 +16,7 @@ import DynamicSubject from '../../utils/DynamicSubject';
 import ProblemApi from '../../api/Problem';
 import { useProfile } from '../../hooks/useProfile';
 import useToken from '../../hooks/useToken';
+import ErrorCode from '../../error/ErrorCode';
 
 const SmallSelectStyle = styled(SmallSelect)`
     width: 100px;
@@ -56,9 +57,16 @@ const MyProblemCreate: React.FC = () => {
             times
         };
 
-        ProblemApi.create(problemData).then(() => {
-            cogoToast.success('성공적으로 문제를 등록하였습니다.');
-        });
+        ProblemApi.create(problemData)
+            .then(() => {
+                cogoToast.success('성공적으로 문제를 등록하였습니다.');
+            })
+            .catch((err) => {
+                const { code } = err.response.data;
+                if (code === ErrorCode.JWT_EXPIRED) {
+                    refreshToken();
+                }
+            });
 
         refreshToken();
     };
