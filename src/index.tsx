@@ -7,7 +7,6 @@ import { ProfileProvider } from './hooks/useProfile';
 import { MealProvider } from './hooks/useMeal';
 import Home from './pages/Home';
 import Cbt from './pages/Cbt';
-import Admin from './pages/Admin';
 import AdminEdit from './pages/Admin/AdminEdit';
 import Privacy from './pages/Privacy';
 import Subject from './pages/Subject';
@@ -20,6 +19,7 @@ import NoPermissionError from './components/Error/NoPermissionError';
 import Register from './pages/Register';
 import MyProblemCreate from './pages/MyProblem/MyProblemCreate';
 import MyProblemView from './pages/MyProblem/MyProblemView';
+import AdminProblemView from './pages/Admin/AdminProblemView';
 
 const index = (
     <ProfileProvider>
@@ -42,7 +42,18 @@ const index = (
                     <UserPermissionRoute exact path="/myproblem/create" success={MyProblemCreate} failure={Login} />
                     <UserPermissionRoute exact path="/myproblem/view" success={MyProblemView} failure={Login} />
 
-                    <AdminPermissionRoute exact path="/admin" success={Admin} failure={NoPermissionError} />
+                    <AdminPermissionRoute
+                      exact
+                      path="/admin"
+                      success={() => <Redirect to="/admin/view" />}
+                      failure={NoPermissionError}
+                    />
+                    <AdminPermissionRoute
+                      exact
+                      path="/admin/view"
+                      success={AdminProblemView}
+                      failure={NoPermissionError}
+                    />
                     <AdminPermissionRoute
                       exact
                       path="/admin/edit/:id"

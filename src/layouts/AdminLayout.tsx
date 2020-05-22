@@ -1,42 +1,47 @@
 import React from 'react';
 import styled from 'styled-components';
-import Footer from '../components/Footer';
-import AdminSideBar from '../components/Admin/SideBar';
-import { AdminMenuStatusType } from '../constants/AdminMenuStatus';
+import Container from '../utils/ContainerUtils/Container';
+import DefaultLayout from './DefaultLayout';
+import SideMenu from '../components/SideMenu';
 
 const AdminContainer = styled.div`
     display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    width: 100%;
-`;
-
-const AdminBodyStyle = styled.div`
-    display: flex;
+    flex-direction: row;
 
     @media screen and (max-width: 420px) {
-        display: block;
+        flex-direction: column;
     }
 `;
 
-const AdminContentStyle = styled.div`
-    flex: 1;
+const BodyStyle = styled.div`
+    width: 100%;
 `;
 
-interface AdminLayoutProps {
-    readonly setNowMenu: React.Dispatch<React.SetStateAction<AdminMenuStatusType>>;
-}
+const items = [
+    {
+        to: '/admin/view',
+        name: '문제 관리'
+    },
+    {
+        to: '/admin/user',
+        name: '유저 관리'
+    },
+    {
+        to: '/admin/waitinguser',
+        name: '가입 요청'
+    }
+];
 
-const AdminLayout: React.FC<AdminLayoutProps> = ({ children, setNowMenu }) => {
+const AdminLayout: React.FC = ({ children }) => {
     return (
-        <AdminContainer>
-            <AdminBodyStyle>
-                <AdminSideBar setNowMenu={setNowMenu} />
-                <AdminContentStyle>{children}</AdminContentStyle>
-            </AdminBodyStyle>
-
-            <Footer />
-        </AdminContainer>
+        <DefaultLayout>
+            <Container>
+                <AdminContainer>
+                    <SideMenu menuTitle="ADMIN" items={items} current={window.location.pathname} />
+                    <BodyStyle>{children}</BodyStyle>
+                </AdminContainer>
+            </Container>
+        </DefaultLayout>
     );
 };
 
