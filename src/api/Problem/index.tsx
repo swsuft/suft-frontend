@@ -15,6 +15,7 @@ interface Problem {
 
 interface ProblemApi {
     readonly all: () => Response;
+    readonly getByEmail: (email: string) => Response;
     readonly get: (id: string) => Response;
     readonly filter: (subject: string, grade: string, times: string) => Response;
     readonly create: (problem: Problem) => Response;
@@ -26,6 +27,18 @@ const ProblemApi: ProblemApi = {
     all() {
         return new Promise((resolve, reject) => {
             Api.get('/problem/all')
+                .then((res) => {
+                    return resolve(res);
+                })
+                .catch((e) => {
+                    DefaultErrorHandler(e);
+                    return reject(e);
+                });
+        });
+    },
+    getByEmail(email: string) {
+        return new Promise((resolve, reject) => {
+            Api.get(`/problem/email/${email}`)
                 .then((res) => {
                     return resolve(res);
                 })
