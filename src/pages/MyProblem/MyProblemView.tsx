@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import underscore from 'underscore';
 import FontedTitle from '../../atomics/Typography/FontedTitle';
 import MyProblemLayout from '../../layouts/MyProblemLayout';
 import Table from '../../components/Table';
@@ -20,7 +21,7 @@ const MyProblemView: React.FC<RouteComponentProps> = ({ history }) => {
             {
                 Header: '문제 내용',
                 accessor: 'contents',
-                Cell: ({ row }: any) => row.original.contents.replace(/(<([^>]+)>)/gi, '')
+                Cell: ({ row }: any) => underscore.unescape(row.original.contents).replace(/(<([^>]+)>)/gi, '')
             },
             {
                 Header: '문제 정답',
