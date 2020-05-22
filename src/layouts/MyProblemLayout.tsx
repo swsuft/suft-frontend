@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Container from '../utils/ContainerUtils/Container';
 import DefaultLayout from './DefaultLayout';
-import MyProblemSideMenu from '../components/MyProblem/SideMenu';
+import SideMenu from '../components/SideMenu';
 
 const ProblemContainer = styled.div`
     display: flex;
@@ -33,7 +33,7 @@ const MyProblemLayout: React.FC = ({ children }) => {
         <DefaultLayout>
             <Container>
                 <ProblemContainer>
-                    <MyProblemSideMenu items={items} current={window.location.pathname} />
+                    <SideMenu menuTitle="내 문제" items={items} current={window.location.pathname} />
                     <BodyStyle>{children}</BodyStyle>
                 </ProblemContainer>
             </Container>

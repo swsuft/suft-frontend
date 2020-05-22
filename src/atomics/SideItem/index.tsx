@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const MyProblemSideItem = styled.div<{ check?: boolean }>`
+const SideItem = styled.div<{ check?: boolean }>`
     color: var(--color-text);
     cursor: pointer;
     padding: 1rem 2rem;
@@ -13,4 +13,4 @@ const MyProblemSideItem = styled.div<{ check?: boolean }>`
     }
 `;
 
-export default MyProblemSideItem;
+export default SideItem;

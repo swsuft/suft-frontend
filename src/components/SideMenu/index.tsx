@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import NoStyleLink from '../../../atomics/NoStyleLink';
-import FontedTitle from '../../../atomics/Typography/FontedTitle';
-import MyProblemSideItem from '../../../atomics/MyProblem/SideItem';
+import NoStyleLink from '../../atomics/NoStyleLink';
+import FontedTitle from '../../atomics/Typography/FontedTitle';
+import SideItem from '../../atomics/SideItem';
 
 const SideContainer = styled.aside`
     display: flex;
@@ -28,22 +28,23 @@ interface Item {
     readonly name: string;
 }
 
-interface MyProblemSideMenuProps {
+interface SideMenuProps {
+    readonly menuTitle: string;
     readonly items: Item[];
     readonly current: string;
 }
 
-const MyProblemSideMenu: React.FC<MyProblemSideMenuProps> = ({ items, current }) => {
+const SideMenu: React.FC<SideMenuProps> = ({ menuTitle, items, current }) => {
     return (
         <SideContainer>
-            <FontedTitleStyle>내 문제</FontedTitleStyle>
+            <FontedTitleStyle>{menuTitle}</FontedTitleStyle>
             <SideListStyle>
                 {items.map((value) => (
                     <NoStyleLink key={value.to} to={value.to}>
                         {current === value.to ? (
-                            <MyProblemSideItem check>{value.name}</MyProblemSideItem>
+                            <SideItem check>{value.name}</SideItem>
                         ) : (
-                            <MyProblemSideItem>{value.name}</MyProblemSideItem>
+                            <SideItem>{value.name}</SideItem>
                         )}
                     </NoStyleLink>
                 ))}
@@ -52,4 +53,4 @@ const MyProblemSideMenu: React.FC<MyProblemSideMenuProps> = ({ items, current })
     );
 };
 
-export default MyProblemSideMenu;
+export default SideMenu;
