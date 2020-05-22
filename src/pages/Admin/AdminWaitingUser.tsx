@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import cogoToast from 'cogo-toast';
-import useSelect from '../../../hooks/useSelect';
-import WaitingApi from '../../../api/Waiting';
-import Table from '../../Table';
+import styled from 'styled-components';
+import FontedTitle from '../../atomics/Typography/FontedTitle';
+import AdminLayout from '../../layouts/AdminLayout';
+import Table from '../../components/Table';
+import useSelect from '../../hooks/useSelect';
+import WaitingApi from '../../api/Waiting';
 
 const TableWrap = styled.div`
     margin-bottom: 1rem;
@@ -35,7 +37,7 @@ const DenyButtonStyle = styled.button`
     cursor: pointer;
 `;
 
-const WaitingUserTable: React.FC = () => {
+const AdminWaitingUser: React.FC = () => {
     const [data, setData] = useState<[]>([]);
     const [check, rowManager] = useSelect();
 
@@ -161,7 +163,8 @@ const WaitingUserTable: React.FC = () => {
     ];
 
     return (
-        <>
+        <AdminLayout>
+            <FontedTitle>가입 요청</FontedTitle>
             <div>
                 <AllowButtonStyle onClick={allowUsers}>수락</AllowButtonStyle>
                 <DenyButtonStyle onClick={denyUsers}>거절</DenyButtonStyle>
@@ -170,8 +173,8 @@ const WaitingUserTable: React.FC = () => {
             <TableWrap>
                 <Table columns={columns} data={data} />
             </TableWrap>
-        </>
+        </AdminLayout>
     );
 };
 
-export default WaitingUserTable;
+export default AdminWaitingUser;
