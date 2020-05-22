@@ -12,6 +12,7 @@ import SmallButton from '../../atomics/SmallButton';
 import SmallInput from '../../atomics/SmallInput';
 import SmallSelect from '../../atomics/SmallSelect';
 import DynamicSubject from '../../utils/DynamicSubject';
+import { useProfile } from '../../hooks/useProfile';
 
 const SmallButtonStyle = styled(SmallButton)`
     margin-top: 10px;
@@ -23,6 +24,7 @@ interface UpdateEditorProps {
 
 const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, history }) => {
     const refreshToken = useToken();
+    const profile = useProfile();
 
     const editorRef = useRef<Editor>();
 
@@ -50,7 +52,9 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
     }, [id]);
 
     const updateProblem = () => {
-        if (editorRef.current === undefined) return;
+        if (!editorRef.current) return;
+        if (!profile) return;
+
         if (answer === '' || subject === '' || grade === '' || times === '') {
             cogoToast.warn('빈 칸이 있습니다.');
             return;
@@ -58,7 +62,7 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
 
         const html = editorRef.current.getInstance().getHtml();
         const problemData = {
-            author: author !== '' ? author : '익명',
+            email: profile!!.data!!.email,
             contents: html,
             answer,
             subject,
@@ -68,7 +72,7 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
 
         ProblemApi.update(id, problemData).then(() => {
             cogoToast.success('문제 수정 완료!');
-            history.push('/admin');
+            history.goBack();
             refreshToken();
         });
     };
