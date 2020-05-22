@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import cogoToast from 'cogo-toast';
-import { useProfile } from '../../../hooks/useProfile';
-import useSelect from '../../../hooks/useSelect';
-import UserApi from '../../../api/User';
-import Table from '../../Table';
+import styled from 'styled-components';
+import FontedTitle from '../../atomics/Typography/FontedTitle';
+import AdminLayout from '../../layouts/AdminLayout';
+import useSelect from '../../hooks/useSelect';
+import { useProfile } from '../../hooks/useProfile';
+import UserApi from '../../api/User';
+import Table from '../../components/Table';
 
 const TableWrap = styled.div`
     margin-bottom: 1rem;
@@ -36,7 +38,7 @@ const UnBlockButtonStyle = styled.button`
     cursor: pointer;
 `;
 
-const UserTable: React.FC = () => {
+const AdminUserView: React.FC = () => {
     const [data, setData] = useState<[]>([]);
     const [check, rowManager] = useSelect();
     const profile = useProfile();
@@ -155,14 +157,14 @@ const UserTable: React.FC = () => {
             accessor: 'grade'
         },
         {
-            Header: '관리자 여부',
+            Header: '관리자',
             accessor: 'isAdmin',
             Cell: ({ row }: any) => {
                 return row.original.isAdmin ? 'YES' : 'NO';
             }
         },
         {
-            Header: '차단 여부',
+            Header: '차단',
             accessor: 'isBlocked',
             Cell: ({ row }: any) => {
                 return row.original.isBlocked ? 'YES' : 'NO';
@@ -173,7 +175,7 @@ const UserTable: React.FC = () => {
             accessor: 'createdAt'
         },
         {
-            Header: '회원 정보 변경일',
+            Header: '정보 변경일',
             accessor: 'updatedAt'
         },
         {
@@ -183,7 +185,8 @@ const UserTable: React.FC = () => {
     ];
 
     return (
-        <>
+        <AdminLayout>
+            <FontedTitle>유저 관리</FontedTitle>
             <div>
                 <BlockButtonStyle onClick={blockUsers}>차단</BlockButtonStyle>
                 <UnBlockButtonStyle onClick={unBlockUsers}>차단 해제</UnBlockButtonStyle>
@@ -193,8 +196,8 @@ const UserTable: React.FC = () => {
             <TableWrap>
                 <Table columns={columns} data={data} />
             </TableWrap>
-        </>
+        </AdminLayout>
     );
 };
 
-export default UserTable;
+export default AdminUserView;
