@@ -34,9 +34,6 @@ export const SecondSubjectOption: React.FC = () => {
 export const ThirdSubjectOption: React.FC = () => {
     return (
         <>
-            <option value="1">국어</option>
-            <option value="2">수학</option>
-            <option value="4">과학</option>
             <option value="12">응용프로그래밍 화면구현</option>
             <option value="15">응용프로그래밍 개발</option>
             <option value="16">데이터베이스 프로그래밍</option>
