@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import cogoToast from 'cogo-toast';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import underscore from 'underscore';
 import FontedTitle from '../../atomics/Typography/FontedTitle';
 import AdminLayout from '../../layouts/AdminLayout';
 import useSelect from '../../hooks/useSelect';
@@ -128,7 +129,7 @@ const AdminProblemView: React.FC<RouteComponentProps> = ({ history }) => {
             width: 400,
             accessor: 'contents',
             Cell: ({ row }: any) => {
-                return row.original.contents.replace(/(<([^>]+)>)/gi, '');
+                return underscore.unescape(row.original.contents).replace(/(<([^>]+)>)/gi, '');
             }
         },
         {
