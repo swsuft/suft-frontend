@@ -16,6 +16,7 @@ import BookIcon from '../atomics/Icons/BookIcon';
 import PodiumIcon from '../atomics/Icons/PodiumIcon';
 import TestIcon from '../atomics/Icons/TestIcon';
 import SettingsIcon from '../atomics/Icons/SettingsIcon';
+import QuestionIcon from '../atomics/Icons/QuestionIcon';
 
 const BodyStyle = styled.div`
     display: flex;
@@ -158,6 +159,23 @@ const Home: React.FC = () => {
                             <p>계정에 관련된 내용을 보거나 설정합니다.</p>
                             <IconWrapperStyle pcMargin="0.8" mobileMargin="-1.2">
                                 <SettingsIcon size="6rem" />
+                            </IconWrapperStyle>
+                        </NoStyleLink>
+                    </Card>
+
+                    <Card
+                      pcWidth="calc(50% - 3rem)"
+                      pcHeight="10rem"
+                      mobileWidth="18rem"
+                      mobileHeight="8rem"
+                      inline
+                      isClick
+                    >
+                        <NoStyleLink to="/help">
+                            <CardTitle>도움말</CardTitle>
+                            <p>FAQ 또는 가이드라인을 설명합니다.</p>
+                            <IconWrapperStyle pcMargin="1" mobileMargin="-1.2">
+                                <QuestionIcon size="6rem" />
                             </IconWrapperStyle>
                         </NoStyleLink>
                     </Card>
