@@ -22,6 +22,7 @@ import MyProblemView from './pages/MyProblem/MyProblemView';
 import AdminProblemView from './pages/Admin/AdminProblemView';
 import AdminUserView from './pages/Admin/AdminUserView';
 import AdminWaitingUser from './pages/Admin/AdminWaitingUser';
+import Help from './pages/Help';
 
 const index = (
     <ProfileProvider>
@@ -34,6 +35,7 @@ const index = (
                     <UserPermissionRoute exact path="/login" success={Home} failure={Login} />
                     <UserPermissionRoute exact path="/register" success={Home} failure={Register} />
                     <UserPermissionRoute exact path="/myinfo" success={MyInfo} failure={Login} />
+                    <UserPermissionRoute exact path="/help" success={Help} failure={Login} />
 
                     <UserPermissionRoute
                       exact
