@@ -190,7 +190,6 @@ const AdminUserView: React.FC = () => {
             <div>
                 <BlockButtonStyle onClick={blockUsers}>차단</BlockButtonStyle>
                 <UnBlockButtonStyle onClick={unBlockUsers}>차단 해제</UnBlockButtonStyle>
-                <span> * 차단 시 해당 유저는 로그인이 불가능합니다.</span>
             </div>
 
             <TableWrap>
