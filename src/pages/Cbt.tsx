@@ -134,6 +134,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
 
                 <ProblemViewer viewerRef={viewerRef} />
 
+                <br />
                 <hr />
 
                 <NumberButtonContainer>
