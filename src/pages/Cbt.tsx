@@ -32,6 +32,14 @@ const SubTitleStyle = styled.div`
     }
 `;
 
+const SkipWrapper = styled.span`
+    & > button {
+        margin-left: 1rem;
+        width: 64px;
+        background-color: var(--color-orange);
+    }
+`;
+
 interface CbtParams {
     readonly subject: string;
     readonly grade: string;
@@ -143,6 +151,9 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
                     <NumberButton onClick={() => checkAnswer('3')}>3번</NumberButton>
                     <NumberButton onClick={() => checkAnswer('4')}>4번</NumberButton>
                     <NumberButton onClick={() => checkAnswer('5')}>5번</NumberButton>
+                    <SkipWrapper>
+                        <NumberButton onClick={() => pickRandomNumber()}>넘어가기</NumberButton>
+                    </SkipWrapper>
                 </NumberButtonContainer>
 
                 <CbtAnswer
