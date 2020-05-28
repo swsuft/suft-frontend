@@ -61,6 +61,8 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
     const viewerRef = useRef<Viewer>();
 
     const pickRandomNumber = () => {
+        if (problems.length === 0) return;
+
         if (overlapRandom.length === problems.length) {
             cogoToast.info('모든 문제를 풀었습니다. 새로고침하여 새로 시작할 수 있습니다.');
             return;
