@@ -37,4 +37,4 @@ const getAxiosInstance = (): AxiosInstance => {
 };
 
 export const Api = getAxiosInstance();
-export const Apollo = client;
+export const Client = client;

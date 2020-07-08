@@ -31,11 +31,12 @@
     "cogo-toast": "^4.2.3",
     "graphql": "^15.3.0",
     "react": "^16.8.6",
+    "react-apollo": "^3.1.5",
     "react-dom": "^16.8.6",
     "react-modal": "^3.11.1",
     "react-router-dom": "^5.1.2",
-    "react-table": "^7.0.5",
     "react-scripts": "3.1.2",
+    "react-table": "^7.0.5",
     "styled-components": "^4.2.0",
     "underscore": "^1.10.2"
   },
