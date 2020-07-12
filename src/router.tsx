@@ -11,7 +11,6 @@ import Help from './pages/Help';
 import MyProblemCreate from './pages/MyProblem/MyProblemCreate';
 import MyProblemView from './pages/MyProblem/MyProblemView';
 import MyProblemEdit from './pages/MyProblem/MyProblemEdit';
-import NoPermissionError from './components/Error/NoPermissionError';
 import AdminPermissionRoute from './utils/Route/AdminPermissionRoute';
 import AdminProblemView from './pages/Admin/AdminProblemView';
 import AdminUserView from './pages/Admin/AdminUserView';
@@ -43,22 +42,22 @@ const Router: React.FC = () => {
                   exact
                   path="/myproblem/edit/:id"
                   success={MyProblemEdit}
-                  failure={NoPermissionError}
+                  failure={Login}
                 />
 
                 <AdminPermissionRoute
                   exact
                   path="/admin"
                   success={() => <Redirect to="/admin/view" />}
-                  failure={NoPermissionError}
+                  failure={Login}
                 />
-                <AdminPermissionRoute exact path="/admin/view" success={AdminProblemView} failure={NoPermissionError} />
-                <AdminPermissionRoute exact path="/admin/user" success={AdminUserView} failure={NoPermissionError} />
+                <AdminPermissionRoute exact path="/admin/view" success={AdminProblemView} failure={Login} />
+                <AdminPermissionRoute exact path="/admin/user" success={AdminUserView} failure={Login} />
                 <AdminPermissionRoute
                   exact
                   path="/admin/waitinguser"
                   success={AdminWaitingUser}
-                  failure={NoPermissionError}
+                  failure={Login}
                 />
                 <Route exact path="/privacy" component={Privacy} />
                 <Route exact component={NotFoundError} />
