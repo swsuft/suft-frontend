@@ -6,7 +6,7 @@ const useAdmin = (): boolean => {
     const [isAdmin, setBeAdmin] = useState<boolean>(false);
 
     useEffect(() => {
-        if (profile.data !== undefined && profile.data.isAdmin) {
+        if (profile && profile.isAdmin) {
             setBeAdmin(true);
         }
     }, [profile]);

@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
+import cogoToast from 'cogo-toast';
 import useToken from './useToken';
 import ErrorCode from '../error/ErrorCode';
-import AuthApi from '../api/Auth';
 
 interface Profile {
     readonly email: string;
@@ -12,35 +14,43 @@ interface Profile {
     readonly root: boolean;
 }
 
-interface ProfileResponse {
-    readonly success: boolean;
-    readonly data: Profile | undefined;
-}
-
-const context = createContext<ProfileResponse>({ success: false } as ProfileResponse);
+const context = createContext<Profile | undefined>(undefined);
+const GET_PROFILE = gql`
+    query {
+        profile {
+            email
+            name
+            grade
+            isAdmin
+            isBlocked
+            root
+        }
+    }
+`;
 
 export const ProfileProvider: React.FC = ({ children }) => {
-    const [profile, setProfile] = useState<ProfileResponse>({ success: false } as ProfileResponse);
+    const [profile, setProfile] = useState<Profile | undefined>(undefined);
     const refreshToken = useToken();
+    const { loading, error, data } = useQuery(GET_PROFILE);
 
     useEffect(() => {
-        AuthApi.profile()
-            .then((res) => {
-                setProfile(res.data);
-            })
-            .catch((error) => {
-                const { code } = error.response.data;
+        if (loading) {
+            return;
+        }
 
-                setProfile({
-                    success: false,
-                    data: undefined
-                });
+        if (error) {
+            const { code } = error.graphQLErrors[0].extensions!!;
 
-                if (code === ErrorCode.JWT_EXPIRED) {
-                    refreshToken();
-                }
-            });
-    }, [refreshToken]);
+            cogoToast.error('사용자 정보를 가져오지 못했어요.');
+            if (code === ErrorCode.NO_PERMISSION) {
+                refreshToken();
+            }
+
+            return;
+        }
+
+        setProfile(data.profile);
+    }, [loading, error, data]);
 
     return <context.Provider value={profile}>{children}</context.Provider>;
 };

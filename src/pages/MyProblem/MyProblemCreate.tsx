@@ -48,8 +48,8 @@ const MyProblemCreate: React.FC = () => {
         const html = editorRef.current.getInstance().getHtml();
 
         const problemData = {
-            email: profile.data!!.email,
-            author: profile.data!!.name,
+            email: profile.email,
+            author: profile.name,
             contents: html,
             answer,
             subject,

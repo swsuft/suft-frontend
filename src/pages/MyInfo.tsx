@@ -29,11 +29,11 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
     const [grade, setGrade] = useState('1');
 
     useEffect(() => {
-        if (profile.data === undefined) return;
+        if (!profile) return;
 
-        setEmail(profile!.data.email);
-        setName(profile!.data.name);
-        setGrade(profile!.data.grade);
+        setEmail(profile.email);
+        setName(profile.name);
+        setGrade(profile.grade);
     }, [profile]);
 
     const updateMyInfo = () => {
@@ -48,7 +48,7 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
         } else if (newPassword !== '' && !pwRegExp.test(newPassword)) {
             cogoToast.warn('비밀번호는 영문자, 특수문자, 숫자가 포함되어야 하며 최소 6글자이여야합니다.');
         } else {
-            UserApi.update(profile.data!.email, password, newPassword === '' ? undefined : newPassword, grade)
+            UserApi.update(profile!!.email, password, newPassword === '' ? undefined : newPassword, grade)
                 .then(() => {
                     cogoToast.success('내 정보가 수정되었습니다!');
                     history.push('/');

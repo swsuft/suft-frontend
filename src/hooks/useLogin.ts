@@ -6,7 +6,7 @@ const useLogin = (): boolean => {
     const [isLogin, setLogin] = useState<boolean>(false);
 
     useEffect(() => {
-        if (profile.data !== undefined && profile.success) {
+        if (profile) {
             setLogin(true);
         }
     }, [profile]);

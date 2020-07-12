@@ -56,7 +56,7 @@ const MyProblemView: React.FC<RouteComponentProps> = ({ history }) => {
     useEffect(() => {
         if (!profile) return;
 
-        ProblemApi.getByEmail(profile!!.data!!.email)
+        ProblemApi.getByEmail(profile.email)
             .then((res) => {
                 setData(res.data.data);
                 setLoading(true);

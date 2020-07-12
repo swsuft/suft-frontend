@@ -72,7 +72,7 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
 
         const html = editorRef.current.getInstance().getHtml();
         const problemData = {
-            email: profile!!.data!!.email,
+            email: profile.email,
             contents: html,
             answer,
             subject,
