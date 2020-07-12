@@ -7,7 +7,7 @@ import config from '../config';
 import TokenUtil from './TokenUtil';
 
 const httpLink = createHttpLink({
-    uri: config.API_URL
+    uri: `${config.API_URL}/graphql`
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -36,5 +36,7 @@ const getAxiosInstance = (): AxiosInstance => {
     return instance;
 };
 
-export const Api = getAxiosInstance();
+const Api = getAxiosInstance();
 export const Client = client;
+
+export default Api;
