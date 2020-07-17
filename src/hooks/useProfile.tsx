@@ -41,11 +41,12 @@ export const ProfileProvider: React.FC = ({ children }) => {
         if (error) {
             const { code } = error.graphQLErrors[0].extensions!!;
 
-            cogoToast.error('사용자 정보를 가져오지 못했어요.');
             if (code === ErrorCode.NO_PERMISSION) {
                 refreshToken();
+                return;
             }
 
+            cogoToast.error('사용자 정보를 가져오지 못했어요.');
             return;
         }
 
