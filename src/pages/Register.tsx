@@ -133,7 +133,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
                         <Input
                           value={name}
                           type="text"
-                          placeholder="자신의 실명을 입력해주세요."
+                          placeholder="실명을 입력해주세요."
                           onChange={(evt) => setName(evt.target.value)}
                         />
 
