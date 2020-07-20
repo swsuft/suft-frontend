@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
 import cogoToast from 'cogo-toast';
+import { gql } from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
 import DefaultLayout from '../layouts/DefaultLayout';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import Input from '../atomics/Input';
@@ -13,13 +14,27 @@ import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import SquareButton from '../atomics/SquareButton';
 import { useProfile } from '../hooks/useProfile';
 import ErrorCode from '../error/ErrorCode';
-import UserApi from '../api/User';
 
 const BodyStyle = styled.div`
     margin: 32px auto;
 `;
 
-const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
+const USER_UPDATE = gql`
+    mutation updateUser($email: String!, $grade: Int!, $nowPassword: String!, $newPassword: String) {
+        updateUser(input: { grade: $grade, email: $email, nowPassword: $nowPassword, newPassword: $newPassword }) {
+            name
+            email
+            grade
+            isAdmin
+            isBlocked
+            createdAt
+            updatedAt
+            registeredAt
+        }
+    }
+`;
+
+const MyInfo: React.FC = () => {
     const profile = useProfile();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -27,6 +42,8 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
     const [rePassword, setRePassword] = useState('');
     const [name, setName] = useState('');
     const [grade, setGrade] = useState('1');
+
+    const [updateUser] = useMutation(USER_UPDATE);
 
     useEffect(() => {
         if (!profile) return;
@@ -40,27 +57,45 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
         const pwRegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,}$/;
 
         if (password === '') {
-            cogoToast.warn('현재 비밀번호를 입력하지 않았습니다.');
-        } else if (newPassword !== '' && newPassword !== rePassword) {
-            cogoToast.warn('변경하려는 비밀번호가 일치 하지 않습니다.');
-        } else if (newPassword !== '' && password === newPassword) {
-            cogoToast.warn('변경하려는 비밀번호가 기존과 동일합니다.');
-        } else if (newPassword !== '' && !pwRegExp.test(newPassword)) {
-            cogoToast.warn('비밀번호는 영문자, 특수문자, 숫자가 포함되어야 하며 최소 6글자이여야합니다.');
-        } else {
-            UserApi.update(profile!!.email, password, newPassword === '' ? undefined : newPassword, grade)
-                .then(() => {
-                    cogoToast.success('내 정보가 수정되었습니다!');
-                    history.push('/');
-                    window.location.reload();
-                })
-                .catch((err) => {
-                    const { code } = err.response.data;
-                    if (code === ErrorCode.PW_NOT_MATCH) {
-                        cogoToast.error('비밀번호가 올바르지 않습니다.');
-                    }
-                });
+            cogoToast.warn('현재 비밀번호를 입력하지 않았어요.');
+            return;
         }
+        if (newPassword !== '' && newPassword !== rePassword) {
+            cogoToast.warn('변경하려는 비밀번호가 일치 하지 않아요.');
+            return;
+        }
+        if (newPassword !== '' && password === newPassword) {
+            cogoToast.warn('변경하려는 비밀번호가 기존과 동일해요.');
+            return;
+        }
+        if (newPassword !== '' && !pwRegExp.test(newPassword)) {
+            cogoToast.warn('비밀번호는 영문자, 특수문자, 숫자가 포함 되어야 하고 6자리 이상이어야 해요.');
+            return;
+        }
+
+        updateUser({
+            variables: {
+                email: profile!!.email,
+                grade: parseInt(grade, 10),
+                nowPassword: password,
+                newPassword
+            }
+        })
+            .then(() => {
+                cogoToast.success('내 정보가 수정되었어요.');
+                window.location.reload();
+            })
+            .catch((err) => {
+                if (!err.graphQLErrors) return;
+                const { extensions, message } = err.graphQLErrors[0];
+                switch (extensions.code) {
+                    case ErrorCode.PW_NOT_MATCH:
+                        cogoToast.error('현재 비밀번호가 올바르지 않아요.');
+                        break;
+                    default:
+                        cogoToast.error(message);
+                }
+            });
     };
 
     return (
@@ -70,17 +105,17 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
                     <FontedTitle>내 정보</FontedTitle>
 
                     <BodyStyle>
-                        <LabelText>이메일 (이메일은 변경 할 수 없습니다.)</LabelText>
+                        <LabelText>이메일 (이메일은 변경 할 수 없어요)</LabelText>
                         <Input value={email} disabled />
 
-                        <LabelText>이름 (이름은 변경 할 수 없습니다.)</LabelText>
+                        <LabelText>이름 (이름은 변경 할 수 없어요)</LabelText>
                         <Input value={name} disabled />
 
                         <LabelText>현재 비밀번호</LabelText>
                         <Input
                           value={password}
                           type="password"
-                          placeholder="내 정보 변경 시 현재 비밀번호를 입력해주세요."
+                          placeholder="현재 비밀번호를 입력해주세요."
                           onChange={(e) => setPassword(e.target.value)}
                         />
 
@@ -115,4 +150,4 @@ const MyInfo: React.FC<RouteComponentProps> = ({ history }) => {
     );
 };
 
-export default withRouter(MyInfo);
+export default MyInfo;
