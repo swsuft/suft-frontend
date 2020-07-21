@@ -11,20 +11,15 @@ const GET_TOKEN = gql`
 `;
 
 const useToken = () => {
-    const [, { loading, error, data }] = useMutation(GET_TOKEN);
+    const [getToken] = useMutation(GET_TOKEN);
 
     return useCallback(() => {
-        if (loading) return;
-
-        if (error) {
-            cogoToast.error('로그인 연장 중 오류가 발생하였습니다. 로그아웃 후 다시 시도하세요.');
-            return;
-        }
-
         if (TokenUtil.isEmpty()) return;
 
-        console.log(data);
-    }, [loading, error, data]);
+        getToken()
+            .then((res) => TokenUtil.set(res.data.token.token))
+            .catch(() => cogoToast.error('로그인 연장 중 오류가 발생하였습니다. 로그아웃 후 다시 시도하세요.'));
+    }, []);
 };
 
 export default useToken;
