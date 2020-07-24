@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
                         <NoStyleLink to="/admin">
                             <TextRightStyle>관리자</TextRightStyle>
                         </NoStyleLink>
-                        <NoStyleA href="mailto://admin@skylightqp.kr">
+                        <NoStyleA href="mailto://swsuft@gmail.com">
                             <TextRightStyle>문의</TextRightStyle>
                         </NoStyleA>
                         <TextRightStyle onClick={() => setLicenseModalOpen(true)}>라이센스</TextRightStyle>
