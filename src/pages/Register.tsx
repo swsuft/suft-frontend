@@ -76,14 +76,13 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
             }
         })
             .then(() => {
-                cogoToast.success(
-                    '회원가입 신청이 완료되었습니다. 가입 수락 후 이용 가능합니다.'
-                );
+                cogoToast.success('회원가입 신청이 완료되었습니다. 가입 수락 후 이용 가능합니다.');
                 history.push('/');
             })
             .catch((err) => {
-                if (!err.graphQLErrors) return;
+                if (!err.graphQLErrors.length) return;
                 const { extensions, message } = err.graphQLErrors[0];
+                if (!extensions) return;
 
                 switch (extensions.code) {
                     case ErrorCode.USER_ALREADY_EXISTS:

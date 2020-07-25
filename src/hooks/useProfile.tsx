@@ -39,15 +39,17 @@ export const ProfileProvider: React.FC = ({ children }) => {
         }
 
         if (error) {
-            const { code } = error.graphQLErrors[0].extensions!!;
+            if (!error.graphQLErrors.length) return;
 
-            if (code === ErrorCode.NO_PERMISSION) {
-                refreshToken();
-                return;
+            const { extensions } = error.graphQLErrors[0];
+
+            switch (extensions!!.code) {
+                case ErrorCode.NO_PERMISSION:
+                    refreshToken();
+                    break;
+                default:
+                    cogoToast.error('사용자 정보를 가져오지 못했어요.');
             }
-
-            cogoToast.error('사용자 정보를 가져오지 못했어요.');
-            return;
         }
 
         setProfile(data.profile);

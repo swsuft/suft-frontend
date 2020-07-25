@@ -86,8 +86,10 @@ const MyInfo: React.FC = () => {
                 window.location.reload();
             })
             .catch((err) => {
-                if (!err.graphQLErrors) return;
+                if (!err.graphQLErrors.length) return;
                 const { extensions, message } = err.graphQLErrors[0];
+                if (!extensions) return;
+
                 switch (extensions.code) {
                     case ErrorCode.PW_NOT_MATCH:
                         cogoToast.error('현재 비밀번호가 올바르지 않아요.');

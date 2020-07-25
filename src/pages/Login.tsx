@@ -49,8 +49,9 @@ const Login: React.FC = () => {
                 window.location.reload();
             })
             .catch((err) => {
-                if (!err.graphQLErrors) return;
+                if (!err.graphQLErrors.length) return;
                 const { extensions, message } = err.graphQLErrors[0];
+                if (!extensions) return;
 
                 switch (extensions.code) {
                     case ErrorCode.USER_NOT_FOUND:
