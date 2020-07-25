@@ -14,6 +14,7 @@ import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import SquareButton from '../atomics/SquareButton';
 import { useProfile } from '../hooks/useProfile';
 import ErrorCode from '../error/ErrorCode';
+import { getGraphQLError } from '../api/errorHandler';
 
 const BodyStyle = styled.div`
     margin: 32px auto;
@@ -86,17 +87,9 @@ const MyInfo: React.FC = () => {
                 window.location.reload();
             })
             .catch((err) => {
-                if (!err.graphQLErrors.length) return;
-                const { extensions, message } = err.graphQLErrors[0];
-                if (!extensions) return;
-
-                switch (extensions.code) {
-                    case ErrorCode.PW_NOT_MATCH:
-                        cogoToast.error('현재 비밀번호가 올바르지 않아요.');
-                        break;
-                    default:
-                        cogoToast.error(message);
-                }
+                const gerror = getGraphQLError(err);
+                if (!gerror) return;
+                cogoToast.error(gerror[1]);
             });
     };
 

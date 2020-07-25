@@ -15,6 +15,7 @@ import Select from '../atomics/Select';
 import SquareButton from '../atomics/SquareButton';
 import RegisterFooterText from '../components/Register/RegisterFooterText';
 import ErrorCode from '../error/ErrorCode';
+import { getGraphQLError } from '../api/errorHandler';
 
 const RegisterWrapperStyle = styled.div`
     margin: 32px auto;
@@ -80,22 +81,9 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
                 history.push('/');
             })
             .catch((err) => {
-                if (!err.graphQLErrors.length) return;
-                const { extensions, message } = err.graphQLErrors[0];
-                if (!extensions) return;
-
-                switch (extensions.code) {
-                    case ErrorCode.USER_ALREADY_EXISTS:
-                    case ErrorCode.USER_WAITING:
-                    case ErrorCode.USER_DENY:
-                        cogoToast.error(message);
-                        break;
-                    case ErrorCode.BLOCK_EMAIL:
-                        cogoToast.error('가입 불가능한 이메일입니다. 다른 이메일을 사용해주세요.');
-                        break;
-                    default:
-                        cogoToast.error('회원가입 중 오류가 발생하였습니다. 다시 시도해주세요.');
-                }
+                const gerror = getGraphQLError(err);
+                if (!gerror) return;
+                cogoToast.error(gerror[1]);
             });
     };
 

@@ -14,6 +14,7 @@ import DefaultLayout from '../layouts/DefaultLayout';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import TokenUtil from '../api/TokenUtil';
 import ErrorCode from '../error/ErrorCode';
+import { getGraphQLError } from '../api/errorHandler';
 
 const MenuLoginWrapStyle = styled.div`
     margin: 32px auto;
@@ -49,20 +50,9 @@ const Login: React.FC = () => {
                 window.location.reload();
             })
             .catch((err) => {
-                if (!err.graphQLErrors.length) return;
-                const { extensions, message } = err.graphQLErrors[0];
-                if (!extensions) return;
-
-                switch (extensions.code) {
-                    case ErrorCode.USER_NOT_FOUND:
-                    case ErrorCode.USER_WAITING:
-                    case ErrorCode.USER_DENY:
-                    case ErrorCode.USER_BLOCK:
-                        cogoToast.error(message);
-                        break;
-                    default:
-                        cogoToast.error('로그인 중 오류가 발생하였습니다. 다시 시도해주세요.');
-                }
+                const gerror = getGraphQLError(err);
+                if (!gerror) return;
+                cogoToast.error(gerror[1]);
             });
     };
 

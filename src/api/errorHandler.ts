@@ -35,3 +35,13 @@ export const DefaultErrorHandler = (err: AxiosError) => {
 
     console.log(`ERROR ${code} ${message}`);
 };
+
+export const getGraphQLError = (error: any): string[] | undefined => {
+    if (!error.graphQLErrors.length) return undefined;
+    const { extensions, message } = error.graphQLErrors[0];
+    if (!extensions) return undefined;
+
+    if (!extensions.code) return [ErrorCode.SERVER_ERROR, '🔥 서버 오류가 발생하였어요. 잠시후 다시 시도해보세요.'];
+
+    return [extensions.code, message];
+};

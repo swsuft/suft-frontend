@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import cogoToast from 'cogo-toast';
 import useToken from './useToken';
 import ErrorCode from '../error/ErrorCode';
+import { getGraphQLError } from '../api/errorHandler';
 
 interface Profile {
     readonly email: string;
@@ -39,16 +40,13 @@ export const ProfileProvider: React.FC = ({ children }) => {
         }
 
         if (error) {
-            if (!error.graphQLErrors.length) return;
-            const { extensions } = error.graphQLErrors[0];
-            if (!extensions) return;
+            const gerror = getGraphQLError(error);
+            if (!gerror) return;
 
-            switch (extensions.code) {
-                case ErrorCode.NO_PERMISSION:
-                    refreshToken();
-                    break;
-                default:
-                    cogoToast.error('사용자 정보를 가져오지 못했어요.');
+            if (gerror[0] === ErrorCode.NO_PERMISSION) {
+                refreshToken();
+            } else {
+                cogoToast.error(gerror[1]);
             }
 
             return;
