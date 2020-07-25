@@ -17,7 +17,10 @@ const useToken = () => {
         if (TokenUtil.isEmpty()) return;
 
         getToken()
-            .then((res) => TokenUtil.set(res.data.token.token))
+            .then((res) => {
+                TokenUtil.set(res.data.token);
+                window.location.reload();
+            })
             .catch(() => cogoToast.error('로그인 연장 중 오류가 발생하였습니다. 로그아웃 후 다시 시도하세요.'));
     }, []);
 };
