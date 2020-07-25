@@ -40,16 +40,18 @@ export const ProfileProvider: React.FC = ({ children }) => {
 
         if (error) {
             if (!error.graphQLErrors.length) return;
-
             const { extensions } = error.graphQLErrors[0];
+            if (!extensions) return;
 
-            switch (extensions!!.code) {
+            switch (extensions.code) {
                 case ErrorCode.NO_PERMISSION:
                     refreshToken();
                     break;
                 default:
                     cogoToast.error('사용자 정보를 가져오지 못했어요.');
             }
+
+            return;
         }
 
         setProfile(data.profile);
