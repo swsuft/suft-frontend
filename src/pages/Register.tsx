@@ -14,7 +14,6 @@ import Input from '../atomics/Input';
 import Select from '../atomics/Select';
 import SquareButton from '../atomics/SquareButton';
 import RegisterFooterText from '../components/Register/RegisterFooterText';
-import ErrorCode from '../error/ErrorCode';
 import { getGraphQLError } from '../api/errorHandler';
 
 const RegisterWrapperStyle = styled.div`

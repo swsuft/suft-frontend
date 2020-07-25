@@ -13,7 +13,6 @@ import Select from '../atomics/Select';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import SquareButton from '../atomics/SquareButton';
 import { useProfile } from '../hooks/useProfile';
-import ErrorCode from '../error/ErrorCode';
 import { getGraphQLError } from '../api/errorHandler';
 
 const BodyStyle = styled.div`

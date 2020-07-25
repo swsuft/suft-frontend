@@ -13,7 +13,6 @@ import LoginFooterText from '../components/Login/LoginFooterText';
 import DefaultLayout from '../layouts/DefaultLayout';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import TokenUtil from '../api/TokenUtil';
-import ErrorCode from '../error/ErrorCode';
 import { getGraphQLError } from '../api/errorHandler';
 
 const MenuLoginWrapStyle = styled.div`
