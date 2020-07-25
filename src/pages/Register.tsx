@@ -21,7 +21,7 @@ const RegisterWrapperStyle = styled.div`
 `;
 
 const REGISTER = gql`
-    mutation Register($email: String!, $password: String!, $name: String!, $grade: Int!) {
+    mutation($email: String!, $password: String!, $name: String!, $grade: Int!) {
         register(email: $email, password: $password, name: $name, grade: $grade) {
             name
             email

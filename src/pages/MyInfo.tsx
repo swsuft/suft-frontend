@@ -20,7 +20,7 @@ const BodyStyle = styled.div`
 `;
 
 const USER_UPDATE = gql`
-    mutation updateUser($email: String!, $grade: Int!, $nowPassword: String!, $newPassword: String) {
+    mutation($email: String!, $grade: Int!, $nowPassword: String!, $newPassword: String) {
         updateUser(input: { grade: $grade, email: $email, nowPassword: $nowPassword, newPassword: $newPassword }) {
             name
             email
