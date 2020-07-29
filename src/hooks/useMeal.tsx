@@ -25,7 +25,7 @@ export const MealProvider: React.FC = ({ children }) => {
             return;
         }
         if (error) {
-            cogoToast.error('현재 급식을 불러올 수 없어요.');
+            cogoToast.error('🔥 서버 오류가 발생하였어요. 잠시후 다시 시도해보세요.');
             return;
         }
 
