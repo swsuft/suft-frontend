@@ -68,7 +68,7 @@ const AdminProblemView: React.FC<RouteComponentProps> = ({ history }) => {
 
     const refreshProblem = useCallback(() => {
         if (loading) {
-            cogoToast.loading('지금 문제를 가져오고 있어요...', {
+            cogoToast.loading('문제를 가져오고 있어요...', {
                 hideAfter: 1
             });
             return;
@@ -125,8 +125,8 @@ const AdminProblemView: React.FC<RouteComponentProps> = ({ history }) => {
 
         Promise.all(deletePromise).then(async () => {
             rowManager.uncheckAllRow();
-            await refetchProblem();
-            refreshProblem();
+            const { data: newData } = await refetchProblem();
+            setProblemData(newData.problems);
 
             cogoToast.success(`${Object.keys(selected).length}개 문제 삭제 완료`);
         });
