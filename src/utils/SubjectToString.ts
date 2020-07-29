@@ -1,5 +1,10 @@
 const subjectToString = (id: number | string): string => {
-    switch (id) {
+    let typeId = id;
+    if (typeof typeId === 'string') {
+        typeId = parseInt(typeId, 10);
+    }
+
+    switch (typeId) {
         case 1:
             return '국어';
         case 2:

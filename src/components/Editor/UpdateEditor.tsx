@@ -3,10 +3,11 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { Editor } from '@toast-ui/react-editor';
 import cogoToast from 'cogo-toast';
+import { gql } from 'apollo-boost';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import GradeOption from '../../atomics/SelectOptions/GradeOption';
 import TimesOption from '../../atomics/SelectOptions/TimesOption';
 import useToken from '../../hooks/useToken';
-import ProblemApi from '../../api/Problem';
 import ProblemEditor from '../ProblemEditor';
 import SmallButton from '../../atomics/SmallButton';
 import SmallInput from '../../atomics/SmallInput';
@@ -14,6 +15,8 @@ import SmallSelect from '../../atomics/SmallSelect';
 import DynamicSubject from '../../utils/DynamicSubject';
 import { useProfile } from '../../hooks/useProfile';
 import ErrorCode from '../../error/ErrorCode';
+import { getGraphQLError } from '../../api/errorHandler';
+import useAdmin from '../../hooks/useAdmin';
 
 const SmallButtonStyle = styled(SmallButton)`
     margin-top: 10px;
@@ -27,9 +30,36 @@ interface UpdateEditorProps {
     readonly id: string;
 }
 
+const GET_PROBLEM = gql`
+    query($id: Int!) {
+        problem(id: $id) {
+            id
+            email
+            contents
+            answer
+            author
+            grade
+            subject
+            times
+        }
+    }
+`;
+
+const UPDATE_PROBLEM = gql`
+    mutation($id: Int!, $contents: String!, $answer: String!, $subject: Int!, $grade: Int!, $times: String!) {
+        updateProblem(
+            id: $id
+            input: { contents: $contents, answer: $answer, subject: $subject, grade: $grade, times: $times }
+        ) {
+            id
+        }
+    }
+`;
+
 const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, history }) => {
     const refreshToken = useToken();
     const profile = useProfile();
+    const isAdmin = useAdmin();
 
     const editorRef = useRef<Editor>();
 
@@ -38,28 +68,54 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
     const [grade, setGrade] = useState('');
     const [times, setTimes] = useState('');
 
+    const { loading, error, data } = useQuery(GET_PROBLEM, {
+        variables: {
+            id: parseInt(id, 10)
+        },
+        fetchPolicy: 'network-only'
+    });
+    const [updateProblemQurey] = useMutation(UPDATE_PROBLEM);
+
     useEffect(() => {
-        ProblemApi.get(id)
-            .then((res) => {
-                if (editorRef.current === undefined) return;
+        if (!profile) return;
 
-                // eslint-disable-next-line no-shadow
-                const { contents, answer, subject, grade, times } = res.data.data;
-
-                setAnswer(answer);
-                setSubject(subject);
-                setGrade(grade);
-                setTimes(times);
-
-                editorRef.current.getInstance().setHtml(contents);
-            })
-            .catch((err) => {
-                const { code } = err.response.data;
-                if (code === ErrorCode.JWT_EXPIRED) {
-                    refreshToken();
-                }
+        if (loading) {
+            cogoToast.loading('작성한 문제를 가져오고 있어요...', {
+                hideAfter: 1
             });
-    }, [id, refreshToken]);
+            return;
+        }
+
+        if (error) {
+            const gerror = getGraphQLError(error);
+            if (!gerror) return;
+
+            if (gerror[0] === ErrorCode.NO_PERMISSION) {
+                refreshToken();
+            } else {
+                cogoToast.error(gerror[1]);
+            }
+
+            return;
+        }
+
+        if (!isAdmin && profile.email !== data.problem.email) {
+            cogoToast.error('내 문제만 수정할 수 있어요.');
+            return;
+        }
+
+        if (!editorRef.current) return;
+
+        // eslint-disable-next-line no-shadow
+        const { contents, answer, subject, grade, times } = data.problem;
+
+        setAnswer(answer);
+        setSubject(subject);
+        setGrade(grade);
+        setTimes(times);
+
+        editorRef.current.getInstance().setHtml(contents);
+    }, [isAdmin, profile, loading, error, data, id, refreshToken]);
 
     const updateProblem = () => {
         if (!editorRef.current) return;
@@ -71,26 +127,26 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
         }
 
         const html = editorRef.current.getInstance().getHtml();
-        const problemData = {
-            email: profile.email,
-            contents: html,
-            answer,
-            subject,
-            grade,
-            times
-        };
 
-        ProblemApi.update(id, problemData)
+        updateProblemQurey({
+            variables: {
+                id: parseInt(id, 10),
+                contents: html,
+                answer,
+                subject: parseInt(subject, 10),
+                grade: parseInt(grade, 10),
+                times
+            }
+        })
             .then(() => {
                 cogoToast.success('문제 수정 완료!');
                 history.goBack();
             })
             .catch((err) => {
-                const { code } = err.response.data;
+                const gerror = getGraphQLError(err);
+                if (!gerror) return;
 
-                if (code === ErrorCode.USER_NOT_MATCH) {
-                    cogoToast.warn('자신이 출제한 문제만 수정할 수 있습니다.');
-                }
+                cogoToast.error(gerror[1]);
             });
     };
 
