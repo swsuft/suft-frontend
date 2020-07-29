@@ -148,7 +148,7 @@ const AdminProblemView: React.FC<RouteComponentProps> = ({ history }) => {
                                     input.indeterminate = check.selectAll === 2;
                                 }
                             }}
-                          onChange={() => rowManager.toggleAllRow(data, 'id')}
+                          onChange={() => rowManager.toggleAllRow(problemData, 'id')}
                         />
                     </CheckBoxWrapper>
                 );
