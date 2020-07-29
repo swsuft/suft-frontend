@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import cogoToast from 'cogo-toast';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import underscore from 'underscore';
+import { gql } from 'apollo-boost';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import FontedTitle from '../../atomics/Typography/FontedTitle';
 import AdminLayout from '../../layouts/AdminLayout';
 import useSelect from '../../hooks/useSelect';
-import ProblemApi from '../../api/Problem';
 import SubjectToString from '../../utils/SubjectToString';
 import EditIcon from '../../atomics/Icons/EditIcon';
 import Table from '../../components/Table';
+import { getGraphQLError } from '../../api/errorHandler';
+import ErrorCode from '../../error/ErrorCode';
+import useToken from '../../hooks/useToken';
 
 const TableWrapper = styled.div`
     margin-bottom: 1rem;
@@ -30,21 +34,63 @@ const DeleteButtonStyle = styled.button`
     cursor: pointer;
 `;
 
+const GET_PROBLEM = gql`
+    query {
+        problems {
+            id
+            answer
+            author
+            contents
+            email
+            grade
+            subject
+            times
+        }
+    }
+`;
+
+const DELETE_PROBLEM = gql`
+    mutation($id: Int!) {
+        deleteProblem(id: $id) {
+            id
+        }
+    }
+`;
+
 const AdminProblemView: React.FC<RouteComponentProps> = ({ history }) => {
-    const [data, setData] = useState<[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
+    const refreshToken = useToken();
+
+    const [problemData, setProblemData] = useState<[]>([]);
     const [check, rowManager] = useSelect();
 
-    const refreshProblem = () => {
-        ProblemApi.all().then(async (res) => {
-            setData(res.data.data);
-            setLoading(true);
-        });
-    };
+    const { loading, error, data, refetch: refetchProblem } = useQuery(GET_PROBLEM);
+    const [deleteProblemQuery] = useMutation(DELETE_PROBLEM);
+
+    const refreshProblem = useCallback(() => {
+        if (loading) {
+            cogoToast.loading('지금 문제를 가져오고 있어요...', {
+                hideAfter: 1
+            });
+            return;
+        }
+
+        if (error) {
+            const gerror = getGraphQLError(error);
+            if (!gerror) return;
+
+            if (gerror[0] === ErrorCode.NO_PERMISSION) {
+                refreshToken();
+            } else {
+                cogoToast.error(gerror[1]);
+            }
+        }
+
+        setProblemData(data.problems);
+    }, [loading, error, data, refreshToken]);
 
     useEffect(() => {
         refreshProblem();
-    }, []);
+    }, [refreshProblem]);
 
     const deleteProblem = () => {
         const { selected } = check;
@@ -61,18 +107,25 @@ const AdminProblemView: React.FC<RouteComponentProps> = ({ history }) => {
 
         const deletePromise = Object.keys(selected).map((key: string) => {
             return new Promise((resolve, reject) => {
-                ProblemApi.delete(key)
+                deleteProblemQuery({
+                    variables: {
+                        id: parseInt(key, 10)
+                    }
+                })
                     .then(() => {
                         resolve();
                     })
                     .catch((err) => {
-                        reject(err);
+                        const gerror = getGraphQLError(err);
+                        if (!gerror) return;
+                        reject(gerror[1]);
                     });
             });
         });
 
-        Promise.all(deletePromise).then(() => {
+        Promise.all(deletePromise).then(async () => {
             rowManager.uncheckAllRow();
+            await refetchProblem();
             refreshProblem();
 
             cogoToast.success(`${Object.keys(selected).length}개 문제 삭제 완료`);
@@ -168,7 +221,9 @@ const AdminProblemView: React.FC<RouteComponentProps> = ({ history }) => {
                 <DeleteButtonStyle onClick={deleteProblem}>삭제</DeleteButtonStyle>
             </div>
 
-            <TableWrapper>{loading && <Table columns={columns} data={data} />}</TableWrapper>
+            <TableWrapper>
+                <Table columns={columns} data={problemData} />
+            </TableWrapper>
         </AdminLayout>
     );
 };
