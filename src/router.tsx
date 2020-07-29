@@ -17,6 +17,7 @@ import AdminUserView from './pages/Admin/AdminUserView';
 import AdminWaitingUser from './pages/Admin/AdminWaitingUser';
 import Privacy from './pages/Privacy';
 import NotFoundError from './components/Error/NotFoundError';
+import AdminDenyUser from './pages/Admin/AdminDenyUser';
 
 const Router: React.FC = () => {
     return (
@@ -38,12 +39,7 @@ const Router: React.FC = () => {
                 />
                 <UserPermissionRoute exact path="/myproblem/create" success={MyProblemCreate} failure={Login} />
                 <UserPermissionRoute exact path="/myproblem/view" success={MyProblemView} failure={Login} />
-                <UserPermissionRoute
-                  exact
-                  path="/myproblem/edit/:id"
-                  success={MyProblemEdit}
-                  failure={Login}
-                />
+                <UserPermissionRoute exact path="/myproblem/edit/:id" success={MyProblemEdit} failure={Login} />
 
                 <AdminPermissionRoute
                   exact
@@ -53,13 +49,11 @@ const Router: React.FC = () => {
                 />
                 <AdminPermissionRoute exact path="/admin/view" success={AdminProblemView} failure={Login} />
                 <AdminPermissionRoute exact path="/admin/user" success={AdminUserView} failure={Login} />
-                <AdminPermissionRoute
-                  exact
-                  path="/admin/waitinguser"
-                  success={AdminWaitingUser}
-                  failure={Login}
-                />
+                <AdminPermissionRoute exact path="/admin/waitinguser" success={AdminWaitingUser} failure={Login} />
+                <AdminPermissionRoute exact path="/admin/denyuser" success={AdminDenyUser} failure={Login} />
+
                 <Route exact path="/privacy" component={Privacy} />
+
                 <Route exact component={NotFoundError} />
             </Switch>
         </BrowserRouter>

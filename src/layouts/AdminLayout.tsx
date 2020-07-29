@@ -29,6 +29,10 @@ const items = [
     {
         to: '/admin/waitinguser',
         name: '가입 요청'
+    },
+    {
+        to: '/admin/denyuser',
+        name: '거절 목록'
     }
 ];
 
