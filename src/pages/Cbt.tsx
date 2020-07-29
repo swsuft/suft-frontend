@@ -155,7 +155,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
         viewerRef.current.getInstance().setMarkdown(data.searchProblem[0].contents);
 
         setProblems(data.searchProblem);
-    }, [loading, data, error]);
+    }, [refreshToken, loading, data, error]);
 
     const subjectView = isLoading ? subjectToString(match.params.subject) : '과목';
 

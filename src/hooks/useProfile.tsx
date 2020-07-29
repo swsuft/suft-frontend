@@ -53,7 +53,7 @@ export const ProfileProvider: React.FC = ({ children }) => {
         }
 
         setProfile(data.profile);
-    }, [loading, error, data]);
+    }, [refreshToken, loading, error, data]);
 
     return <context.Provider value={profile}>{children}</context.Provider>;
 };

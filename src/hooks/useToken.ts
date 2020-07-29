@@ -22,7 +22,7 @@ const useToken = () => {
                 window.location.reload();
             })
             .catch(() => cogoToast.error('로그인 연장 중 오류가 발생하였습니다. 로그아웃 후 다시 시도하세요.'));
-    }, []);
+    }, [getToken]);
 };
 
 export default useToken;
