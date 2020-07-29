@@ -122,7 +122,7 @@ const AdminDenyUser: React.FC = () => {
         Promise.all(allowPromise).then(async () => {
             rowManager.uncheckAllRow();
             const { data: newData } = await refatchWaitingUser();
-            setBlackList(newData.waitingUsers);
+            setBlackList(newData.blacklist);
             cogoToast.success(`${Object.keys(selected).length}명 가입 수락 완료`);
         });
     };
@@ -199,10 +199,7 @@ const AdminDenyUser: React.FC = () => {
             </div>
 
             <TableWrap>
-                <Table
-                  columns={columns}
-                  data={blackList}
-                />
+                <Table columns={columns} data={blackList} />
             </TableWrap>
         </AdminLayout>
     );
