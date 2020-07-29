@@ -101,6 +101,8 @@ const AdminUserView: React.FC = () => {
             } else {
                 cogoToast.error(gerror[1]);
             }
+
+            return;
         }
 
         setUserData(data.users);

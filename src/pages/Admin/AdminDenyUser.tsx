@@ -76,6 +76,8 @@ const AdminDenyUser: React.FC = () => {
             } else {
                 cogoToast.error(gerror[1]);
             }
+
+            return;
         }
 
         setBlackList(data.blacklist);

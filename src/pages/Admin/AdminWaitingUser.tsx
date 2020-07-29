@@ -96,6 +96,8 @@ const AdminWaitingUser: React.FC = () => {
             } else {
                 cogoToast.error(gerror[1]);
             }
+
+            return;
         }
 
         setWaitingUserData(data.waitingUsers);

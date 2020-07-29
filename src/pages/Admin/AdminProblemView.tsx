@@ -63,7 +63,9 @@ const AdminProblemView: React.FC<RouteComponentProps> = ({ history }) => {
     const [problemData, setProblemData] = useState<[]>([]);
     const [check, rowManager] = useSelect();
 
-    const { loading, error, data, refetch: refetchProblem } = useQuery(GET_PROBLEM);
+    const { loading, error, data, refetch: refetchProblem } = useQuery(GET_PROBLEM, {
+        fetchPolicy: 'cache-and-network'
+    });
     const [deleteProblemQuery] = useMutation(DELETE_PROBLEM);
 
     const refreshProblem = useCallback(() => {
@@ -83,6 +85,8 @@ const AdminProblemView: React.FC<RouteComponentProps> = ({ history }) => {
             } else {
                 cogoToast.error(gerror[1]);
             }
+
+            return;
         }
 
         setProblemData(data.problems);

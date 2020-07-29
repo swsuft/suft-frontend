@@ -144,6 +144,8 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
             } else {
                 cogoToast.error(gerror[1]);
             }
+
+            return;
         }
 
         if (viewerRef.current === undefined) return;
