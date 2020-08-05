@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import AuthApi from '../../api/Auth';
+import { gql } from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
+import cogoToast from 'cogo-toast';
 import TokenUtil from '../../api/TokenUtil';
+import { getGraphQLError } from '../../api/errorHandler';
 
 const LogoutTextStyle = styled.button`
     font-size: 16px;
@@ -28,16 +31,30 @@ interface LogoutProps {
     readonly styling?: boolean;
 }
 
+const LOGOUT = gql`
+    mutation {
+        logout
+    }
+`;
+
 const Logout: React.FC<RouteComponentProps & LogoutProps> = ({ history, styling, children }) => {
+    const [logout] = useMutation(LOGOUT);
+
     const onLogoutClick = () => {
         const check = window.confirm('진짜로 정말로 로그아웃 할까요?');
 
         if (check) {
-            AuthApi.logout().then(() => {
-                TokenUtil.remove();
-                history.push('/');
-                window.location.reload();
-            });
+            logout()
+                .then(() => {
+                    TokenUtil.remove();
+                    history.push('/');
+                    window.location.reload();
+                })
+                .catch((err) => {
+                    const gerror = getGraphQLError(err);
+                    if (!gerror) return;
+                    cogoToast.error(gerror[1]);
+                });
         }
     };
 
