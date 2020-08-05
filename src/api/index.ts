@@ -37,7 +37,5 @@ const getAxiosInstance = (): AxiosInstance => {
     return instance;
 };
 
-const Api = getAxiosInstance();
+export const AxiosApi = getAxiosInstance();
 export const Client = client;
-
-export default Api;

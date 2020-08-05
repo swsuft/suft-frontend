@@ -3,7 +3,7 @@ import { Editor } from '@toast-ui/react-editor';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import cogoToast from 'cogo-toast';
 import styled from 'styled-components';
-import Api from '../../api';
+import { AxiosApi } from '../../api';
 import 'highlight.js/styles/github.css';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -29,7 +29,7 @@ const ProblemEditor: React.FC<ProblemEditorProps> = ({ editorRef, initialValue }
         editorRef.current.getInstance().addHook('addImageBlobHook', (blob, callback) => {
             const data = new FormData();
             data.append('image', blob);
-            Api.post('/image', data)
+            AxiosApi.post('/image', data)
                 .then((res) => {
                     const url = res.data.data;
                     callback(url);
