@@ -37,7 +37,10 @@ export const DefaultErrorHandler = (err: AxiosError) => {
 };
 
 export const getGraphQLError = (error: any): string[] | undefined => {
-    if (!error.graphQLErrors.length) return undefined;
+    if (!error.graphQLErrors.length) {
+        cogoToast.error(error.message);
+        return undefined;
+    }
     const { extensions, message } = error.graphQLErrors[0];
     if (!extensions) return undefined;
 
