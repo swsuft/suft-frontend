@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import underscore from 'underscore';
 import { gql } from 'apollo-boost';
-import { useLazyQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import cogoToast from 'cogo-toast';
 import FontedTitle from '../../atomics/Typography/FontedTitle';
 import MyProblemLayout from '../../layouts/MyProblemLayout';
@@ -69,14 +69,16 @@ const MyProblemView: React.FC<RouteComponentProps> = ({ history }) => {
     const profile = useProfile();
     const refreshToken = useToken();
     const [problemData, setProblemData] = useState<object[]>([]);
-    const [isLoading, setBeLoading] = useState<boolean>(false);
 
-    const [getMyProblem, { loading, error, data }] = useLazyQuery(GET_MY_PROBLEM);
+    const { loading, error, data } = useQuery(GET_MY_PROBLEM, {
+        variables: {
+            email: profile!!.email
+        },
+        fetchPolicy: 'cache-and-network'
+    });
 
     useEffect(() => {
         if (!profile) return;
-
-        setBeLoading(!loading);
 
         if (loading) {
             cogoToast.loading('지금 문제를 가져오고 있어요...', {
@@ -98,19 +100,13 @@ const MyProblemView: React.FC<RouteComponentProps> = ({ history }) => {
             return;
         }
 
-        getMyProblem({
-            variables: {
-                email: profile.email
-            }
-        });
-
         if (data) setProblemData(data.searchProblem);
-    }, [profile, loading, error, data, getMyProblem, refreshToken]);
+    }, [profile, loading, error, data, refreshToken]);
 
     return (
         <MyProblemLayout>
             <FontedTitle>문제 관리</FontedTitle>
-            {isLoading && <Table columns={columns} data={problemData} />}
+            <Table columns={columns} data={problemData} />
         </MyProblemLayout>
     );
 };
