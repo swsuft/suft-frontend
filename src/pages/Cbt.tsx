@@ -74,7 +74,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
     const [isLoading, setBeLoading] = useState<boolean>(true);
 
     const inputRef = useRef<HTMLInputElement>(null);
-    const viewerRef = useRef<Viewer>();
+    const viewerRef = useRef<Viewer | null>(null);
 
     const { subject, grade, times } = match.params;
     const { loading, error, data } = useQuery(SEARCH_PROBLEM, {
@@ -99,7 +99,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
             rand = Math.floor(Math.random() * problems.length);
         }
 
-        if (viewerRef.current === undefined) return;
+        if (!viewerRef.current) return;
         viewerRef.current.getInstance().setMarkdown(problems[rand].contents);
 
         setOverlapRandom((arr) => [...arr, rand]);
@@ -148,7 +148,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
             return;
         }
 
-        if (viewerRef.current === undefined) return;
+        if (!viewerRef.current) return;
         if (data.searchProblem.length === 0) {
             viewerRef.current.getInstance().setMarkdown('<h3>문제가 존재하지 않습니다.</h3>');
             return;

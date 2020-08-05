@@ -61,7 +61,7 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
     const profile = useProfile();
     const isAdmin = useAdmin();
 
-    const editorRef = useRef<Editor>();
+    const editorRef = useRef<Editor | null>(null);
 
     const [answer, setAnswer] = useState('');
     const [subject, setSubject] = useState('');
@@ -78,6 +78,7 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
 
     useEffect(() => {
         if (!profile) return;
+        if (!editorRef.current) return;
 
         if (loading) {
             cogoToast.loading('작성한 문제를 가져오고 있어요...', {
@@ -103,8 +104,6 @@ const UpdateEditor: React.FC<RouteComponentProps & UpdateEditorProps> = ({ id, h
             cogoToast.error('내 문제만 수정할 수 있어요.');
             return;
         }
-
-        if (!editorRef.current) return;
 
         // eslint-disable-next-line no-shadow
         const { contents, answer, subject, grade, times } = data.problem;
