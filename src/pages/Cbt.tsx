@@ -5,6 +5,7 @@ import { Viewer } from '@toast-ui/react-editor';
 import cogoToast from 'cogo-toast';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
+import { Helmet } from 'react-helmet';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
@@ -163,6 +164,10 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
 
     return (
         <DefaultLayout>
+            <Helmet>
+                <title>{subjectView} 문제풀이 - 수프트</title>
+            </Helmet>
+
             <Container>
                 <TitleStyle>
                     <FontedTitle>

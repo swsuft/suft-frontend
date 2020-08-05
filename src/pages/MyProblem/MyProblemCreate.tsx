@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
+import { Helmet } from 'react-helmet';
 import FontedTitle from '../../atomics/Typography/FontedTitle';
 import ProblemEditor from '../../components/ProblemEditor';
 import MyProblemLayout from '../../layouts/MyProblemLayout';
@@ -100,6 +101,10 @@ const MyProblemCreate: React.FC = () => {
 
     return (
         <MyProblemLayout>
+            <Helmet>
+                <title>문제 등록 - 수프트</title>
+            </Helmet>
+
             <FontedTitle>문제 등록</FontedTitle>
             <ProblemEditor editorRef={editorRef} />
             <div>

@@ -5,6 +5,7 @@ import { faPen } from '@fortawesome/free-solid-svg-icons';
 import cogoToast from 'cogo-toast';
 import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
+import { Helmet } from 'react-helmet';
 import DefaultLayout from '../layouts/DefaultLayout';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import Input from '../atomics/Input';
@@ -94,6 +95,10 @@ const MyInfo: React.FC = () => {
 
     return (
         <DefaultLayout>
+            <Helmet>
+                <title>내 정보 - 수프트</title>
+            </Helmet>
+
             <CenterContainer>
                 <div>
                     <FontedTitle>내 정보</FontedTitle>

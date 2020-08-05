@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import cogoToast from 'cogo-toast';
+import { Helmet } from 'react-helmet';
 import DefaultLayout from '../layouts/DefaultLayout';
 import { useProfile } from '../hooks/useProfile';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
@@ -78,6 +79,10 @@ const Home: React.FC = () => {
 
     return (
         <DefaultLayout>
+            <Helmet>
+                <title>수프트</title>
+            </Helmet>
+
             <Container>
                 <br />
 

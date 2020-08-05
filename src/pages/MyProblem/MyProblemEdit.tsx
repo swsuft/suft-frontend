@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { Helmet } from 'react-helmet';
 import Container from '../../utils/ContainerUtils/Container';
 import UpdateEditor from '../../components/Editor/UpdateEditor';
 import DefaultLayout from '../../layouts/DefaultLayout';
@@ -25,6 +26,10 @@ const MyProblemEdit: React.FC<RouteComponentProps<{ id: string }>> = ({ match, h
 
     return (
         <DefaultLayout>
+            <Helmet>
+                <title>문제 수정 - 수프트</title>
+            </Helmet>
+
             <Container>
                 <TitleStyle>
                     {id}번 문제 수정{' '}

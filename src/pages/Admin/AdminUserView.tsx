@@ -3,6 +3,7 @@ import cogoToast from 'cogo-toast';
 import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useMutation, useQuery } from '@apollo/react-hooks';
+import { Helmet } from 'react-helmet';
 import FontedTitle from '../../atomics/Typography/FontedTitle';
 import AdminLayout from '../../layouts/AdminLayout';
 import useSelect from '../../hooks/useSelect';
@@ -286,6 +287,10 @@ const AdminUserView: React.FC = () => {
 
     return (
         <AdminLayout>
+            <Helmet>
+                <title>유저 관리 - 수프트</title>
+            </Helmet>
+
             <FontedTitle>유저 관리</FontedTitle>
             <div>
                 <BlockButtonStyle onClick={blockUsers}>차단</BlockButtonStyle>
