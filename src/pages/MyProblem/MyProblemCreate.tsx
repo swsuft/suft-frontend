@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import cogoToast from 'cogo-toast';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { gql } from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
 import FontedTitle from '../../atomics/Typography/FontedTitle';
 import ProblemEditor from '../../components/ProblemEditor';
 import MyProblemLayout from '../../layouts/MyProblemLayout';
@@ -13,10 +15,8 @@ import GradeOption from '../../atomics/SelectOptions/GradeOption';
 import TimesOption from '../../atomics/SelectOptions/TimesOption';
 import SmallButton from '../../atomics/SmallButton';
 import DynamicSubject from '../../utils/DynamicSubject';
-import ProblemApi from '../../api/Problem';
 import { useProfile } from '../../hooks/useProfile';
-import useToken from '../../hooks/useToken';
-import ErrorCode from '../../error/ErrorCode';
+import { getGraphQLError } from '../../api/errorHandler';
 
 const SmallSelectStyle = styled(SmallSelect)`
     width: 100px;
@@ -26,15 +26,42 @@ const SmallButtonStyle = styled(SmallButton)`
     margin-top: 10px;
 `;
 
+const CREATE_PROBLEM = gql`
+    mutation(
+        $email: String!
+        $contents: String!
+        $answer: String!
+        $author: String!
+        $subject: Int!
+        $grade: Int!
+        $times: String!
+    ) {
+        createProblem(
+            input: {
+                email: $email
+                contents: $contents
+                answer: $answer
+                author: $author
+                subject: $subject
+                grade: $grade
+                times: $times
+            }
+        ) {
+            id
+        }
+    }
+`;
+
 const MyProblemCreate: React.FC = () => {
     const profile = useProfile();
-    const refreshToken = useToken();
 
-    const editorRef = useRef<Editor>();
+    const editorRef = useRef<Editor | null>(null);
     const [answer, setAnswer] = useState<string>('');
     const [grade, setGrade] = useState<string>('');
     const [times, setTimes] = useState<string>('');
     const [subject, setSubject] = useState<string>('');
+
+    const [createProblemQurey] = useMutation(CREATE_PROBLEM);
 
     const createProblem = () => {
         if (!editorRef.current) return;
@@ -52,23 +79,23 @@ const MyProblemCreate: React.FC = () => {
             author: profile.name,
             contents: html,
             answer,
-            subject,
-            grade,
+            subject: parseInt(subject, 10),
+            grade: parseInt(grade, 10),
             times
         };
 
-        ProblemApi.create(problemData)
+        createProblemQurey({
+            variables: problemData
+        })
             .then(() => {
                 cogoToast.success('성공적으로 문제를 등록하였습니다.');
+                window.location.reload();
             })
             .catch((err) => {
-                const { code } = err.response.data;
-                if (code === ErrorCode.JWT_EXPIRED) {
-                    refreshToken();
-                }
+                const gerror = getGraphQLError(err);
+                if (!gerror) return;
+                cogoToast.error(gerror[1]);
             });
-
-        refreshToken();
     };
 
     return (
