@@ -22,7 +22,7 @@ const CheckboxWrapStyle = styled.div`
 const AllowButtonStyle = styled.button`
     margin-bottom: 15px;
     border: none;
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 10px;
     width: 150px;
     height: 35px;
     color: #ffffff;
@@ -30,20 +30,9 @@ const AllowButtonStyle = styled.button`
     cursor: pointer;
 `;
 
-const DenyButtonStyle = styled.button`
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 0px 10px 10px 0px;
-    width: 150px;
-    height: 35px;
-    color: #ffffff;
-    background: var(--color-red);
-    cursor: pointer;
-`;
-
-const GET_WAITINGUSER = gql`
+const GET_BLACKLIST = gql`
     query {
-        waitingUsers {
+        blacklist {
             email
             grade
             name
@@ -61,27 +50,18 @@ const ALLOW_USER = gql`
     }
 `;
 
-const DENY_USER = gql`
-    mutation($email: String!) {
-        denyUser(email: $email) {
-            email
-        }
-    }
-`;
-
-const AdminWaitingUser: React.FC = () => {
+const AdminDenyUser: React.FC = () => {
     const refreshToken = useToken();
 
-    const [waitingUserData, setWaitingUserData] = useState<[]>([]);
+    const [blackList, setBlackList] = useState<[]>([]);
     const [check, rowManager] = useSelect();
 
-    const { loading, error, data, refetch: refatchWaitingUser } = useQuery(GET_WAITINGUSER);
+    const { loading, error, data, refetch: refatchWaitingUser } = useQuery(GET_BLACKLIST);
     const [allowUserQurey] = useMutation(ALLOW_USER);
-    const [denyUserQurey] = useMutation(DENY_USER);
 
     const refreshWaitingUserList = useCallback(() => {
         if (loading) {
-            cogoToast.loading('가입 요청 목록을 가져오고 있어요...', {
+            cogoToast.loading('가입 거절 목록을 가져오고 있어요...', {
                 hideAfter: 1
             });
             return;
@@ -100,7 +80,7 @@ const AdminWaitingUser: React.FC = () => {
             return;
         }
 
-        setWaitingUserData(data.waitingUsers);
+        setBlackList(data.blacklist);
     }, [loading, error, data, refreshToken]);
 
     useEffect(() => {
@@ -144,48 +124,8 @@ const AdminWaitingUser: React.FC = () => {
         Promise.all(allowPromise).then(async () => {
             rowManager.uncheckAllRow();
             const { data: newData } = await refatchWaitingUser();
-            setWaitingUserData(newData.waitingUsers);
+            setBlackList(newData.blacklist);
             cogoToast.success(`${Object.keys(selected).length}명 가입 수락 완료`);
-        });
-    };
-
-    const denyUsers = () => {
-        const { selected } = check;
-
-        if (Object.keys(selected).length === 0) {
-            cogoToast.warn('가입 거절 할 유저를 선택해주세요.');
-            return;
-        }
-
-        const isReal = window.confirm(`${Object.keys(selected).length}명을 가입 거절 하시겠습니까?`);
-
-        if (!isReal) return;
-
-        const denyPromise = Object.keys(selected).map((key: string) => {
-            return new Promise((resolve, reject) => {
-                if (!selected[key]) reject();
-
-                denyUserQurey({
-                    variables: {
-                        email: key
-                    }
-                })
-                    .then(() => {
-                        resolve();
-                    })
-                    .catch((err) => {
-                        const gerror = getGraphQLError(err);
-                        if (!gerror) return;
-                        reject(gerror[1]);
-                    });
-            });
-        });
-
-        Promise.all(denyPromise).then(async () => {
-            rowManager.uncheckAllRow();
-            const { data: newData } = await refatchWaitingUser();
-            setWaitingUserData(newData.waitingUsers);
-            cogoToast.success(`${Object.keys(selected).length}명 가입 거절 완료`);
         });
     };
 
@@ -205,7 +145,7 @@ const AdminWaitingUser: React.FC = () => {
                                     input.indeterminate = check.selectAll === 2;
                                 }
                             }}
-                          onChange={() => rowManager.toggleAllRow(waitingUserData, 'email')}
+                          onChange={() => rowManager.toggleAllRow(blackList, 'email')}
                         />
                     </CheckboxWrapStyle>
                 );
@@ -255,17 +195,16 @@ const AdminWaitingUser: React.FC = () => {
 
     return (
         <AdminLayout>
-            <FontedTitle>가입 요청</FontedTitle>
+            <FontedTitle>거절 목록</FontedTitle>
             <div>
                 <AllowButtonStyle onClick={allowUsers}>수락</AllowButtonStyle>
-                <DenyButtonStyle onClick={denyUsers}>거절</DenyButtonStyle>
             </div>
 
             <TableWrap>
-                <Table columns={columns} data={waitingUserData} />
+                <Table columns={columns} data={blackList} />
             </TableWrap>
         </AdminLayout>
     );
 };
 
-export default AdminWaitingUser;
+export default AdminDenyUser;

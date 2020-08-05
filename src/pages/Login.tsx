@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import cogoToast from 'cogo-toast';
+import { gql } from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
 import LoginHeaderText from '../components/Login/LoginHeaderText';
 import LabelText from '../atomics/Typography/LabelText';
 import Input from '../atomics/Input';
@@ -10,60 +12,52 @@ import SquareButton from '../atomics/SquareButton';
 import LoginFooterText from '../components/Login/LoginFooterText';
 import DefaultLayout from '../layouts/DefaultLayout';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
-import AuthApi from '../api/Auth';
 import TokenUtil from '../api/TokenUtil';
-import ErrorCode from '../error/ErrorCode';
+import { getGraphQLError } from '../api/errorHandler';
 
 const MenuLoginWrapStyle = styled.div`
     margin: 32px auto;
 `;
 
+const LOGIN = gql`
+    mutation($email: String!, $password: String!) {
+        login(email: $email, password: $password) {
+            token
+        }
+    }
+`;
+
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [login] = useMutation(LOGIN);
 
-    const runLogin = () => {
+    const userLogin = () => {
         if (email === '' || password === '') {
             cogoToast.warn('빈 칸이 존재합니다.');
-        } else {
-            AuthApi.login(email, password)
-                .then((res) => {
-                    TokenUtil.set(res.data.token);
-                    window.location.reload();
-                })
-                .catch((err) => {
-                    const { code, message } = err.response.data;
-
-                    if (code === ErrorCode.USER_NOT_FOUND) {
-                        cogoToast.error(message);
-                        return;
-                    }
-
-                    if (code === ErrorCode.PW_NOT_MATCH) {
-                        cogoToast.error(message);
-                        return;
-                    }
-
-                    if (code === ErrorCode.USER_WAITING) {
-                        cogoToast.error(message);
-                        return;
-                    }
-
-                    if (code === ErrorCode.USER_DENY) {
-                        cogoToast.error('가입이 거절된 계정입니다.');
-                        return;
-                    }
-
-                    if (code === ErrorCode.USER_BLOCK) {
-                        cogoToast.error('서비스 이용이 차된되어 로그인이 불가능합니다.');
-                    }
-                });
+            return;
         }
+
+        login({
+            variables: {
+                email,
+                password
+            }
+        })
+            .then((res) => {
+                TokenUtil.set(res.data.login.token);
+                window.location.reload();
+            })
+            .catch((err) => {
+                const gerror = getGraphQLError(err);
+                if (!gerror) return;
+                cogoToast.error(gerror[1]);
+            });
     };
 
     const onEnterKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
-            runLogin();
+            userLogin();
         }
     };
 
@@ -96,7 +90,7 @@ const Login: React.FC = () => {
                         />
                     </MenuLoginWrapStyle>
 
-                    <SquareButton onClick={runLogin}>
+                    <SquareButton onClick={userLogin}>
                         <FontAwesomeIcon icon={faDoorOpen} /> 로그인
                     </SquareButton>
 

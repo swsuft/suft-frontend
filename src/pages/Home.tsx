@@ -70,7 +70,7 @@ const MiddleBodyStyle = styled.div`
 const Home: React.FC = () => {
     const profile = useProfile();
 
-    const name = profile.data ? profile!.data.name : '불러오는중';
+    const name = profile ? profile.name : '불러오는중';
 
     const onClickParkingCard = () => {
         cogoToast.info('해당 서비스는 준비중입니다.');

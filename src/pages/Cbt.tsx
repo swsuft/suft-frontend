@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Viewer } from '@toast-ui/react-editor';
 import cogoToast from 'cogo-toast';
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
@@ -11,10 +13,10 @@ import DefaultLayout from '../layouts/DefaultLayout';
 import NumberButton from '../atomics/NumberButton';
 import CbtAnswer from '../components/CbtAnswer';
 import ErrorCode from '../error/ErrorCode';
-import ProblemApi from '../api/Problem';
 import ProblemViewer from '../components/ProblemViewer';
 import { Problem } from '../payloads/Problem';
 import subjectToString from '../utils/SubjectToString';
+import { getGraphQLError } from '../api/errorHandler';
 
 const NumberButtonContainer = styled.div`
     margin: 1rem auto;
@@ -46,9 +48,22 @@ interface CbtParams {
     readonly times: string;
 }
 
+const SEARCH_PROBLEM = gql`
+    query($grade: Int!, $subject: Int!, $times: String!) {
+        searchProblem(filter: { grade: $grade, subject: $subject, times: $times }) {
+            email
+            contents
+            answer
+            author
+            grade
+            subject
+            times
+        }
+    }
+`;
+
 const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
     const refreshToken = useToken();
-    const [isLoading, setBeLoading] = useState<boolean>(false);
     const [random, setRandom] = useState<number>(0);
     const [overlapRandom, setOverlapRandom] = useState<number[]>([0]);
 
@@ -56,15 +71,25 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
 
     const [problems, setProblems] = useState<Problem[]>([]);
     const [count, setCount] = useState<number>(1);
+    const [isLoading, setBeLoading] = useState<boolean>(true);
 
     const inputRef = useRef<HTMLInputElement>(null);
-    const viewerRef = useRef<Viewer>();
+    const viewerRef = useRef<Viewer | null>(null);
+
+    const { subject, grade, times } = match.params;
+    const { loading, error, data } = useQuery(SEARCH_PROBLEM, {
+        variables: {
+            grade: parseInt(grade, 10),
+            subject: parseInt(subject, 10),
+            times
+        }
+    });
 
     const pickRandomNumber = () => {
         if (problems.length === 0) return;
 
         if (overlapRandom.length === problems.length) {
-            cogoToast.info('모든 문제를 풀었습니다. 새로고침하여 새로 시작할 수 있습니다.');
+            cogoToast.info('모든 문제를 풀었어요! 새로고침하여 다시 시작할 수 있어요.');
             return;
         }
 
@@ -74,7 +99,7 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
             rand = Math.floor(Math.random() * problems.length);
         }
 
-        if (viewerRef.current === undefined) return;
+        if (!viewerRef.current) return;
         viewerRef.current.getInstance().setMarkdown(problems[rand].contents);
 
         setOverlapRandom((arr) => [...arr, rand]);
@@ -101,30 +126,38 @@ const Cbt: React.FC<RouteComponentProps<CbtParams>> = ({ match }) => {
     };
 
     useEffect(() => {
-        const { subject, grade, times } = match.params;
+        setBeLoading(!loading);
 
-        ProblemApi.filter(subject, grade, times)
-            .then((res) => {
-                if (viewerRef.current === undefined) return;
-                if (res.data.data.length === 0) {
-                    viewerRef.current.getInstance().setMarkdown('<h3>문제가 존재하지 않습니다.</h3>');
-                    return;
-                }
-
-                viewerRef.current.getInstance().setMarkdown(res.data.data[0].contents);
-
-                setProblems(res.data.data);
-            })
-            .catch((err) => {
-                const { code } = err.response.data;
-
-                if (code === ErrorCode.JWT_EXPIRED) {
-                    refreshToken();
-                }
+        if (loading) {
+            cogoToast.loading('지금 문제를 가져오고 있어요...', {
+                hideAfter: 1
             });
+            return;
+        }
 
-        setBeLoading(true);
-    }, [match.params, refreshToken]);
+        if (error) {
+            const gerror = getGraphQLError(error);
+            if (!gerror) return;
+
+            if (gerror[0] === ErrorCode.NO_PERMISSION) {
+                refreshToken();
+            } else {
+                cogoToast.error(gerror[1]);
+            }
+
+            return;
+        }
+
+        if (!viewerRef.current) return;
+        if (data.searchProblem.length === 0) {
+            viewerRef.current.getInstance().setMarkdown('<h3>문제가 존재하지 않습니다.</h3>');
+            return;
+        }
+
+        viewerRef.current.getInstance().setMarkdown(data.searchProblem[0].contents);
+
+        setProblems(data.searchProblem);
+    }, [refreshToken, loading, data, error]);
 
     const subjectView = isLoading ? subjectToString(match.params.subject) : '과목';
 

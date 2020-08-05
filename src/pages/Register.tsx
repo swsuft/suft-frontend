@@ -4,6 +4,8 @@ import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import cogoToast from 'cogo-toast';
+import { gql } from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
 import DefaultLayout from '../layouts/DefaultLayout';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import RegisterHeaderText from '../components/Register/RegisterHeaderText';
@@ -12,11 +14,23 @@ import Input from '../atomics/Input';
 import Select from '../atomics/Select';
 import SquareButton from '../atomics/SquareButton';
 import RegisterFooterText from '../components/Register/RegisterFooterText';
-import ErrorCode from '../error/ErrorCode';
-import AuthApi from '../api/Auth';
+import { getGraphQLError } from '../api/errorHandler';
 
 const RegisterWrapperStyle = styled.div`
     margin: 32px auto;
+`;
+
+const REGISTER = gql`
+    mutation($email: String!, $password: String!, $name: String!, $grade: Int!) {
+        register(email: $email, password: $password, name: $name, grade: $grade) {
+            name
+            email
+            grade
+            isDeny
+            createdAt
+            updatedAt
+        }
+    }
 `;
 
 const Register: React.FC<RouteComponentProps> = ({ history }) => {
@@ -25,6 +39,8 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
     const [rePassword, setRePassword] = useState('');
     const [name, setName] = useState('');
     const [grade, setGrade] = useState('1');
+
+    const [register] = useMutation(REGISTER);
 
     const onSelectChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
         setGrade(evt.target.value);
@@ -35,49 +51,39 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
         const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
         if (email === '' || password === '' || rePassword === '' || name === '' || grade === '') {
-            cogoToast.error('빈 칸이 존재합니다.');
-        } else if (password !== rePassword) {
-            cogoToast.warn('비밀번호가 일치 하지 않습니다.');
-        } else if (!emailRegExp.test(email)) {
-            cogoToast.warn('올바른 이메일이 아닙니다.');
-        } else if (!pwRegExp.test(password)) {
-            cogoToast.warn('비밀번호는 영문자, 특수문자, 숫자가 포함되어야 하며 최소 6글자이여야합니다.');
-        } else {
-            AuthApi.register(email, password, name, grade)
-                .then(() => {
-                    cogoToast.success(
-                        '회원가입 신청이 완료되었습니다. 가입 수락 후 이용 가능합니다.\n메인 페이지로 이동합니다.'
-                    );
-                    history.push('/');
-                })
-                .catch((err) => {
-                    const { code, message } = err.response.data;
-
-                    if (code === ErrorCode.USER_ALREADY_EXISTS) {
-                        cogoToast.error('이미 존재하는 계정입니다.');
-                        return;
-                    }
-
-                    if (code === ErrorCode.USER_ALREADY_EXISTS) {
-                        cogoToast.error('이미 존재하는 계정입니다.');
-                        return;
-                    }
-
-                    if (code === ErrorCode.USER_WAITING) {
-                        cogoToast.error(message);
-                        return;
-                    }
-
-                    if (code === ErrorCode.USER_DENY) {
-                        cogoToast.error('가입이 거절된 계정입니다.');
-                        return;
-                    }
-
-                    if (code === ErrorCode.BLOCK_EMAIL) {
-                        cogoToast.error('가입 불가능한 이메일입니다. 다른 이메일을 사용해주세요.');
-                    }
-                });
+            cogoToast.warn('빈 칸이 존재합니다.');
+            return;
         }
+        if (password !== rePassword) {
+            cogoToast.warn('비밀번호가 일치 하지 않습니다.');
+            return;
+        }
+        if (!emailRegExp.test(email)) {
+            cogoToast.warn('올바른 이메일이 아닙니다.');
+            return;
+        }
+        if (!pwRegExp.test(password)) {
+            cogoToast.warn('비밀번호는 영문자, 특수문자, 숫자가 포함되어야 하며 최소 6글자이여야합니다.');
+            return;
+        }
+
+        register({
+            variables: {
+                email,
+                password,
+                name,
+                grade: parseInt(grade, 10)
+            }
+        })
+            .then(() => {
+                cogoToast.success('회원가입 신청이 완료되었습니다. 가입 수락 후 이용 가능합니다.');
+                history.push('/');
+            })
+            .catch((err) => {
+                const gerror = getGraphQLError(err);
+                if (!gerror) return;
+                cogoToast.error(gerror[1]);
+            });
     };
 
     return (
@@ -113,7 +119,7 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
                         <Input
                           value={name}
                           type="text"
-                          placeholder="자신의 실명을 입력해주세요."
+                          placeholder="실명을 입력해주세요."
                           onChange={(evt) => setName(evt.target.value)}
                         />
 

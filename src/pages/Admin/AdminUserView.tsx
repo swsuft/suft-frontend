@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import cogoToast from 'cogo-toast';
 import styled from 'styled-components';
+import { gql } from 'apollo-boost';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import FontedTitle from '../../atomics/Typography/FontedTitle';
 import AdminLayout from '../../layouts/AdminLayout';
 import useSelect from '../../hooks/useSelect';
 import { useProfile } from '../../hooks/useProfile';
-import UserApi from '../../api/User';
 import Table from '../../components/Table';
+import useToken from '../../hooks/useToken';
+import { getGraphQLError } from '../../api/errorHandler';
+import ErrorCode from '../../error/ErrorCode';
 
 const TableWrap = styled.div`
     margin-bottom: 1rem;
@@ -38,20 +42,75 @@ const UnBlockButtonStyle = styled.button`
     cursor: pointer;
 `;
 
+const GET_USERS = gql`
+    query {
+        users {
+            email
+            name
+            grade
+            isAdmin
+            isBlocked
+            createdAt
+            updatedAt
+            registeredAt
+        }
+    }
+`;
+
+const BLOCK_USER = gql`
+    mutation($email: String!) {
+        blockUser(email: $email) {
+            email
+        }
+    }
+`;
+
+const UNBLOCK_USER = gql`
+    mutation($email: String!) {
+        unBlockUser(email: $email) {
+            email
+        }
+    }
+`;
+
 const AdminUserView: React.FC = () => {
-    const [data, setData] = useState<[]>([]);
+    const refreshToken = useToken();
+
+    const [userData, setUserData] = useState<[]>([]);
     const [check, rowManager] = useSelect();
     const profile = useProfile();
 
-    const refreshUser = () => {
-        UserApi.all().then((res) => {
-            setData(res.data.data);
-        });
-    };
+    const { loading, error, data, refetch: refetchUsers } = useQuery(GET_USERS);
+    const [blockUserQurey] = useMutation(BLOCK_USER);
+    const [unBlockUserQurey] = useMutation(UNBLOCK_USER);
+
+    const refreshUser = useCallback(() => {
+        if (loading) {
+            cogoToast.loading('유저를 가져오고 있어요...', {
+                hideAfter: 1
+            });
+            return;
+        }
+
+        if (error) {
+            const gerror = getGraphQLError(error);
+            if (!gerror) return;
+
+            if (gerror[0] === ErrorCode.NO_PERMISSION) {
+                refreshToken();
+            } else {
+                cogoToast.error(gerror[1]);
+            }
+
+            return;
+        }
+
+        setUserData(data.users);
+    }, [loading, error, data, refreshToken]);
 
     useEffect(() => {
         refreshUser();
-    }, []);
+    }, [refreshUser]);
 
     const blockUsers = () => {
         const { selected } = check;
@@ -65,23 +124,38 @@ const AdminUserView: React.FC = () => {
 
         if (!isReal) return;
 
-        let failedFlag = false;
+        if (Object.keys(selected).includes(profile!!.email)) {
+            cogoToast.error('자기 자신은 차단 할 수 없습니다.');
+            return;
+        }
 
-        Object.keys(selected).forEach((key: string) => {
-            if (!selected[key]) return;
-            if (key === profile.data!.email) {
-                cogoToast.error('자기 자신은 차단 할 수 없습니다.');
-                failedFlag = true;
-                return;
-            }
+        const blockPromise = Object.keys(selected).map((key: string) => {
+            return new Promise((resolve, reject) => {
+                if (!selected[key]) reject();
 
-            UserApi.block(key).then(() => {
-                refreshUser();
-                rowManager.uncheckAllRow();
+                blockUserQurey({
+                    variables: {
+                        email: key
+                    }
+                })
+                    .then(() => {
+                        resolve();
+                    })
+                    .catch((err) => {
+                        const gerror = getGraphQLError(err);
+                        if (!gerror) return;
+                        reject(gerror[1]);
+                    });
             });
         });
 
-        if (!failedFlag) cogoToast.success(`${Object.keys(selected).length}명 차단 완료`);
+        Promise.all(blockPromise).then(async () => {
+            rowManager.uncheckAllRow();
+            const { data: newData } = await refetchUsers();
+            setUserData(newData.users);
+
+            cogoToast.success(`${Object.keys(selected).length}명 차단 완료`);
+        });
     };
 
     const unBlockUsers = () => {
@@ -96,16 +170,33 @@ const AdminUserView: React.FC = () => {
 
         if (!isReal) return;
 
-        Object.keys(selected).forEach((key: string) => {
-            if (!selected[key]) return;
+        const unBlockPromise = Object.keys(selected).map((key: string) => {
+            return new Promise((resolve, reject) => {
+                if (!selected[key]) reject();
 
-            UserApi.unblock(key).then(() => {
-                refreshUser();
-                rowManager.uncheckAllRow();
+                unBlockUserQurey({
+                    variables: {
+                        email: key
+                    }
+                })
+                    .then(() => {
+                        resolve();
+                    })
+                    .catch((err) => {
+                        const gerror = getGraphQLError(err);
+                        if (!gerror) return;
+                        reject(gerror[1]);
+                    });
             });
         });
 
-        cogoToast.success(`${Object.keys(selected).length}명 차단 해제 완료`);
+        Promise.all(unBlockPromise).then(async () => {
+            rowManager.uncheckAllRow();
+            const { data: newData } = await refetchUsers();
+            setUserData(newData.users);
+
+            cogoToast.success(`${Object.keys(selected).length}명 차단 해제 완료`);
+        });
     };
 
     const columns = [
@@ -124,7 +215,7 @@ const AdminUserView: React.FC = () => {
                                     input.indeterminate = check.selectAll === 2;
                                 }
                             }}
-                          onChange={() => rowManager.toggleAllRow(data, 'email')}
+                          onChange={() => rowManager.toggleAllRow(userData, 'email')}
                         />
                     </CheckboxWrapStyle>
                 );
@@ -172,15 +263,24 @@ const AdminUserView: React.FC = () => {
         },
         {
             Header: '가입 수락일',
-            accessor: 'createdAt'
+            accessor: 'createdAt',
+            Cell: ({ row }: any) => {
+                return new Date(parseInt(row.original.createdAt, 10)).toLocaleDateString();
+            }
         },
         {
             Header: '정보 변경일',
-            accessor: 'updatedAt'
+            accessor: 'updatedAt',
+            Cell: ({ row }: any) => {
+                return new Date(parseInt(row.original.updatedAt, 10)).toLocaleDateString();
+            }
         },
         {
             Header: '가입 요청일',
-            accessor: 'registeredAt'
+            accessor: 'registeredAt',
+            Cell: ({ row }: any) => {
+                return new Date(parseInt(row.original.registeredAt, 10)).toLocaleDateString();
+            }
         }
     ];
 
@@ -193,7 +293,7 @@ const AdminUserView: React.FC = () => {
             </div>
 
             <TableWrap>
-                <Table columns={columns} data={data} />
+                <Table columns={columns} data={userData} />
             </TableWrap>
         </AdminLayout>
     );

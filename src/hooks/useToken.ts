@@ -1,21 +1,28 @@
 import { useCallback } from 'react';
+import { gql } from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
+import cogoToast from 'cogo-toast';
 import TokenUtil from '../api/TokenUtil';
-import AuthApi from '../api/Auth';
+
+const GET_TOKEN = gql`
+    mutation {
+        token
+    }
+`;
 
 const useToken = () => {
-    const refreshToken = useCallback(() => {
-        if (TokenUtil.isEmpty()) {
-            return;
-        }
+    const [getToken] = useMutation(GET_TOKEN);
 
-        AuthApi.token().then((res) => {
-            TokenUtil.set(res.data.token);
-            window.location.reload();
-            console.log('AccessToken 재발급 완료');
-        });
-    }, []);
+    return useCallback(() => {
+        if (TokenUtil.isEmpty()) return;
 
-    return refreshToken;
+        getToken()
+            .then((res) => {
+                TokenUtil.set(res.data.token);
+                window.location.reload();
+            })
+            .catch(() => cogoToast.error('로그인 연장 중 오류가 발생하였습니다. 로그아웃 후 다시 시도하세요.'));
+    }, [getToken]);
 };
 
 export default useToken;
