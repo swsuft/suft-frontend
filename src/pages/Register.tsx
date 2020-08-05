@@ -6,6 +6,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import cogoToast from 'cogo-toast';
 import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
+import { Helmet } from 'react-helmet';
 import DefaultLayout from '../layouts/DefaultLayout';
 import CenterContainer from '../utils/ContainerUtils/CenterContainer';
 import RegisterHeaderText from '../components/Register/RegisterHeaderText';
@@ -88,6 +89,10 @@ const Register: React.FC<RouteComponentProps> = ({ history }) => {
 
     return (
         <DefaultLayout>
+            <Helmet>
+                <title>회원가입 - 수프트</title>
+            </Helmet>
+
             <CenterContainer>
                 <div>
                     <RegisterHeaderText />

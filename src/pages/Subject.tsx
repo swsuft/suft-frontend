@@ -4,6 +4,7 @@ import { faChalkboard, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import cogoToast from 'cogo-toast';
+import { Helmet } from 'react-helmet';
 import Container from '../utils/ContainerUtils/Container';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
@@ -66,6 +67,10 @@ const Subject: React.FC<RouteComponentProps> = ({ history }) => {
 
     return (
         <DefaultLayout>
+            <Helmet>
+                <title>과목 선택 - 수프트</title>
+            </Helmet>
+
             <Container>
                 <FontedTitle>문제풀이 시작하기</FontedTitle>
                 <FontedMiddleText>※ 자격증은 학년, 학기를 기타 카테고리로 선택하여 풀 수 있습니다.</FontedMiddleText>

@@ -3,6 +3,7 @@ import cogoToast from 'cogo-toast';
 import styled from 'styled-components';
 import { gql } from 'apollo-boost';
 import { useMutation, useQuery } from '@apollo/react-hooks';
+import { Helmet } from 'react-helmet';
 import FontedTitle from '../../atomics/Typography/FontedTitle';
 import AdminLayout from '../../layouts/AdminLayout';
 import Table from '../../components/Table';
@@ -255,6 +256,10 @@ const AdminWaitingUser: React.FC = () => {
 
     return (
         <AdminLayout>
+            <Helmet>
+                <title>가입 요청 - 수프트</title>
+            </Helmet>
+
             <FontedTitle>가입 요청</FontedTitle>
             <div>
                 <AllowButtonStyle onClick={allowUsers}>수락</AllowButtonStyle>

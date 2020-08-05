@@ -5,6 +5,7 @@ import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import cogoToast from 'cogo-toast';
 import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks';
+import { Helmet } from 'react-helmet';
 import LoginHeaderText from '../components/Login/LoginHeaderText';
 import LabelText from '../atomics/Typography/LabelText';
 import Input from '../atomics/Input';
@@ -66,6 +67,10 @@ const Login: React.FC = () => {
 
     return (
         <DefaultLayout>
+            <Helmet>
+                <title>로그인 - 수프트</title>
+            </Helmet>
+
             <CenterContainer>
                 <div>
                     <LoginHeaderText />

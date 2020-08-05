@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
 import Footer from '../components/Footer';
 
 const WrapperStyle = styled.div`
@@ -16,6 +17,10 @@ const ContentsStyle = styled.div`
 const Privacy: React.FC = () => {
     return (
         <WrapperStyle>
+            <Helmet>
+                <title>개인정보처리방침 - 수프트</title>
+            </Helmet>
+
             <ContentsStyle>
                 <h1>수프트 개인정보처리방침</h1>
 
@@ -47,7 +52,10 @@ const Privacy: React.FC = () => {
                 <h2>4. 처리하는 개인정보의 항목 작성</h2>
                 <p>① 수프트 은(는) 다음의 개인정보 항목을 처리하고 있습니다.</p>
                 <p>1. &lt;서비스 이용&gt;</p>
-                <p>- 필수항목 : 이메일, 이름, 나이(학년), 서비스 이용 기록(로그), 서버스 이용 정보(IP, User-Agent), 쿠키</p>
+                <p>
+                    - 필수항목 : 이메일, 이름, 나이(학년), 서비스 이용 기록(로그), 서버스 이용 정보(IP, User-Agent),
+                    쿠키
+                </p>
 
                 <h2>5. 개인정보의 파기</h2>
                 <p>
@@ -92,7 +100,7 @@ const Privacy: React.FC = () => {
                     불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.
                 </p>
                 <p>▶ 개인정보 보호책임자</p>
-				<p>이름: 하대겸</p>
+                <p>이름: 하대겸</p>
                 <p>연락처: me@skylightqp.kr</p>
 
                 <h2>8. 개인정보 처리방침 변경</h2>
@@ -117,10 +125,10 @@ const Privacy: React.FC = () => {
                     개인정보처리시스템에 접속한 기록을 최소 6개월 이상 보관, 관리하고 있으며, 접속 기록이 위변조 및
                     도난, 분실되지 않도록 보안기능 사용하고 있습니다.
                 </p>
-				
-				<h2>10. 부칙</h2>
-				<p>- 공고 날짜: 2020년 7월 26일</p>
-				<p>- 시행 날짜: 2020년 8월 3일</p>
+
+                <h2>10. 부칙</h2>
+                <p>- 공고 날짜: 2020년 7월 26일</p>
+                <p>- 시행 날짜: 2020년 8월 3일</p>
             </ContentsStyle>
             <Footer />
         </WrapperStyle>

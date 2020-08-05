@@ -5,6 +5,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import underscore from 'underscore';
 import { gql } from 'apollo-boost';
 import { useMutation, useQuery } from '@apollo/react-hooks';
+import { Helmet } from 'react-helmet';
 import FontedTitle from '../../atomics/Typography/FontedTitle';
 import AdminLayout from '../../layouts/AdminLayout';
 import useSelect from '../../hooks/useSelect';
@@ -220,6 +221,10 @@ const AdminProblemView: React.FC<RouteComponentProps> = ({ history }) => {
 
     return (
         <AdminLayout>
+            <Helmet>
+                <title>문제 관리 - 수프트</title>
+            </Helmet>
+
             <FontedTitle>문제 관리</FontedTitle>
             <div>
                 <DeleteButtonStyle onClick={deleteProblem}>삭제</DeleteButtonStyle>

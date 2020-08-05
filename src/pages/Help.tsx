@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
 import DefaultLayout from '../layouts/DefaultLayout';
 import FontedTitle from '../atomics/Typography/FontedTitle';
 import Container from '../utils/ContainerUtils/Container';
@@ -11,6 +12,10 @@ const UlStyle = styled.ul`
 const Help: React.FC = () => {
     return (
         <DefaultLayout>
+            <Helmet>
+                <title>가이드라인 - 수프트</title>
+            </Helmet>
+
             <Container>
                 <FontedTitle>가이드라인</FontedTitle>
                 <p>문제 품질을 위해 아래 가이드라인을 지켜야하며 거부 시 강제 삭제되거나 수정될 수 있습니다.</p>

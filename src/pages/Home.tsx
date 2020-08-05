@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import cogoToast from 'cogo-toast';
+import { Helmet } from 'react-helmet';
 import DefaultLayout from '../layouts/DefaultLayout';
 import { useProfile } from '../hooks/useProfile';
 import FontedMiddleText from '../atomics/Typography/FontedMiddleText';
@@ -17,6 +18,8 @@ import PodiumIcon from '../atomics/Icons/PodiumIcon';
 import TestIcon from '../atomics/Icons/TestIcon';
 import SettingsIcon from '../atomics/Icons/SettingsIcon';
 import QuestionIcon from '../atomics/Icons/QuestionIcon';
+import ChannelService from '../utils/ChannelService';
+import config from '../config';
 
 const BodyStyle = styled.div`
     display: flex;
@@ -76,8 +79,30 @@ const Home: React.FC = () => {
         cogoToast.info('해당 서비스는 준비중입니다.');
     };
 
+    useEffect(() => {
+        if (!profile) return;
+
+        ChannelService.boot({
+            pluginKey: config.CHANNEL_TALK_API,
+            profile: {
+                name: profile.name,
+                email: profile.email,
+                grade: profile.grade
+            }
+        });
+
+        // eslint-disable-next-line consistent-return
+        return () => {
+            ChannelService.shutdown();
+        };
+    }, [profile]);
+
     return (
         <DefaultLayout>
+            <Helmet>
+                <title>수프트</title>
+            </Helmet>
+
             <Container>
                 <br />
 

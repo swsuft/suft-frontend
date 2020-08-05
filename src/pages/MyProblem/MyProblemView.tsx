@@ -4,6 +4,7 @@ import underscore from 'underscore';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import cogoToast from 'cogo-toast';
+import { Helmet } from 'react-helmet';
 import FontedTitle from '../../atomics/Typography/FontedTitle';
 import MyProblemLayout from '../../layouts/MyProblemLayout';
 import Table from '../../components/Table';
@@ -105,6 +106,10 @@ const MyProblemView: React.FC<RouteComponentProps> = ({ history }) => {
 
     return (
         <MyProblemLayout>
+            <Helmet>
+                <title>문제 관리 - 수프트</title>
+            </Helmet>
+
             <FontedTitle>문제 관리</FontedTitle>
             <Table columns={columns} data={problemData} />
         </MyProblemLayout>
