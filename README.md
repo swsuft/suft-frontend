@@ -3,7 +3,7 @@
 
 ![ESLint](https://github.com/swsuft/suft-frontend/workflows/check%20lint/badge.svg) [![CodeFactor](https://www.codefactor.io/repository/github/swsuft/suft-frontend/badge)](https://www.codefactor.io/repository/github/swsuft/suft-frontend)
 
-![Suft Main Page](./main.png)
+![Suft Main Page](docs/main.png)
 
 <br />
 
