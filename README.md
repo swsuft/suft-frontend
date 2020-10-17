@@ -1,7 +1,7 @@
 # suft-frontend 
 ![GitHub top language](https://img.shields.io/github/languages/top/swsuft/suft-frontend?style=flat-square) ![GitHub](https://img.shields.io/github/license/swsuft/suft-frontend?style=flat-square) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) ![GitHub stars](https://img.shields.io/github/stars/swsuft/suft-frontend?style=social)
 
-![ESLint](https://github.com/swsuft/suft-frontend/workflows/check%20lint/badge.svg) [![CodeFactor](https://www.codefactor.io/repository/github/swsuft/suft-frontend/badge)](https://www.codefactor.io/repository/github/swsuft/suft-frontend)
+![ESLint](https://github.com/swsuft/suft-frontend/workflows/ESLint/badge.svg) [![CodeFactor](https://www.codefactor.io/repository/github/swsuft/suft-frontend/badge)](https://www.codefactor.io/repository/github/swsuft/suft-frontend)
 
 ![Suft Main Page](docs/main.png)
 
