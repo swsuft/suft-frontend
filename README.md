@@ -1,21 +1,21 @@
 # suft-frontend 
 ![GitHub top language](https://img.shields.io/github/languages/top/swsuft/suft-frontend?style=flat-square) ![GitHub](https://img.shields.io/github/license/swsuft/suft-frontend?style=flat-square) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) ![GitHub stars](https://img.shields.io/github/stars/swsuft/suft-frontend?style=social)
 
-![check lint](https://github.com/swsuft/suft-frontend/workflows/check%20lint/badge.svg) [![CodeFactor](https://www.codefactor.io/repository/github/swsuft/suft-frontend/badge)](https://www.codefactor.io/repository/github/swsuft/suft-frontend)
+![ESLint](https://github.com/swsuft/suft-frontend/workflows/check%20lint/badge.svg) [![CodeFactor](https://www.codefactor.io/repository/github/swsuft/suft-frontend/badge)](https://www.codefactor.io/repository/github/swsuft/suft-frontend)
 
 ![Suft Main Page](./main.png)
 
 <br />
 
-> 문제 풀이 서비스, 수프트. 프론트엔드
+> 일상 속 작은 배움터, 수프트
 
 ## Branches
-- `production`
-    - 실 서비스에 올라간 코드
+- `release`
+    - 실제 서비스 코드
 - `master`
-    - 실 서비스에 올라가도 문제가 없는 코드
-- `dev` `feature/~`
-    - 개발 중인 코드
+    - 수프트 프론트엔드
+- `develop`
+    - 개발 코드
 
 ## 시작하기
 ### 의존성 설치
@@ -32,6 +32,9 @@
 
 ## 기여하기
 수프트 프로젝트에 기여하고 싶으신 분은 [이곳(Pull requests)](https://github.com/swsuft/suft-frontend/pulls)에서 하실 수 있습니다.
+
+### 기여자
+- 대멀쌤
 
 ## 버그 제보 및 건의
 버그를 발견했거나 기타 건의를 하고 싶으신 분은 [이곳(Issues)](https://github.com/swsuft/suft-frontend/issues)에서 하실 수 있습니다.
