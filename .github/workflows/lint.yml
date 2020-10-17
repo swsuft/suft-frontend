@@ -1,4 +1,4 @@
-name: check lint
+name: ESLint
 
 on:
   pull_request:
@@ -12,5 +12,5 @@ jobs:
       - uses: actions/checkout@master
         with:
           ref: ${{ github.ref }}
-      - run: npm install
-      - run: npm run lint
+      - run: yarn
+      - run: yarn lint
